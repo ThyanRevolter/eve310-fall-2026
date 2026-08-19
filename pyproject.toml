@@ -5,7 +5,10 @@ description = "EVE 310 Sustainable Systems Engineering - lab code, notebooks, an
 readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "MIT" }
-authors = [{ name = "Greg Hendrickson", email = "greg.hendrickson@utexas.edu" }]
+authors = [
+    { name = "Greg Hendrickson", email = "greg.hendrickson@utexas.edu" },
+    { name = "Adhithyan Sakthivelu", email = "adhiths@utexas.edu" },
+]
 dependencies = [
     "numpy>=2.0",
     "pandas>=2.2",
