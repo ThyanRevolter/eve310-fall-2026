@@ -21,7 +21,7 @@ clustering, and linear optimization - implemented in Python.
 ## Quick start
 
 ```bash
-git clone <REPO_URL> eve310-fall-2026
+git clone https://github.com/ThyanRevolter/eve310-fall-2026.git
 cd eve310-fall-2026
 uv sync
 ```
