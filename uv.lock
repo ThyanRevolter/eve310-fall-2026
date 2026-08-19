@@ -521,6 +521,11 @@ dependencies = [
     { name = "statsmodels" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "ipykernel" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "ipykernel", specifier = ">=6.29" },
@@ -536,6 +541,9 @@ requires-dist = [
     { name = "seaborn", specifier = ">=0.13" },
     { name = "statsmodels", specifier = ">=0.14" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "ipykernel", specifier = ">=7.3.0" }]
 
 [[package]]
 name = "executing"
