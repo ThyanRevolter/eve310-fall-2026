@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# uv / virtual environments
+.venv/
+venv/
+.uv-cache/
+
+# Jupyter
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# Instructor-only material: keep solutions out of the student-facing repo
+solutions/
+*_solution.ipynb
+*_solutions.ipynb
+*_key.*
+
+# Large or generated data (commit small teaching datasets explicitly with `git add -f`)
+data/raw/*
+data/processed/*
+!data/**/.gitkeep
+!data/**/README.md
+*.csv.gz
+*.zip
+*.h5
+*.nc
+*.sqlite
+
+# LaTeX / Beamer build artifacts
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+
+# Arduino build artifacts
+build*/
+*.hex
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+*.lic

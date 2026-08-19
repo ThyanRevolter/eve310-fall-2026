@@ -1,0 +1,28 @@
+[project]
+name = "eve310"
+version = "2026.8.0"
+description = "EVE 310 Sustainable Systems Engineering - lab code, notebooks, and presentations (Fall 2026)"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Greg Hendrickson", email = "greg.hendrickson@utexas.edu" }]
+dependencies = [
+    "numpy>=2.0",
+    "pandas>=2.2",
+    "matplotlib>=3.9",
+    "seaborn>=0.13",
+    "scipy>=1.14",
+    "scikit-learn>=1.5",
+    "statsmodels>=0.14",
+    "jupyterlab>=4.2",
+    "ipykernel>=6.29",
+    "ipywidgets>=8.1",
+    "pyserial>=3.5",
+    "pulp>=2.9",
+]
+
+# Required for `from eve310 import ...` to work in notebooks; without it uv
+# treats this repo as a virtual project and never installs src/eve310.
+[build-system]
+requires = ["uv_build>=0.10,<0.11"]
+build-backend = "uv_build"
