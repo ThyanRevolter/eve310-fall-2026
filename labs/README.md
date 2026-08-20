@@ -29,25 +29,40 @@ Lab 10 is reserved (no Fall 2025 source).
 
 ## Running labs in Google Colab
 
-The Colab badge above opens the notebook in the browser, with no local install. Because this
-repository is private, Colab has to be granted GitHub access once: open
-[colab.research.google.com](https://colab.research.google.com/), choose **File > Open notebook
+Running locally with `uv` is the supported path, and Module 1 requires it because Colab cannot
+read the Arduino's USB serial port. Colab is the fallback for a laptop that will not cooperate.
 
-> GitHub**, click *Authorize with GitHub*, and tick *Include private repositories*. Students
-> need read access to the repository for the badge to resolve.
-
-Colab starts from a clean machine, so anything the repository provides is missing there. A lab
-that imports the course helpers needs this cell first:
+The Colab badge above opens the notebook in the browser with no local install. Every lab
+notebook starts with a setup cell that works in both places:
 
 ```python
-!pip install -q "git+https://github.com/ThyanRevolter/eve310-fall-2026.git"
+LAB = "lab04-exploratory-data-analysis"
+try:
+    from eve310 import setup_notebook
+except ModuleNotFoundError:
+    !test -d /content/eve310 || git clone -q --depth 1 https://github.com/ThyanRevolter/eve310-fall-2026.git /content/eve310
+    import sys
+    sys.path.insert(0, "/content/eve310/src")
+    from eve310 import setup_notebook
+
+DATA_DIR, FIGURES_DIR = setup_notebook(LAB)
 ```
 
-Relative `../data/` paths will not resolve on Colab unless you upload the CSV files or clone
-the repo in the runtime. Prefer running locally with `uv` when a lab ships data.
+On a laptop the `try` succeeds and nothing is downloaded. On Colab the clone brings down the
+course helpers *and* the lab data, so `DATA_DIR` and `FIGURES_DIR` point at real folders in
+both environments. Notebooks therefore use `pd.read_csv(DATA_DIR / 'file.csv')` rather than a
+relative `../data/` path, which never resolves on Colab.
 
-Colab also discards all changes when the runtime ends, so save your work with
-**File > Save a copy in Drive**.
+Two things to know when running in Colab:
+
+- The clone only works while this repository is public. If it is made private, students need
+  repository access and a GitHub token set as `EVE310_TOKEN`, or the lab data has to be
+  distributed through Canvas instead.
+- Colab discards everything when the runtime ends. Click **Copy to Drive** *before* working,
+  not after.
+
+To add a new lab, copy `_template/notebooks/template.ipynb` and replace `{{LAB_ID}}` with the
+lab folder name. Nothing else needs to change for Colab to work.
 
 ## Folder layout
 

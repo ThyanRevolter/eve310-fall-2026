@@ -21,3 +21,19 @@ jobs:
 
       - name: Verify the environment students get is usable
         run: uv run python -c "import eve310, pandas, sklearn, pulp; print(eve310.__all__)"
+
+      - name: Verify notebooks can locate their data
+        run: |
+          uv run python - <<'PY'
+          from pathlib import Path
+
+          from eve310 import setup_notebook
+
+          for lab in sorted(p.name for p in Path("labs").iterdir() if p.is_dir()):
+              if lab.startswith("_"):
+                  continue
+              data, figures = setup_notebook(lab, style=False, quiet=True)
+              assert data.parent.name == lab, (lab, data)
+              assert figures.is_dir(), (lab, figures)
+              print(f"{lab}: {len(list(data.glob('*.csv')))} csv files")
+          PY

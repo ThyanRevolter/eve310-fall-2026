@@ -90,7 +90,21 @@ git pull
 uv sync   # only needed if the lab added new packages
 ```
 
-## 7. Arduino (Module 1 only)
+## 7. If your laptop will not cooperate
+
+Every lab notebook also runs in [Google Colab](https://colab.research.google.com/) — use the
+Colab badge at the top of the notebook or in [the lab list]({{ site.baseurl }}/labs/). The
+setup cell at the top of each notebook downloads the course files automatically, so the lab's
+data loads there too.
+
+Two warnings if you go this route:
+
+- Click **Copy to Drive** *before* you start working. Colab throws away everything when the
+  runtime ends, and work that was never copied is gone.
+- Module 1 cannot be done in Colab. Reading the Arduino over USB needs Python running on your
+  own machine, so come to office hours and we will get `uv` working on your laptop.
+
+## 8. Arduino (Module 1 only)
 
 - Install the [Arduino IDE](https://www.arduino.cc/en/software).
 - Create a free account at [tinkercad.com](https://www.tinkercad.com/).
@@ -106,5 +120,7 @@ uv sync   # only needed if the lab added new packages
 | Wrong kernel in JupyterLab       | Select the kernel named after this project, or restart Jupyter via `uv run jupyter lab`. |
 | Serial port not found (Arduino)  | Close the Arduino IDE's Serial Monitor before reading the port from Python.              |
 | `git pull` reports local changes | Commit or stash your work first: `git stash`, `git pull`, `git stash pop`.               |
+| `NameError: DATA_DIR`            | Run the setup cell at the top of the notebook before any other cell.                     |
+| `FileNotFoundError` on a CSV     | Load data with `pd.read_csv(DATA_DIR / 'file.csv')`, not `'../data/file.csv'`.           |
 
 

@@ -20,6 +20,12 @@ solutions/
 *_solutions.ipynb
 *_key.*
 
+# Figures produced by running the lab notebooks. Keeping these untracked means a
+# student who runs a lab still has a clean tree the next time they `git pull`.
+labs/*/figures/*
+assignments/*/figures/*
+!**/figures/.gitkeep
+
 # Large or generated data (commit small teaching datasets explicitly with `git add -f`)
 data/raw/*
 data/processed/*
