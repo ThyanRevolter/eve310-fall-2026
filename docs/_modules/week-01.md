@@ -7,4 +7,4 @@ Aug 25
 
 Aug 27
 : Lecture: Python in Jupyter
-: **Lab**{: .label .label-purple } [Lab 01 · Python intro]({% link labs/lab01.md %})
+: **Lab**{: .label .label-purple } [Lab 01 · Python intro]({{ '/labs/lab01/' | relative_url }})

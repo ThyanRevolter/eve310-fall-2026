@@ -54,7 +54,7 @@ uv sync
 uv run jupyter lab labs/lab01-python-intro/notebooks/lab01-tutorial.ipynb
 ```
 
-Bring a laptop with the course environment set up. See the [setup guide]({% link setup.md %}).
+Bring a laptop with the course environment set up. See the [setup guide]({{ '/setup/' | relative_url }}).
 
 ## Deliverables
 

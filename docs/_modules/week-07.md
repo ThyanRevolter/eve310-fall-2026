@@ -8,4 +8,4 @@ Oct 6
 
 Oct 8
 : Lecture: Iteration over arrays
-: **Lab**{: .label .label-purple } [Lab 07 · Control flow]({% link labs/lab07.md %})
+: **Lab**{: .label .label-purple } [Lab 07 · Control flow]({{ '/labs/lab07/' | relative_url }})

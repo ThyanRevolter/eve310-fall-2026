@@ -7,4 +7,4 @@ Sep 29
 
 Oct 1
 : Lecture: Interactions and interpreting coefficients
-: **Lab**{: .label .label-purple } [Lab 06 · Regression features]({% link labs/lab06.md %})
+: **Lab**{: .label .label-purple } [Lab 06 · Regression features]({{ '/labs/lab06/' | relative_url }})

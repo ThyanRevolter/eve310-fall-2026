@@ -7,4 +7,4 @@ Oct 13
 
 Oct 15
 : Lecture: Precision, recall, and threshold choice
-: **Lab**{: .label .label-purple } [Lab 08 · Classification thresholds]({% link labs/lab08.md %})
+: **Lab**{: .label .label-purple } [Lab 08 · Classification thresholds]({{ '/labs/lab08/' | relative_url }})

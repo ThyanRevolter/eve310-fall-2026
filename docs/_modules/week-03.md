@@ -8,4 +8,4 @@ Sep 8
 
 Sep 10
 : Lecture: Selecting and transforming columns
-: **Lab**{: .label .label-purple } [Lab 03 · pandas dataframes]({% link labs/lab03.md %})
+: **Lab**{: .label .label-purple } [Lab 03 · pandas dataframes]({{ '/labs/lab03/' | relative_url }})

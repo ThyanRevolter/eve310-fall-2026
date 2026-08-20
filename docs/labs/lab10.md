@@ -16,4 +16,4 @@ description: Reserved week; no Fall 2025 source notebook.
 {: .note }
 Lab 10 is reserved. There is no Fall 2025 source notebook for this week. Original 2025 files remain in `labs/previous_labs/` for instructor reference.
 
-Check [Canvas](https://canvas.utexas.edu/) and [announcements]({% link announcements.md %}) for anything scheduled this Thursday.
+Check [Canvas](https://canvas.utexas.edu/) and [announcements]({{ '/announcements/' | relative_url }}) for anything scheduled this Thursday.

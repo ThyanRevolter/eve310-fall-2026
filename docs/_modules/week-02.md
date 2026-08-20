@@ -7,4 +7,4 @@ Sep 1
 
 Sep 3
 : Lecture: Loading sensor data
-: **Lab**{: .label .label-purple } [Lab 02 · Python fundamentals]({% link labs/lab02.md %})
+: **Lab**{: .label .label-purple } [Lab 02 · Python fundamentals]({{ '/labs/lab02/' | relative_url }})

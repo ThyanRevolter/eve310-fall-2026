@@ -7,4 +7,4 @@ Oct 20
 
 Oct 22
 : Lecture: File loops and figure export
-: **Lab**{: .label .label-purple } [Lab 09 · Batch processing]({% link labs/lab09.md %})
+: **Lab**{: .label .label-purple } [Lab 09 · Batch processing]({{ '/labs/lab09/' | relative_url }})

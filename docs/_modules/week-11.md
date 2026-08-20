@@ -7,4 +7,4 @@ Nov 3
 : **Challenge**{: .label .label-green } week
 
 Nov 5
-: **Lab**{: .label .label-purple } [Lab 11 · Dairy-farm carbon footprint]({% link labs/lab11.md %})
+: **Lab**{: .label .label-purple } [Lab 11 · Dairy-farm carbon footprint]({{ '/labs/lab11/' | relative_url }})
