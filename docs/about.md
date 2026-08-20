@@ -26,7 +26,8 @@ Course materials live in the [GitHub repository](https://github.com/{{ site.gith
 
 - **Lectures:** Tuesday and Thursday, 12:30–2:00 pm, location TBD
 - **Labs:** Thursday, 2:00–3:00 pm, location TBD
-- **Office hours:** Monday 3:00–3:50 pm, and by appointment
+- **Instructor office hours:** Monday 3:00–3:50 pm, location TBD, and by appointment
+- **TA office hours:** Wednesday 3:00–4:30 pm, EER 4.704 (EER 5.702 on Nov 18 and Dec 2)
 
 ## Course material policy
 

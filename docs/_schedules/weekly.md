@@ -9,10 +9,11 @@ timeline:
   - '3:00 PM'
   - '3:30 PM'
   - '4:00 PM'
+  - '4:30 PM'
 schedule:
   - name: Monday
     events:
-      - name: Office Hours
+      - name: Instructor Office Hours
         start: 3:00 PM
         end: 3:50 PM
         location: TBD
@@ -23,6 +24,11 @@ schedule:
         end: 2:00 PM
         location: TBD
   - name: Wednesday
+    events:
+      - name: TA Office Hours
+        start: 3:00 PM
+        end: 4:30 PM
+        location: EER 4.704
   - name: Thursday
     events:
       - name: Lecture
