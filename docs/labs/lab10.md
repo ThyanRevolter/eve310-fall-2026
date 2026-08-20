@@ -1,0 +1,19 @@
+---
+layout: page
+title: Lab 10 · Reserved
+parent: Labs
+nav_order: 10
+permalink: /labs/lab10/
+description: Reserved week; no Fall 2025 source notebook.
+---
+
+# Lab 10 · Reserved
+{: .no_toc }
+
+**Thursday 29 October 2026**
+{: .fs-6 .fw-300 }
+
+{: .note }
+Lab 10 is reserved. There is no Fall 2025 source notebook for this week. Original 2025 files remain in `labs/previous_labs/` for instructor reference.
+
+Check [Canvas](https://canvas.utexas.edu/) and [announcements]({% link announcements.md %}) for anything scheduled this Thursday.

@@ -14,6 +14,7 @@ clustering, and linear optimization - implemented in Python.
 | **Labs**         | Thu, 2:00-3:00 pm, TBD                                                                   |
 | **Office hours** | Mon 3:00-3:50 pm, and by appointment                                                     |
 | **Canvas**       | [https://canvas.utexas.edu/](https://canvas.utexas.edu/)                                 |
+| **Course site**  | [https://thyanrevolter.github.io/eve310-fall-2026/](https://thyanrevolter.github.io/eve310-fall-2026/) |
 
 
 
@@ -53,7 +54,7 @@ Each module has one homework assignment, lecture and lab quizzes, and in-class e
 │   ├── README.md         # lab schedule and status
 ├── assignments/          # five homework assignments, one per module
 ├── src/eve310/           # shared helpers importable from any notebook
-├── docs/                 # setup guide
+├── docs/                 # GitHub Pages course website (Just the Class) + setup guide
 └── pyproject.toml        # dependencies, managed by uv
 ```
 
@@ -62,6 +63,7 @@ Each module has one homework assignment, lecture and lab quizzes, and in-class e
 ## For students
 
 If this is your first time refer to the [setup guide](docs/setup.md) to get started.
+The [course website](https://thyanrevolter.github.io/eve310-fall-2026/) lists every lab with Colab and GitHub links.
 
 Labs are published before each Thursday session. To get the newest material:
 

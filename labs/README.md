@@ -1,5 +1,7 @@
 # Labs
 
+The [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/) lists every lab with Colab and GitHub links.
+
 Labs meet Thursdays. Each lab folder is self-contained: notebook, slides, data, and figures.
 Folders are published the week of the lab, so a folder that is not listed as released yet
 simply does not exist on `main`.

@@ -1,3 +1,11 @@
+---
+layout: page
+title: Setup
+nav_order: 5
+description: Install Git, uv, and the course Python environment.
+permalink: /setup/
+---
+
 # Setting up your computer
 
 This course uses [uv](https://docs.astral.sh/uv/) to manage Python and all packages.

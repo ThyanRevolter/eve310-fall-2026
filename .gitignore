@@ -55,3 +55,10 @@ Thumbs.db
 # Secrets
 .env
 *.lic
+
+# Jekyll (GitHub Pages site in docs/)
+docs/_site/
+docs/.jekyll-cache/
+docs/.sass-cache/
+docs/.bundle/
+docs/vendor/
