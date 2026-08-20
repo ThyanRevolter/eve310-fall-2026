@@ -31,7 +31,7 @@ clustering, and linear optimization — implemented in Python.
 | **Lectures** | Tue & Thu, 12:30–2:00 pm, TBD |
 | **Labs** | Thu, 2:00–3:00 pm, TBD |
 | **Office hours** | Mon 3:00–3:50 pm, and by appointment |
-| **Canvas** | [canvas.utexas.edu](https://canvas.utexas.edu/) |
+| **Canvas** | [canvas.utexas.edu](https://utexas.instructure.com/courses/1450736) |
 | **Repository** | [ThyanRevolter/eve310-fall-2026](https://github.com/ThyanRevolter/eve310-fall-2026) |
 
 ## Course modules

@@ -17,7 +17,7 @@ exclude:
 
 github_repo: ThyanRevolter/eve310-fall-2026
 github_branch: main
-canvas_url: https://canvas.utexas.edu/
+canvas_url: https://utexas.instructure.com/courses/1450736
 
 # Theme settings
 remote_theme: just-the-docs/just-the-docs@v0.12.0
@@ -29,7 +29,7 @@ aux_links:
   GitHub:
     - 'https://github.com/ThyanRevolter/eve310-fall-2026'
   Canvas:
-    - 'https://canvas.utexas.edu/'
+    - 'https://utexas.instructure.com/courses/1450736'
 aux_links_new_tab: true
 footer_content: >-
   EVE 310 · Fall 2026 · The University of Texas at Austin.

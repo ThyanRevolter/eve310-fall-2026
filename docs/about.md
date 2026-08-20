@@ -37,7 +37,7 @@ A GitHub Pages site is public on the web even if the repository is private. This
 
 ## Resources
 
-- [Canvas](https://canvas.utexas.edu/) — quizzes, grades, and announcements
+- [Canvas](https://utexas.instructure.com/courses/1450736) — quizzes, grades, and announcements
 - [Course repository](https://github.com/{{ site.github_repo }}) — labs, assignments, and shared Python helpers
 - [Setup guide]({{ '/setup/' | relative_url }}) — Git, `uv`, and JupyterLab
 
