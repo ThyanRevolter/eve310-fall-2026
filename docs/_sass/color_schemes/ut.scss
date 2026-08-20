@@ -1,0 +1,48 @@
+// UT Austin / Cockrell School brand colors
+// https://brand.utexas.edu
+$ut-burnt-orange: #bf5700;
+$ut-white: #ffffff;
+$ut-charcoal: #333f48;
+$ut-bluebonnet: #005f86;
+$ut-limestone: #d6d2c4;
+$ut-shade: #9cadb7;
+$ut-nickel: #a29b96;
+
+// Remap theme palettes so existing .btn-purple / .label-purple / .label-blue
+// utilities follow the brand without rewriting every page.
+$purple-000: $ut-burnt-orange;
+$purple-100: darken($ut-burnt-orange, 6%);
+$purple-200: darken($ut-burnt-orange, 12%);
+$purple-300: darken($ut-burnt-orange, 18%);
+
+$blue-000: $ut-bluebonnet;
+$blue-100: darken($ut-bluebonnet, 4%);
+$blue-200: darken($ut-bluebonnet, 10%);
+$blue-300: darken($ut-bluebonnet, 16%);
+
+$white: $ut-white;
+$grey-dk-000: $ut-nickel;
+$grey-dk-100: $ut-charcoal;
+$grey-dk-200: darken($ut-charcoal, 4%);
+$grey-dk-250: darken($ut-charcoal, 8%);
+$grey-dk-300: darken($ut-charcoal, 12%);
+$grey-lt-000: mix($ut-limestone, $ut-white, 28%);
+$grey-lt-100: mix($ut-limestone, $ut-white, 45%);
+$grey-lt-200: mix($ut-limestone, $ut-white, 62%);
+$grey-lt-300: $ut-limestone;
+
+$color-scheme: light;
+$body-background-color: $ut-white;
+$body-heading-color: $ut-charcoal;
+$body-text-color: $ut-charcoal;
+$link-color: $ut-burnt-orange;
+$nav-child-link-color: $ut-charcoal;
+$sidebar-color: mix($ut-limestone, $ut-white, 40%);
+$base-button-color: mix($ut-limestone, $ut-white, 50%);
+$btn-primary-color: $ut-burnt-orange;
+$code-background-color: mix($ut-limestone, $ut-white, 32%);
+$feedback-color: darken($sidebar-color, 3%);
+$table-background-color: $ut-white;
+$search-background-color: $ut-white;
+$search-result-preview-color: $ut-charcoal;
+$border-color: $ut-shade;
