@@ -25,7 +25,7 @@ First Jupyter session: types, arithmetic, and NumPy, then a short reverse-osmosi
 | `notebooks/lab01-activity.ipynb` | RO treatment-plant calculations |
 | `notebooks/python_tutorial_commands.py` | Longer command reference (optional) |
 
-Lab 1 slides from 2025 are a large PowerPoint in `Labs_2025/Lab-1/` and were not copied here. A smaller PDF export can go in `slides/` later.
+A smaller PDF export of the lab slides can go in `slides/` later.
 
 ## How to run
 

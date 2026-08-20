@@ -25,7 +25,7 @@ Dates are placeholders until the academic calendar is confirmed.
 | 11  | 11/05/2026 | 2      | Dairy-farm carbon footprint | not released | [Open In Colab](https://colab.research.google.com/github/ThyanRevolter/eve310-fall-2026/blob/main/labs/lab11-dairy-farm-challenge/notebooks/lab11-activity.ipynb)      |
 
 
-Lab 10 is reserved (no Fall 2025 source). Original 2025 files remain in `Labs_2025/` for reference.
+Lab 10 is reserved (no Fall 2025 source).
 
 ## Running labs in Google Colab
 
