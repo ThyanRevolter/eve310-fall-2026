@@ -9,7 +9,7 @@ permalink: /setup/
 # How a lab works
 {: .no_toc }
 
-Every lab in this course runs in [Google Colab](https://colab.research.google.com/) in your
+Every lab in this course runs in [Google Colab](https://colab.research.google.com/){:target="_blank" rel="noopener"} in your
 browser. There is nothing to install — no Python, no Anaconda, no Git. All you need is a
 laptop, a browser, and your UT Google account.
 
@@ -26,7 +26,7 @@ The same five steps apply to every lab, every week. Follow them in order.
 
 ## Step 1 · Sign in to Google
 
-Go to [colab.research.google.com](https://colab.research.google.com/) and sign in with your
+Go to [colab.research.google.com](https://colab.research.google.com/){:target="_blank" rel="noopener"} and sign in with your
 **UT Google account** (your EID address). Do this once, before the first lab, so a Colab tab
 does not open on a personal account you are not signed into during class.
 
