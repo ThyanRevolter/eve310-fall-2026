@@ -10,7 +10,7 @@ description: Types, arithmetic, NumPy, and a reverse-osmosis cost activity.
 # Lab 01 · Python intro
 {: .no_toc }
 
-**Module 1** · Thursday 27 August 2026
+**Module 1**
 {: .fs-6 .fw-300 }
 
 {% include lab_folder.html path="labs/lab01-python-intro" %}
@@ -47,16 +47,22 @@ First Jupyter session: types, arithmetic, and NumPy, then a short reverse-osmosi
 
 [GitHub](https://github.com/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab01-python-intro/notebooks/python_tutorial_commands.py){: .btn .btn-outline }
 
-## How to run locally
+## Run it
 
-```bash
-uv sync
-uv run jupyter lab labs/lab01-python-intro/notebooks/lab01-tutorial.ipynb
-```
+1. Click **Open in Colab** on a notebook above
+2. Click **Copy to Drive** *before you type anything*
+3. Run the setup cell at the top, then work down the notebook
+4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope
 
-Bring a laptop with the course environment set up. See the [setup guide]({{ '/setup/' | relative_url }}).
+[Full lab workflow]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 
 ## Deliverables
 
-- Completed `lab01-activity.ipynb`
+- `lab01-activity.ipynb`, downloaded as `.ipynb` and uploaded to Gradescope
 - Lab quiz on Canvas
+
+The activity notebook is auto-graded out of 100 points, one graded item per variable the
+exercises ask you to define. The autograder re-runs your notebook from a clean session, so use
+**Runtime > Restart session and run all** and confirm everything works top to bottom before
+you submit. Keep the variable names exactly as the starter cells give them. You can submit as
+many times as you like before the deadline.

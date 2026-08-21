@@ -1,126 +1,115 @@
 ---
 layout: page
-title: Setup
-nav_order: 5
-description: Install Git, uv, and the course Python environment.
+title: Lab workflow
+nav_order: 3
+description: How to open, run, and submit every EVE 310 lab in Google Colab.
 permalink: /setup/
 ---
 
-# Setting up your computer
+# How a lab works
+{: .no_toc }
 
-This course uses [uv](https://docs.astral.sh/uv/) to manage Python and all packages.
-You do **not** need Anaconda. If you already have Anaconda installed you can leave it alone;
-`uv` creates its own isolated environment inside this repository.
+Every lab in this course runs in [Google Colab](https://colab.research.google.com/) in your
+browser. There is nothing to install — no Python, no Anaconda, no Git. All you need is a
+laptop, a browser, and your UT Google account.
 
-Everything below is a one-time setup, except `uv sync`, which you re-run whenever new
-packages are added for a lab.
+The same five steps apply to every lab, every week. Follow them in order.
+{: .fs-5 .fw-300 }
 
-## 1. Install Git
+## Table of contents
+{: .no_toc .text-delta }
 
-- **Windows:** [git-scm.com/download/win](https://git-scm.com/download/win)
-- **macOS:** `xcode-select --install`
-- **Linux:** `sudo apt install git`
+1. TOC
+{:toc}
 
-Then set your identity once:
+---
 
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "you@utexas.edu"
-```
+## Step 1 · Sign in to Google
 
-## 2. Install uv
+Go to [colab.research.google.com](https://colab.research.google.com/) and sign in with your
+**UT Google account** (your EID address). Do this once, before the first lab, so a Colab tab
+does not open on a personal account you are not signed into during class.
 
-**Windows (PowerShell):**
+## Step 2 · Open the lab notebook
 
-```powershell
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-```
+Open the [lab page]({{ '/labs/' | relative_url }}) for that week and click **Open in Colab**.
+The notebook opens in a read-only view of the course copy.
 
-**macOS / Linux:**
+{: .warning }
+> Do not start typing yet. What opens is the course's copy, not yours. Step 3 first.
 
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
+## Step 3 · Copy to Drive — before you do anything else
 
-Close and reopen your terminal, then check the install:
+In the Colab toolbar, click **Copy to Drive**.
 
-```bash
-uv --version
-```
+A new tab opens titled `Copy of lab03-tutorial.ipynb`. **That tab is your notebook.** It is
+saved in your own Google Drive, in a folder called `Colab Notebooks`, and Colab saves it
+automatically as you work. Close the original tab so you do not mix them up.
 
-## 3. Get the course repository
+Skip this step and your work lives nowhere. Colab discards an uncopied notebook the moment
+the runtime ends, and there is no way to get it back.
 
-```bash
-git clone https://github.com/ThyanRevolter/eve310-fall-2026.git
-cd eve310-fall-2026
-```
+## Step 4 · Run the setup cell, then work down the notebook
 
-## 4. Create the environment
+The first code cell of every lab notebook is the setup cell. Run it before anything else —
+click into it and press **Shift + Enter**. It creates `DATA_DIR` and `FIGURES_DIR` and
+downloads that lab's data files into your session, so `pd.read_csv(DATA_DIR / "file.csv")`
+just works.
 
-```bash
-uv sync
-```
+Then work down the notebook in order. Cells marked **Your turn** are the ones you complete.
+Each lab has two notebooks:
 
-This reads `pyproject.toml` and `uv.lock`, downloads Python 3.12 if you do not have it,
-creates a `.venv/` folder, and installs the exact package versions used in class. Everyone
-in the course therefore runs identical versions.
+| Notebook | What it is | Submitted? |
+| --- | --- | --- |
+| `labNN-tutorial.ipynb` | Worked examples we go through together in lab | No |
+| `labNN-activity.ipynb` | The exercises you complete | Yes — to Gradescope |
 
-## 5. Launch JupyterLab
+Before you submit, run **Runtime > Restart session and run all**. Your notebook has to run
+top to bottom from a clean start, because that is exactly how it gets graded.
 
-```bash
-uv run jupyter lab
-```
+## Step 5 · Download the activity and upload it to Gradescope
 
-`uv run` executes a command inside the project environment, so you never need to
-"activate" anything. To run a script directly:
+In your copy of the **activity** notebook:
 
-```bash
-uv run python my_script.py
-```
+1. **File > Download > Download .ipynb**
+2. The file lands in your Downloads folder as `Copy of labNN-activity.ipynb`
+3. Go to Gradescope, open the lab assignment, and upload that `.ipynb` file
 
-If you prefer VS Code or Spyder, point the interpreter at `.venv/bin/python`
-(`.venv\Scripts\python.exe` on Windows).
+The name of the downloaded file does not matter. What matters is that it is the `.ipynb`, not
+a PDF and not a link to your Drive.
 
-## 6. Pull each week's lab
+{: .note }
+> The activity notebook is auto-graded. Keep the variable names exactly as the starter cells
+> give them, and you can submit as many times as you like before the deadline.
 
-New labs are published before the Thursday session:
+---
 
-```bash
-git pull
-uv sync   # only needed if the lab added new packages
-```
+## Frequently hit problems
 
-## 7. If your laptop will not cooperate
+| Symptom | Fix |
+| --- | --- |
+| `NameError: DATA_DIR is not defined` | Run the setup cell at the top of the notebook first. |
+| `FileNotFoundError` on a CSV | Same fix — the setup cell downloads the data. Load with `pd.read_csv(DATA_DIR / "file.csv")`, never `"../data/file.csv"`. |
+| Work disappeared between sessions | The notebook was never copied to Drive. Redo Step 3 next time, and check `Colab Notebooks` in your Drive for the copy. |
+| Variables "forgot" their values | The runtime disconnected after idle time. Run **Runtime > Restart session and run all**. |
+| Cell runs forever | Click the stop button in the cell, then **Runtime > Restart session**. |
+| Gradescope rejects the upload | You uploaded a PDF or a `.py`. Use **File > Download > Download .ipynb**. |
+| Colab opened on the wrong account | Sign out of all Google accounts, sign back in with your UT EID account, and reopen the lab link. |
 
-Every lab notebook also runs in [Google Colab](https://colab.research.google.com/) — use the
-Colab badge at the top of the notebook or in [the lab list]({{ site.baseurl }}/labs/). The
-setup cell at the top of each notebook downloads the course files automatically, so the lab's
-data loads there too.
+## Working offline (optional)
 
-Two warnings if you go this route:
+Nothing in this course requires it, and no lab assumes it. If you would rather run Jupyter on
+your own machine, download the notebook and its data from the lab's GitHub folder and run it
+in any Python environment with `pandas`, `numpy`, `matplotlib`, `seaborn`, and
+`scikit-learn`. You are then on your own for setup — office hours cover Colab.
 
-- Click **Copy to Drive** *before* you start working. Colab throws away everything when the
-  runtime ends, and work that was never copied is gone.
-- Module 1 cannot be done in Colab. Reading the Arduino over USB needs Python running on your
-  own machine, so come to office hours and we will get `uv` working on your laptop.
+## Arduino hardware (Module 1)
 
-## 8. Arduino (Module 1 only)
+The Arduino portion of Module 1 is hands-on, not Colab work:
 
-- Install the [Arduino IDE](https://www.arduino.cc/en/software).
-- Create a free account at [tinkercad.com](https://www.tinkercad.com/).
-- Bring your ELEGOO UNO kit to lab.
+- Install the [Arduino IDE](https://www.arduino.cc/en/software)
+- Create a free account at [tinkercad.com](https://www.tinkercad.com/)
+- Bring your ELEGOO UNO kit to lab
 
-## Common issues
-
-
-| Symptom                          | Fix                                                                                      |
-| -------------------------------- | ---------------------------------------------------------------------------------------- |
-| `uv: command not found`          | Reopen the terminal; the installer edits your PATH.                                      |
-| `ModuleNotFoundError: eve310`    | Run `uv sync` from the repository root, and start Jupyter with `uv run`.                 |
-| Wrong kernel in JupyterLab       | Select the kernel named after this project, or restart Jupyter via `uv run jupyter lab`. |
-| Serial port not found (Arduino)  | Close the Arduino IDE's Serial Monitor before reading the port from Python.              |
-| `git pull` reports local changes | Commit or stash your work first: `git stash`, `git pull`, `git stash pop`.               |
-| `NameError: DATA_DIR`            | Run the setup cell at the top of the notebook before any other cell.                     |
-| `FileNotFoundError` on a CSV     | Load data with `pd.read_csv(DATA_DIR / 'file.csv')`, not `'../data/file.csv'`.           |
-
-
+Reading the board over USB needs software on your own laptop, so that part is done in the lab
+room with the kit in front of you. Details come with that lab.

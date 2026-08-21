@@ -10,7 +10,7 @@ description: Time series, histograms, box plots, and descriptive statistics.
 # Lab 04 · Plotting and EDA
 {: .no_toc }
 
-**Module 1** · Thursday 17 September 2026
+**Module 1**
 {: .fs-6 .fw-300 }
 
 {% include lab_folder.html path="labs/lab04-exploratory-data-analysis" %}
@@ -52,15 +52,17 @@ Convert dates, draw time series / histograms / box plots, save figures, and comp
 - `data/JES_Water_Lab4_Tutorial.csv` — tutorial extract
 - `data/JES_Water_Lab4_Activity.csv` — activity extract
 
-## How to run locally
+## Run it
 
-```bash
-uv sync
-uv run jupyter lab labs/lab04-exploratory-data-analysis/notebooks/lab04-tutorial.ipynb
-```
+1. Click **Open in Colab** on a notebook above
+2. Click **Copy to Drive** *before you type anything*
+3. Run the setup cell at the top, then work down the notebook
+4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope
+
+[Full lab workflow]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 
 ## Deliverables
 
-- Activity notebook plus saved histogram
+- `lab04-activity.ipynb` with the saved histogram, downloaded as `.ipynb` and uploaded to Gradescope
 - Debugging script fixed
 - Lab quiz on Canvas

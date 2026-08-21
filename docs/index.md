@@ -19,8 +19,13 @@ Introduction to data logging, analysis, and optimization — regression, classif
 clustering, and linear optimization — implemented in Python.
 
 [View labs]({{ '/labs/' | relative_url }}){: .btn .btn-purple }
-[Set up your computer]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
+[How a lab works]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 [Weekly schedule]({{ '/schedule/' | relative_url }}){: .btn .btn-outline }
+
+{: .important }
+> Labs run in **Google Colab** — nothing to install. Open the lab link, click **Copy to
+> Drive** before you type anything, then download the finished activity as `.ipynb` and
+> upload it to Gradescope. [Full walkthrough]({{ '/setup/' | relative_url }})
 
 ---
 
@@ -46,6 +51,8 @@ clustering, and linear optimization — implemented in Python.
 | 5 | Introduction to optimization | `scipy.optimize`, `pulp`, `gurobipy`, `pymoo` |
 
 Each module has one homework assignment, lecture and lab quizzes, and in-class examples.
+Assignment handouts, due dates, and grades live on
+[Canvas](https://utexas.instructure.com/courses/1450736).
 
 ## Latest announcements
 

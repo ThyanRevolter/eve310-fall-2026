@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About
-nav_order: 8
+nav_order: 6
 description: Course policies and information.
 ---
 
@@ -20,7 +20,7 @@ description: Course policies and information.
 
 **EVE 310 · Sustainable Systems Engineering** is an undergraduate course at The University of Texas at Austin. Students learn data logging, analysis, and optimization — regression, classification, clustering, and linear optimization — in Python.
 
-Course materials live in the [GitHub repository](https://github.com/{{ site.github_repo }}). This website is the student-facing index for labs, schedule, and setup.
+Lab notebooks live in the [GitHub repository](https://github.com/{{ site.github_repo }}) and open directly in Google Colab. This website is the student-facing index for labs, schedule, and the lab workflow. Assignments, due dates, quizzes, and grades are on [Canvas](https://utexas.instructure.com/courses/1450736), which is the source of truth for anything with a deadline.
 
 ## Meetings
 
@@ -34,13 +34,14 @@ Course materials live in the [GitHub repository](https://github.com/{{ site.gith
 Per the syllabus, course materials may not be shared outside the class without the instructor's written permission. Keep the repository private, or restrict it to enrolled students, and do not repost material elsewhere.
 
 {: .warning }
-A GitHub Pages site is public on the web even if the repository is private. This site lists schedule and lab descriptions; notebooks and data stay in the private repo.
+A GitHub Pages site is public on the web even if the repository is private. Colab opens notebooks straight from the repository, so the repository has to stay public for the lab links and the notebooks' data downloads to work for students.
 
 ## Resources
 
-- [Canvas](https://utexas.instructure.com/courses/1450736) — quizzes, grades, and announcements
-- [Course repository](https://github.com/{{ site.github_repo }}) — labs, assignments, and shared Python helpers
-- [Setup guide]({{ '/setup/' | relative_url }}) — Git, `uv`, and JupyterLab
+- [Canvas](https://utexas.instructure.com/courses/1450736) — assignments, due dates, quizzes, grades, and announcements
+- [Gradescope](https://www.gradescope.com/) — where completed lab activity notebooks are uploaded
+- [Lab workflow]({{ '/setup/' | relative_url }}) — Colab, Copy to Drive, and submitting a `.ipynb`
+- [Course repository](https://github.com/{{ site.github_repo }}) — lab notebooks, data, and slides
 
 ## Local preview of this site
 

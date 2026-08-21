@@ -1,7 +1,6 @@
 # Lab 09 - Batch processing many files
 
 **Module:** 3
-**Lab date:** 10/22/2026 (Thursday)
 
 ## Overview
 
@@ -13,9 +12,9 @@ The same outlier-clean + monthly box plot workflow, first on one campus building
 2. Save a labeled monthly box plot
 3. Loop over all CSVs in a folder
 
-## What to bring / install
+## What to bring
 
-- Laptop with the course environment set up (`uv sync`, see [`docs/setup.md`](../../docs/setup.md))
+- A laptop and a browser, signed in to [Colab](https://colab.research.google.com/) with your UT Google account
 
 ## Contents
 
@@ -28,14 +27,18 @@ The same outlier-clean + monthly box plot workflow, first on one campus building
 
 ## How to run
 
-```bash
-uv sync
-uv run jupyter lab labs/lab09-batch-processing/notebooks/lab09-single-file.ipynb
-```
+Labs are Colab-only — nothing to install.
+
+1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
+2. Click **Copy to Drive** before typing anything
+3. Run the setup cell at the top, then work down the notebook
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope
+
+Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- Figures in `figures/` for each building; lab quiz on Canvas
+- `lab09-multiple-files.ipynb` showing a figure written for each building, downloaded as `.ipynb` and uploaded to Gradescope; lab quiz on Canvas
 
 ## References
 

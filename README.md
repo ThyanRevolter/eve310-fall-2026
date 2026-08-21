@@ -20,7 +20,20 @@ clustering, and linear optimization - implemented in Python.
 
 
 
-## Quick start
+## Quick start (students)
+
+Labs run entirely in [Google Colab](https://colab.research.google.com/). There is nothing to
+install — no Python, no Anaconda, no Git.
+
+1. Open the lab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
+2. Click **Copy to Drive** before you type anything
+3. Run the setup cell at the top, then work down the notebook
+4. **File > Download > Download .ipynb** and upload the activity to Gradescope
+
+The full walkthrough, with screenshots of each menu, is in
+[docs/setup.md](docs/setup.md).
+
+## Quick start (staff)
 
 ```bash
 git clone https://github.com/ThyanRevolter/eve310-fall-2026.git
@@ -28,10 +41,9 @@ cd eve310-fall-2026
 uv sync
 ```
 
-That is the whole setup. This course uses `[uv](https://docs.astral.sh/uv/)` instead of
-Anaconda: `uv sync` installs Python 3.12 and every package at the exact version used in
-class, so all students run an identical environment. Full instructions, including how to
-install `uv` on Windows, macOS, and Linux, are in `[docs/setup.md](docs/setup.md)`.
+`uv` is for authoring and testing notebooks locally. Students never touch it. Note that lab
+notebooks are deliberately standalone — they do not import `eve310`, so they run in a bare
+Colab runtime.
 
 ## Course modules
 
@@ -46,44 +58,38 @@ install `uv` on Windows, macOS, and Linux, are in `[docs/setup.md](docs/setup.md
 
 
 Each module has one homework assignment, lecture and lab quizzes, and in-class examples.
+Assignment handouts, due dates, and grades live on
+[Canvas](https://utexas.instructure.com/courses/1450736), which is the source of truth for
+anything with a deadline. This repository holds lab material only.
 
 ## Repository layout
 
 ```
 .
-├── labs/                 # one folder per weekly lab (notebook + slides + data)
-│   ├── README.md         # lab schedule and status
-├── assignments/          # five homework assignments, one per module
-├── src/eve310/           # shared helpers importable from any notebook
-├── docs/                 # GitHub Pages course website (Just the Class) + setup guide
-└── pyproject.toml        # dependencies, managed by uv
+├── labs/                 # one folder per weekly lab (notebooks + slides + data)
+│   ├── README.md         # lab list, the Colab setup cell, how to add a lab
+│   └── _template/        # walkthrough template for a new lab
+├── src/eve310/           # helpers for authoring/checking notebooks (staff only)
+├── docs/                 # GitHub Pages course website (Just the Class) + lab workflow
+└── pyproject.toml        # dependencies for local authoring, managed by uv
 ```
 
 
 
 ## For students
 
-If this is your first time refer to the [setup guide](docs/setup.md) to get started.
-The [course website](https://thyanrevolter.github.io/eve310-fall-2026/) lists every lab with Colab and GitHub links.
+Read [docs/setup.md](docs/setup.md) once before the first lab, then open each week's lab from
+the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/). Labs are
+published before each Thursday session.
 
-Labs are published before each Thursday session. To get the newest material:
-
-```bash
-git pull
-uv sync        # only necessary when a lab adds new packages
-```
-
-Then open the lab folder listed in [labs/README.md](labs/README.md) and start with its
-`README.md`. Shared helpers are available in every notebook:
-
-```python
-from eve310 import set_plot_style
-
-set_plot_style()
-```
+The one thing that loses work: forgetting **Copy to Drive**. Do it before you type anything.
+Colab discards an uncopied notebook when the runtime ends.
 
 ## Course material policy
 
 Per the syllabus, course materials may not be shared outside the class without the
-instructor's written permission. Keep this repository private, or restrict it to enrolled
-students, and do not repost material elsewhere.
+instructor's written permission. Do not repost material elsewhere.
+
+Note that this repository has to stay **public**: Colab opens notebooks straight from it, and
+each notebook's setup cell downloads its data from `raw.githubusercontent.com`. Making the
+repository private breaks every lab link and every data download.

@@ -10,9 +10,6 @@ description: Reserved week; no Fall 2025 source notebook.
 # Lab 10 · Reserved
 {: .no_toc }
 
-**Thursday 29 October 2026**
-{: .fs-6 .fw-300 }
-
 {: .note }
 Lab 10 is reserved. There is no Fall 2025 source notebook for this week.
 

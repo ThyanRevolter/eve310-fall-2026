@@ -1,7 +1,6 @@
 # Lab 05 - Linear regression
 
 **Module:** 2
-**Lab date:** 09/24/2026 (Thursday)
 
 ## Overview
 
@@ -13,9 +12,9 @@ Train/test splits, scikit-learn `LinearRegression`, R² and adjusted R², residu
 2. Report coefficients, R², and adjusted R² on train and test
 3. One-hot encode a categorical variable
 
-## What to bring / install
+## What to bring
 
-- Laptop with the course environment set up (`uv sync`, see [`docs/setup.md`](../../docs/setup.md))
+- A laptop and a browser, signed in to [Colab](https://colab.research.google.com/) with your UT Google account
 
 ## Contents
 
@@ -29,14 +28,18 @@ Train/test splits, scikit-learn `LinearRegression`, R² and adjusted R², residu
 
 ## How to run
 
-```bash
-uv sync
-uv run jupyter lab labs/lab05-linear-regression/notebooks/lab05-tutorial.ipynb
-```
+Labs are Colab-only — nothing to install.
+
+1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
+2. Click **Copy to Drive** before typing anything
+3. Run the setup cell at the top, then work down the notebook
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope
+
+Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- Answers to the activity questions in the notebook; lab quiz on Canvas
+- `lab05-activity.ipynb` with the questions answered, downloaded as `.ipynb` and uploaded to Gradescope; lab quiz on Canvas
 
 ## References
 

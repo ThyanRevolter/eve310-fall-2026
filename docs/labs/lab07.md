@@ -10,7 +10,7 @@ description: If statements and for loops over array indices.
 # Lab 07 · If statements and for loops
 {: .no_toc }
 
-**Module 3** · Thursday 8 October 2026
+**Module 3**
 {: .fs-6 .fw-300 }
 
 {% include lab_folder.html path="labs/lab07-control-flow" %}
@@ -43,14 +43,16 @@ Logical operators, `if`/`else`, and `for` loops over array indices. These are th
 
 {% include notebook.html path="labs/lab07-control-flow/notebooks/lab07-activity.ipynb" %}
 
-## How to run locally
+## Run it
 
-```bash
-uv sync
-uv run jupyter lab labs/lab07-control-flow/notebooks/lab07-tutorial.ipynb
-```
+1. Click **Open in Colab** on a notebook above
+2. Click **Copy to Drive** *before you type anything*
+3. Run the setup cell at the top, then work down the notebook
+4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope
+
+[Full lab workflow]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 
 ## Deliverables
 
-- Completed activity notebook
+- `lab07-activity.ipynb`, downloaded as `.ipynb` and uploaded to Gradescope
 - Lab quiz on Canvas
