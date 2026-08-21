@@ -1,7 +1,6 @@
 # Lab 11 - Dairy-farm carbon footprint
 
 **Module:** 2
-**Lab date:** 11/05/2026 (Thursday)
 
 ## Overview
 
@@ -13,9 +12,9 @@ Team challenge: predict farm-level carbon footprint from feed, land, manure, and
 2. Report test R², MSE, MAE and predicted-vs-true plots
 3. Repeat with a random forest
 
-## What to bring / install
+## What to bring
 
-- Laptop with the course environment set up (`uv sync`, see [`docs/setup.md`](../../docs/setup.md))
+- A laptop and a browser, signed in to [Colab](https://colab.research.google.com/) with your UT Google account
 
 ## Contents
 
@@ -26,14 +25,18 @@ Team challenge: predict farm-level carbon footprint from feed, land, manure, and
 
 ## How to run
 
-```bash
-uv sync
-uv run jupyter lab labs/lab11-dairy-farm-challenge/notebooks/lab11-activity.ipynb
-```
+Labs are Colab-only — nothing to install.
+
+1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
+2. Click **Copy to Drive** before typing anything
+3. Run the setup cell at the top, then work down the notebook
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope
+
+Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- Working notebook or `.py` uploaded to Canvas with the competition header (team names and EIDs). Each team may win at most one challenge.
+- `lab11-activity.ipynb` with the competition header (team names and EIDs), downloaded as `.ipynb` and uploaded to Gradescope. Each team may win at most one challenge.
 
 ## References
 

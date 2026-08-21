@@ -10,7 +10,7 @@ description: Outliers, interactions, scaling, and dummy-coded energy models.
 # Lab 06 · Regression features
 {: .no_toc }
 
-**Module 2** · Thursday 1 October 2026
+**Module 2**
 {: .fs-6 .fw-300 }
 
 {% include lab_folder.html path="labs/lab06-regression-features" %}
@@ -48,14 +48,16 @@ Build a more realistic energy-use model: drop 3-sigma outliers, add an interacti
 - `data/JES_Energy_Lab6Tutorial.csv` — tutorial data
 - `data/ECJ_Energy_Lab6Activity.csv` — activity data
 
-## How to run locally
+## Run it
 
-```bash
-uv sync
-uv run jupyter lab labs/lab06-regression-features/notebooks/lab06-tutorial.ipynb
-```
+1. Click **Open in Colab** on a notebook above
+2. Click **Copy to Drive** *before you type anything*
+3. Run the setup cell at the top, then work down the notebook
+4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope
+
+[Full lab workflow]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 
 ## Deliverables
 
-- Completed activity notebook with train and test R²
+- `lab06-activity.ipynb` with train and test R², downloaded as `.ipynb` and uploaded to Gradescope
 - Lab quiz on Canvas

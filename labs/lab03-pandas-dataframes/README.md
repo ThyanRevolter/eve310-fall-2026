@@ -1,7 +1,6 @@
 # Lab 03 - Working with dataframes
 
 **Module:** 1
-**Lab date:** 09/10/2026 (Thursday)
 
 ## Overview
 
@@ -13,9 +12,9 @@ pandas dataframes are the default table type for the rest of the course. Inspect
 2. Rename, drop, and add columns
 3. Index with `loc` and `iloc`
 
-## What to bring / install
+## What to bring
 
-- Laptop with the course environment set up (`uv sync`, see [`docs/setup.md`](../../docs/setup.md))
+- A laptop and a browser, signed in to [Colab](https://colab.research.google.com/) with your UT Google account
 
 ## Contents
 
@@ -30,14 +29,18 @@ pandas dataframes are the default table type for the rest of the course. Inspect
 
 ## How to run
 
-```bash
-uv sync
-uv run jupyter lab labs/lab03-pandas-dataframes/notebooks/lab03-tutorial.ipynb
-```
+Labs are Colab-only — nothing to install.
+
+1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
+2. Click **Copy to Drive** before typing anything
+3. Run the setup cell at the top, then work down the notebook
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope
+
+Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- Completed activity notebook; lab quiz on Canvas
+- `lab03-activity.ipynb`, downloaded as `.ipynb` and uploaded to Gradescope; lab quiz on Canvas
 
 ## References
 

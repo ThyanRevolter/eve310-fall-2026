@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Staff
-nav_order: 7
+nav_order: 5
 description: Course instructor and teaching assistant.
 ---
 

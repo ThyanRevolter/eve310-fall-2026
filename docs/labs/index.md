@@ -5,14 +5,15 @@ nav_order: 2
 has_children: true
 has_toc: false
 permalink: /labs/
-description: Weekly lab notebooks, data, and Colab links.
+description: Weekly lab notebooks, run in Google Colab.
 ---
 
 # Labs
 {: .no_toc }
 
-Labs meet Thursdays, 2:00–3:00 pm. Each lab folder is self-contained: notebook, slides, data, and figures.
-Folders are published the week of the lab.
+Labs meet Thursdays, 2:00–3:00 pm. Every lab runs in [Google Colab](https://colab.research.google.com/) —
+nothing to install. Each lab has a tutorial notebook we work through together and an activity
+notebook you complete and submit.
 
 ## Table of contents
 {: .no_toc .text-delta }
@@ -22,62 +23,69 @@ Folders are published the week of the lab.
 
 ---
 
-{: .note }
-Lab dates are placeholders until the academic calendar is confirmed.
+{: .important }
+> **Every lab, every time:** open the Colab link → click **Copy to Drive** *before you type
+> anything* → run the setup cell → work down the notebook → **File > Download > Download
+> .ipynb** → upload the activity to Gradescope.
+>
+> [Full walkthrough]({{ '/setup/' | relative_url }}){: .btn .btn-purple }
 
-## Schedule
+## Lab list
 
-| Lab | Date | Module | Topic | Notebooks |
-| --- | --- | --- | --- | --- |
-| [01]({{ '/labs/lab01/' | relative_url }}) | 08/27/2026 | 1 | Python intro | [tutorial](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab01-python-intro/notebooks/lab01-tutorial.ipynb) |
-| [02]({{ '/labs/lab02/' | relative_url }}) | 09/03/2026 | 1 | Python fundamentals | [tutorial](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab02-python-fundamentals/notebooks/lab02-tutorial.ipynb) |
-| [03]({{ '/labs/lab03/' | relative_url }}) | 09/10/2026 | 1 | pandas dataframes | [tutorial](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab03-pandas-dataframes/notebooks/lab03-tutorial.ipynb) |
-| [04]({{ '/labs/lab04/' | relative_url }}) | 09/17/2026 | 1 | Plotting and EDA | [tutorial](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab04-exploratory-data-analysis/notebooks/lab04-tutorial.ipynb) |
-| [05]({{ '/labs/lab05/' | relative_url }}) | 09/24/2026 | 2 | Linear regression | [tutorial](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab05-linear-regression/notebooks/lab05-tutorial.ipynb) |
-| [06]({{ '/labs/lab06/' | relative_url }}) | 10/01/2026 | 2 | Regression features | [tutorial](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab06-regression-features/notebooks/lab06-tutorial.ipynb) |
-| [07]({{ '/labs/lab07/' | relative_url }}) | 10/08/2026 | 3 | If statements and for loops | [tutorial](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab07-control-flow/notebooks/lab07-tutorial.ipynb) |
-| [08]({{ '/labs/lab08/' | relative_url }}) | 10/15/2026 | 3 | Classification thresholds | [activity](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab08-classification-thresholds/notebooks/lab08-activity.ipynb) |
-| [09]({{ '/labs/lab09/' | relative_url }}) | 10/22/2026 | 3 | Batch processing many files | [single file](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab09-batch-processing/notebooks/lab09-single-file.ipynb) |
-| [10]({{ '/labs/lab10/' | relative_url }}) | 10/29/2026 | — | Reserved | — |
-| [11]({{ '/labs/lab11/' | relative_url }}) | 11/05/2026 | 2 | Dairy-farm carbon footprint | [activity](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab11-dairy-farm-challenge/notebooks/lab11-activity.ipynb) |
+Lab dates and deadlines are on [Canvas](https://utexas.instructure.com/courses/1450736).
+Notebooks are published the week of the lab.
 
-## Running labs
+| Lab | Module | Topic | Notebooks |
+| --- | --- | --- | --- |
+| [01]({{ '/labs/lab01/' | relative_url }}) | 1 | Python intro | [tutorial](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab01-python-intro/notebooks/lab01-tutorial.ipynb) · [activity](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab01-python-intro/notebooks/lab01-activity.ipynb) |
+| [02]({{ '/labs/lab02/' | relative_url }}) | 1 | Python fundamentals | [tutorial](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab02-python-fundamentals/notebooks/lab02-tutorial.ipynb) · [activity](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab02-python-fundamentals/notebooks/lab02-activity.ipynb) |
+| [03]({{ '/labs/lab03/' | relative_url }}) | 1 | pandas dataframes | [tutorial](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab03-pandas-dataframes/notebooks/lab03-tutorial.ipynb) · [activity](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab03-pandas-dataframes/notebooks/lab03-activity.ipynb) |
+| [04]({{ '/labs/lab04/' | relative_url }}) | 1 | Plotting and EDA | [tutorial](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab04-exploratory-data-analysis/notebooks/lab04-tutorial.ipynb) · [activity](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab04-exploratory-data-analysis/notebooks/lab04-activity.ipynb) |
+| [05]({{ '/labs/lab05/' | relative_url }}) | 2 | Linear regression | [tutorial](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab05-linear-regression/notebooks/lab05-tutorial.ipynb) · [activity](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab05-linear-regression/notebooks/lab05-activity.ipynb) |
+| [06]({{ '/labs/lab06/' | relative_url }}) | 2 | Regression features | [tutorial](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab06-regression-features/notebooks/lab06-tutorial.ipynb) · [activity](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab06-regression-features/notebooks/lab06-activity.ipynb) |
+| [07]({{ '/labs/lab07/' | relative_url }}) | 3 | If statements and for loops | [tutorial](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab07-control-flow/notebooks/lab07-tutorial.ipynb) · [activity](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab07-control-flow/notebooks/lab07-activity.ipynb) |
+| [08]({{ '/labs/lab08/' | relative_url }}) | 3 | Classification thresholds | [activity](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab08-classification-thresholds/notebooks/lab08-activity.ipynb) |
+| [09]({{ '/labs/lab09/' | relative_url }}) | 3 | Batch processing many files | [single file](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab09-batch-processing/notebooks/lab09-single-file.ipynb) · [many files](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab09-batch-processing/notebooks/lab09-multiple-files.ipynb) |
+| [10]({{ '/labs/lab10/' | relative_url }}) | — | Reserved | — |
+| [11]({{ '/labs/lab11/' | relative_url }}) | 2 | Dairy-farm carbon footprint | [activity](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab11-dairy-farm-challenge/notebooks/lab11-activity.ipynb) |
 
-Start from the [setup guide]({{ '/setup/' | relative_url }}), then each Thursday:
+## What the setup cell does
 
-```bash
-git pull
-uv sync        # only if the lab added new packages
-uv run jupyter lab
-```
-
-Open the lab folder listed above and start with its `README.md`. Shared helpers are available in every notebook:
-
-```python
-from eve310 import set_plot_style
-
-set_plot_style()
-```
-
-### Google Colab
-
-Colab badges on each lab page open the notebook in the browser. Because the repository is private, grant Colab GitHub access once: open [colab.research.google.com](https://colab.research.google.com/), choose **File > Open notebook > GitHub**, click *Authorize with GitHub*, and tick *Include private repositories*.
-
-Colab starts from a clean machine. A lab that imports the course helpers needs this cell first:
+The first code cell of every lab notebook looks like this:
 
 ```python
-!pip install -q "git+https://github.com/{{ site.github_repo }}.git"
+# EVE 310 setup — run this cell first.
+import pathlib, urllib.request
+
+LAB = "lab03-pandas-dataframes"
+DATA_FILES = ["JES_Water.csv", "JES_Water_Lab3.csv"]
+...
+DATA_DIR, FIGURES_DIR = pathlib.Path("data"), pathlib.Path("figures")
 ```
 
-Relative `../data/` paths will not resolve on Colab unless you upload the CSV files or clone the repo in the runtime. Prefer running locally with `uv` when a lab ships data. Save your work with **File > Save a copy in Drive** — Colab discards changes when the runtime ends.
+It downloads that lab's data into your Colab session and gives you two folders to work with:
 
-## Folder layout
+- `DATA_DIR` — read data with `pd.read_csv(DATA_DIR / "JES_Water.csv")`
+- `FIGURES_DIR` — save plots with `fig.savefig(FIGURES_DIR / "myplot.png")`
+
+Never use a relative path like `"../data/file.csv"`. There is no `../data` in Colab.
+
+## If you lose your work
+
+Colab wipes the runtime when it disconnects. Work survives only in the **Drive copy** you made
+in Step 3 of the [walkthrough]({{ '/setup/' | relative_url }}) — look in `Colab Notebooks` in
+your Google Drive. Files written to `data/` or `figures/` inside the session are *not* saved;
+re-run the notebook to regenerate them.
+
+## Folder layout on GitHub
+
+Each lab folder holds the notebooks, slides, and data used that week:
 
 ```
 labs/lab04-exploratory-data-analysis/
 ├── README.md          # objectives, instructions, deliverables
-├── notebooks/         # lab notebook(s)
+├── notebooks/         # tutorial and activity notebooks
 ├── slides/            # lab presentation
-├── data/              # small datasets specific to this lab
+├── data/              # datasets, downloaded by the setup cell
 └── figures/           # generated figures
 ```

@@ -1,7 +1,6 @@
 # Lab 07 - If statements and for loops
 
 **Module:** 3
-**Lab date:** 10/08/2026 (Thursday)
 
 ## Overview
 
@@ -13,9 +12,9 @@ Logical operators, `if`/`else`, and `for` loops over array indices. These are th
 2. Iterate with `for i in range(...)`
 3. Combine a loop and a conditional to compute min/max/sum
 
-## What to bring / install
+## What to bring
 
-- Laptop with the course environment set up (`uv sync`, see [`docs/setup.md`](../../docs/setup.md))
+- A laptop and a browser, signed in to [Colab](https://colab.research.google.com/) with your UT Google account
 
 ## Contents
 
@@ -27,14 +26,18 @@ Logical operators, `if`/`else`, and `for` loops over array indices. These are th
 
 ## How to run
 
-```bash
-uv sync
-uv run jupyter lab labs/lab07-control-flow/notebooks/lab07-tutorial.ipynb
-```
+Labs are Colab-only — nothing to install.
+
+1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
+2. Click **Copy to Drive** before typing anything
+3. Run the setup cell at the top, then work down the notebook
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope
+
+Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- Completed activity notebook; lab quiz on Canvas
+- `lab07-activity.ipynb`, downloaded as `.ipynb` and uploaded to Gradescope; lab quiz on Canvas
 
 ## References
 

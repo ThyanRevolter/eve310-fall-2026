@@ -10,7 +10,7 @@ description: Sweep a decision threshold and plot precision vs recall.
 # Lab 08 · Classification thresholds
 {: .no_toc }
 
-**Module 3** · Thursday 15 October 2026
+**Module 3**
 {: .fs-6 .fw-300 }
 
 {% include lab_folder.html path="labs/lab08-classification-thresholds" %}
@@ -39,14 +39,16 @@ Apply last week's loops to logistic-regression probabilities from lecture: sweep
 
 {% include notebook.html path="labs/lab08-classification-thresholds/notebooks/lab08-activity.ipynb" %}
 
-## How to run locally
+## Run it
 
-```bash
-uv sync
-uv run jupyter lab labs/lab08-classification-thresholds/notebooks/lab08-activity.ipynb
-```
+1. Click **Open in Colab** on a notebook above
+2. Click **Copy to Drive** *before you type anything*
+3. Run the setup cell at the top, then work down the notebook
+4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope
+
+[Full lab workflow]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 
 ## Deliverables
 
-- Completed notebook with the precision/recall figure
+- `lab08-activity.ipynb` with the precision/recall figure, downloaded as `.ipynb` and uploaded to Gradescope
 - Lab quiz on Canvas

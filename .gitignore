@@ -19,6 +19,9 @@ solutions/
 *_solution.ipynb
 *_solutions.ipynb
 *_key.*
+# Gradescope autograders embed the answer key (see labs/*/autograder/README.md).
+# Remove this line only if the repository is private to course staff.
+labs/*/autograder/
 
 # Figures produced by running the lab notebooks. Keeping these untracked means a
 # student who runs a lab still has a clean tree the next time they `git pull`.

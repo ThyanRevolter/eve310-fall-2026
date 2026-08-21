@@ -10,7 +10,7 @@ description: Inspect, reshape, and index pandas dataframes.
 # Lab 03 · pandas dataframes
 {: .no_toc }
 
-**Module 1** · Thursday 10 September 2026
+**Module 1**
 {: .fs-6 .fw-300 }
 
 {% include lab_folder.html path="labs/lab03-pandas-dataframes" %}
@@ -52,14 +52,16 @@ pandas dataframes are the default table type for the rest of the course. Inspect
 - `data/JES_Water.csv` — full Jester Hall series
 - `data/JES_Water_Lab3.csv` — shorter extract for the activity
 
-## How to run locally
+## Run it
 
-```bash
-uv sync
-uv run jupyter lab labs/lab03-pandas-dataframes/notebooks/lab03-tutorial.ipynb
-```
+1. Click **Open in Colab** on a notebook above
+2. Click **Copy to Drive** *before you type anything*
+3. Run the setup cell at the top, then work down the notebook
+4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope
+
+[Full lab workflow]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 
 ## Deliverables
 
-- Completed activity notebook
+- `lab03-activity.ipynb`, downloaded as `.ipynb` and uploaded to Gradescope
 - Lab quiz on Canvas

@@ -10,7 +10,7 @@ description: sklearn LinearRegression, R², residuals, and one-hot encoding.
 # Lab 05 · Linear regression
 {: .no_toc }
 
-**Module 2** · Thursday 24 September 2026
+**Module 2**
 {: .fs-6 .fw-300 }
 
 {% include lab_folder.html path="labs/lab05-linear-regression" %}
@@ -47,14 +47,16 @@ Train/test splits, scikit-learn `LinearRegression`, R² and adjusted R², residu
 
 {% include notebook.html path="labs/lab05-linear-regression/notebooks/lab05-activity.ipynb" %}
 
-## How to run locally
+## Run it
 
-```bash
-uv sync
-uv run jupyter lab labs/lab05-linear-regression/notebooks/lab05-tutorial.ipynb
-```
+1. Click **Open in Colab** on a notebook above
+2. Click **Copy to Drive** *before you type anything*
+3. Run the setup cell at the top, then work down the notebook
+4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope
+
+[Full lab workflow]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 
 ## Deliverables
 
-- Answers to the activity questions in the notebook
+- `lab05-activity.ipynb` with the questions answered, downloaded as `.ipynb` and uploaded to Gradescope
 - Lab quiz on Canvas

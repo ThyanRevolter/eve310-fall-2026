@@ -1,7 +1,6 @@
 # Lab 08 - Classification thresholds
 
 **Module:** 3
-**Lab date:** 10/15/2026 (Thursday)
 
 ## Overview
 
@@ -13,9 +12,9 @@ Apply last week's loops to logistic-regression probabilities from lecture: sweep
 2. Loop over a grid of thresholds
 3. Plot precision and recall against threshold
 
-## What to bring / install
+## What to bring
 
-- Laptop with the course environment set up (`uv sync`, see [`docs/setup.md`](../../docs/setup.md))
+- A laptop and a browser, signed in to [Colab](https://colab.research.google.com/) with your UT Google account
 
 ## Contents
 
@@ -26,14 +25,18 @@ Apply last week's loops to logistic-regression probabilities from lecture: sweep
 
 ## How to run
 
-```bash
-uv sync
-uv run jupyter lab labs/lab08-classification-thresholds/notebooks/lab08-activity.ipynb
-```
+Labs are Colab-only — nothing to install.
+
+1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
+2. Click **Copy to Drive** before typing anything
+3. Run the setup cell at the top, then work down the notebook
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope
+
+Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- Completed notebook with the precision/recall figure; lab quiz
+- `lab08-activity.ipynb` with the precision/recall figure, downloaded as `.ipynb` and uploaded to Gradescope; lab quiz
 
 ## References
 

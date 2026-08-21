@@ -10,7 +10,7 @@ description: Loop the same plotting workflow over many campus water files.
 # Lab 09 · Batch processing many files
 {: .no_toc }
 
-**Module 3** · Thursday 22 October 2026
+**Module 3**
 {: .fs-6 .fw-300 }
 
 {% include lab_folder.html path="labs/lab09-batch-processing" %}
@@ -48,16 +48,19 @@ The same outlier-clean + monthly box plot workflow, first on one campus building
 - `data/water_*.csv` — campus building water series
 
 {: .note }
-This lab ships many CSV files. Run it locally with `uv` rather than Colab unless you clone the repository into the runtime.
+This lab uses 24 building files. The setup cell downloads all of them into `DATA_DIR`, so the
+for-loop over `DATA_DIR.iterdir()` works in Colab exactly as it does on a laptop.
 
-## How to run locally
+## Run it
 
-```bash
-uv sync
-uv run jupyter lab labs/lab09-batch-processing/notebooks/lab09-single-file.ipynb
-```
+1. Click **Open in Colab** on a notebook above
+2. Click **Copy to Drive** *before you type anything*
+3. Run the setup cell at the top, then work down the notebook
+4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope
+
+[Full lab workflow]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 
 ## Deliverables
 
-- Figures in `figures/` for each building
+- `lab09-multiple-files.ipynb` showing a figure written for each building, downloaded as `.ipynb` and uploaded to Gradescope
 - Lab quiz on Canvas

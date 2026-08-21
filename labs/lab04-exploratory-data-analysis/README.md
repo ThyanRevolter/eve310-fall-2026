@@ -1,7 +1,6 @@
 # Lab 04 - Plotting and exploratory data analysis
 
 **Module:** 1
-**Lab date:** 09/17/2026 (Thursday)
 
 ## Overview
 
@@ -13,9 +12,9 @@ Convert dates, draw time series / histograms / box plots, save figures, and comp
 2. Create histograms and box plots
 3. Save figures and compute descriptive statistics
 
-## What to bring / install
+## What to bring
 
-- Laptop with the course environment set up (`uv sync`, see [`docs/setup.md`](../../docs/setup.md))
+- A laptop and a browser, signed in to [Colab](https://colab.research.google.com/) with your UT Google account
 
 ## Contents
 
@@ -30,14 +29,18 @@ Convert dates, draw time series / histograms / box plots, save figures, and comp
 
 ## How to run
 
-```bash
-uv sync
-uv run jupyter lab labs/lab04-exploratory-data-analysis/notebooks/lab04-tutorial.ipynb
-```
+Labs are Colab-only — nothing to install.
+
+1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
+2. Click **Copy to Drive** before typing anything
+3. Run the setup cell at the top, then work down the notebook
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope
+
+Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- Activity notebook plus saved histogram; debugging script fixed; lab quiz
+- `lab04-activity.ipynb` with the saved histogram, downloaded as `.ipynb` and uploaded to Gradescope; debugging script fixed; lab quiz
 
 ## References
 
