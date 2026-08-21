@@ -71,3 +71,5 @@ docs/.jekyll-cache/
 docs/.sass-cache/
 docs/.bundle/
 docs/vendor/
+
+work/*  
