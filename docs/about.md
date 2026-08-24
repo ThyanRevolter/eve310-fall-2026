@@ -27,7 +27,7 @@ Lab notebooks live in the [GitHub repository](https://github.com/{{ site.github_
 - **Lectures:** Tuesday and Thursday, 12:30–2:00 pm, CPE 2.210
 - **Labs:** Thursday, 2:00–3:00 pm, EER 1.504
 - **Instructor office hours:** Tuesday 2:00–2:50 pm, ECJ 4.710, and by appointment
-- **TA office hours:** Wednesday 5:00–6:00 pm, EER 4.704, and by appointment
+- **TA office hours:** Wednesday 3:00–4:00 pm, EER 4.704, and by appointment
 
 ## Course material policy
 

@@ -9,10 +9,6 @@ timeline:
   - '3:00 PM'
   - '3:30 PM'
   - '4:00 PM'
-  - '4:30 PM'
-  - '5:00 PM'
-  - '5:30 PM'
-  - '6:00 PM'
 schedule:
   - name: Monday
   - name: Tuesday
@@ -28,8 +24,8 @@ schedule:
   - name: Wednesday
     events:
       - name: TA Office Hours
-        start: 5:00 PM
-        end: 6:00 PM
+        start: 3:00 PM
+        end: 4:00 PM
         location: EER 4.704
   - name: Thursday
     events:
