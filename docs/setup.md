@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Lab workflow
-nav_order: 3
+nav_order: 2
 description: How to open, run, and submit every EVE 310 lab in Google Colab.
 permalink: /setup/
 ---

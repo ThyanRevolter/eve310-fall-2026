@@ -18,8 +18,8 @@ Fall 2026 · The University of Texas at Austin
 Introduction to data logging, analysis, and optimization — regression, classification,
 clustering, and linear optimization — implemented in Python.
 
-[View labs]({{ '/labs/' | relative_url }}){: .btn .btn-purple }
 [How a lab works]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
+[View labs]({{ '/labs/' | relative_url }}){: .btn .btn-purple }
 [Weekly schedule]({{ '/schedule/' | relative_url }}){: .btn .btn-outline }
 
 {: .important }
