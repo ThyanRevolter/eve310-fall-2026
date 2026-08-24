@@ -10,10 +10,10 @@ clustering, and linear optimization - implemented in Python.
 | ---------------- | ---------------------------------------------------------------------------------------- |
 | **Instructor**   | Dr. Greg Hendrickson ([greg.hendrickson@utexas.edu](mailto:greg.hendrickson@utexas.edu)) |
 | **TA**           | Adhithyan Sakthivelu ([adhiths@utexas.edu](mailto:adhiths@utexas.edu))                   |
-| **Lectures**     | Tue & Thu, 12:30-2:00 pm, TBD                                                            |
-| **Labs**         | Thu, 2:00-3:00 pm, TBD                                                                   |
-| **Instructor office hours** | Tue 2:00-3:00 pm, ECJ 4.710, and by appointment |
-| **TA office hours** | Wed 3:00-4:30 pm, EER 4.704 (EER 5.702 on Nov 18 and Dec 2) |
+| **Lectures**     | Tue & Thu, 12:30-2:00 pm, CPE 2.210                                                      |
+| **Labs**         | Thu, 2:00-3:00 pm, EER 1.504                                                              |
+| **Instructor office hours** | Tue 2:00-2:50 pm, ECJ 4.710, and by appointment |
+| **TA office hours** | Wed 5:00-6:00 pm, EER 4.704, and by appointment |
 | **Canvas**       | [https://utexas.instructure.com/courses/1450736](https://utexas.instructure.com/courses/1450736)                                 |
 | **Course site**  | [https://thyanrevolter.github.io/eve310-fall-2026/](https://thyanrevolter.github.io/eve310-fall-2026/) |
 

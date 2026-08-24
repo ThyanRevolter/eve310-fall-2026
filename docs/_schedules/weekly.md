@@ -10,6 +10,9 @@ timeline:
   - '3:30 PM'
   - '4:00 PM'
   - '4:30 PM'
+  - '5:00 PM'
+  - '5:30 PM'
+  - '6:00 PM'
 schedule:
   - name: Monday
   - name: Tuesday
@@ -17,26 +20,26 @@ schedule:
       - name: Lecture
         start: 12:30 PM
         end: 2:00 PM
-        location: TBD
+        location: CPE 2.210
       - name: Instructor Office Hours
         start: 2:00 PM
-        end: 3:00 PM
+        end: 2:50 PM
         location: ECJ 4.710
   - name: Wednesday
     events:
       - name: TA Office Hours
-        start: 3:00 PM
-        end: 4:30 PM
+        start: 5:00 PM
+        end: 6:00 PM
         location: EER 4.704
   - name: Thursday
     events:
       - name: Lecture
         start: 12:30 PM
         end: 2:00 PM
-        location: TBD
+        location: CPE 2.210
       - name: Lab
         start: 2:00 PM
         end: 3:00 PM
-        location: TBD
+        location: EER 1.504
   - name: Friday
 ---

@@ -3,7 +3,7 @@
 The [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/) lists every lab
 with its Colab links.
 
-Labs meet Thursdays and run entirely in **Google Colab** — students install nothing. Each lab
+Labs meet Thursdays, 2:00–3:00 pm in EER 1.504, and run entirely in **Google Colab** — students install nothing. Each lab
 folder is self-contained: notebooks, slides, data, and figures. Folders are published the week
 of the lab, so a folder that is not listed as released simply does not exist on `main` yet.
 

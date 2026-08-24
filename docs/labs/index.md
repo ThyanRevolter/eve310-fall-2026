@@ -11,7 +11,7 @@ description: Weekly lab notebooks, run in Google Colab.
 # Labs
 {: .no_toc }
 
-Labs meet Thursdays, 2:00–3:00 pm. Every lab runs in [Google Colab](https://colab.research.google.com/){:target="_blank" rel="noopener"} —
+Labs meet Thursdays, 2:00–3:00 pm in EER 1.504. Every lab runs in [Google Colab](https://colab.research.google.com/){:target="_blank" rel="noopener"} —
 nothing to install. Each lab has a tutorial notebook we work through together and an activity
 notebook you complete and submit.
 
