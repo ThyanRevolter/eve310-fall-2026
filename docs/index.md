@@ -35,7 +35,7 @@ clustering, and linear optimization — implemented in Python.
 | **TA** | Adhithyan Sakthivelu ([adhiths@utexas.edu](mailto:adhiths@utexas.edu)) |
 | **Lectures** | Tue & Thu, 12:30–2:00 pm, TBD |
 | **Labs** | Thu, 2:00–3:00 pm, TBD |
-| **Instructor office hours** | Mon 3:00–3:50 pm, TBD, and by appointment |
+| **Instructor office hours** | Tue 2:00–3:00 pm, ECJ 4.710, and by appointment |
 | **TA office hours** | Wed 3:00–4:30 pm, EER 4.704 (EER 5.702 on Nov 18 and Dec 2) |
 | **Canvas** | [canvas.utexas.edu](https://utexas.instructure.com/courses/1450736) |
 | **Repository** | [ThyanRevolter/eve310-fall-2026](https://github.com/ThyanRevolter/eve310-fall-2026) |

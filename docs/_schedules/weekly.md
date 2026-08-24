@@ -12,17 +12,16 @@ timeline:
   - '4:30 PM'
 schedule:
   - name: Monday
-    events:
-      - name: Instructor Office Hours
-        start: 3:00 PM
-        end: 3:50 PM
-        location: TBD
   - name: Tuesday
     events:
       - name: Lecture
         start: 12:30 PM
         end: 2:00 PM
         location: TBD
+      - name: Instructor Office Hours
+        start: 2:00 PM
+        end: 3:00 PM
+        location: ECJ 4.710
   - name: Wednesday
     events:
       - name: TA Office Hours
