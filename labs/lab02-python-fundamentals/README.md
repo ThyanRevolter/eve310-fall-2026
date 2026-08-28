@@ -40,6 +40,14 @@ Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 - `lab02-activity.ipynb`, downloaded as `.ipynb` and uploaded to Gradescope; lab quiz on Canvas (have `water_con` ready)
 
+The activity notebook is auto-graded out of 100 points, one graded item per
+variable the exercises ask you to define. The autograder re-runs your notebook
+from a clean session, so use **Runtime > Restart session and run all** and confirm
+everything works top to bottom before you submit. Keep the variable names exactly
+as given in the starter cells, and replace every `--` placeholder — a leftover
+`--` makes the whole cell fail. You can submit as many times as you like before
+the deadline.
+
 ## References
 
 - NumPy cheat sheet in `slides/`
