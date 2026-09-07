@@ -62,25 +62,28 @@ Each lab has two notebooks:
 | Notebook | What it is | Submitted? |
 | --- | --- | --- |
 | `labNN-tutorial.ipynb` | Worked examples we go through together in lab | No |
-| `labNN-activity.ipynb` | The exercises you complete | Yes — to Gradescope |
+| `labNN-activity.ipynb` | The exercises you complete | Optional — to Gradescope for feedback |
 
 Before you submit, run **Runtime > Restart session and run all**. Your notebook has to run
-top to bottom from a clean start, because that is exactly how it gets graded.
+top to bottom from a clean start, because that is exactly how the autograder runs it.
 
-## Step 5 · Download the activity and upload it to Gradescope
+## Step 5 · Download the activity and upload it to Gradescope (optional)
 
 In your copy of the **activity** notebook:
 
 1. **File > Download > Download .ipynb**
 2. The file lands in your Downloads folder as `Copy of labNN-activity.ipynb`
-3. Go to Gradescope, open the lab assignment, and upload that `.ipynb` file
+3. Go to Gradescope, open the lab assignment, and upload that `.ipynb` file. This step is
+   optional: the autograder gives feedback, and nothing from it counts toward your grade.
 
 The name of the downloaded file does not matter. What matters is that it is the `.ipynb`, not
 a PDF and not a link to your Drive.
 
 {: .note }
-> The activity notebook is auto-graded. Keep the variable names exactly as the starter cells
-> give them, and you can submit as many times as you like before the deadline.
+> The Gradescope submission is optional and does not count toward your grade. The autograder
+> is there to tell you, part by part, whether your activity is right before you take the lab
+> quiz on Canvas, which is the graded item. Keep the variable names exactly as the starter
+> cells give them, and you can submit as many times as you like.
 
 ---
 

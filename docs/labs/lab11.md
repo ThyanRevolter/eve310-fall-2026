@@ -48,11 +48,13 @@ Team challenge: predict farm-level carbon footprint from feed, land, manure, and
 1. Click **Open in Colab** on a notebook above
 2. Click **Copy to Drive** *before you type anything*
 3. Run the setup cell at the top, then work down the notebook
-4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope
+4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope (optional, for feedback)
 
 [Full lab workflow]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 
 ## Deliverables
 
-- `lab11-activity.ipynb` with the competition header (team names and EIDs), downloaded as `.ipynb` and uploaded to Gradescope
+- `lab11-activity.ipynb` with the competition header (team names and EIDs), downloaded as `.ipynb` and uploaded to Gradescope (not graded, but required to enter the competition)
 - Each team may win at most one challenge
+
+Lab slides are posted on Canvas.

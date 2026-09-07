@@ -26,7 +26,8 @@ notebook you complete and submit.
 {: .important }
 > **Every lab, every time:** open the Colab link → click **Copy to Drive** *before you type
 > anything* → run the setup cell → work down the notebook → **File > Download > Download
-> .ipynb** → upload the activity to Gradescope.
+> .ipynb** → upload the activity to Gradescope (optional, for feedback). The lab quiz on
+> Canvas is the graded item.
 >
 > [Full walkthrough]({{ '/setup/' | relative_url }}){: .btn .btn-purple }
 
@@ -79,13 +80,13 @@ re-run the notebook to regenerate them.
 
 ## Folder layout on GitHub
 
-Each lab folder holds the notebooks, slides, and data used that week:
+Each lab folder holds the notebooks, cheat sheets, and data used that week (slides are on Canvas):
 
 ```
 labs/lab04-exploratory-data-analysis/
 ├── README.md          # objectives, instructions, deliverables
 ├── notebooks/         # tutorial and activity notebooks
-├── slides/            # lab presentation
+├── slides/            # cheat sheets and handouts (lab slides are on Canvas)
 ├── data/              # datasets, downloaded by the setup cell
 └── figures/           # generated figures
 ```

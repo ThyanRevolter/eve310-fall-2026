@@ -25,7 +25,7 @@ Convert dates, draw time series / histograms / box plots, save figures, and comp
 | `notebooks/debugging_exercise.py` | Short debugging script (intentional bugs) |
 | `data/JES_Water_Lab4_Tutorial.csv` | Tutorial extract |
 | `data/JES_Water_Lab4_Activity.csv` | Activity extract |
-| `slides/` | Lab slides and matplotlib/SciPy cheat sheets |
+| `slides/` | matplotlib/SciPy cheat sheets |
 
 ## How to run
 
@@ -34,14 +34,18 @@ Labs are Colab-only — nothing to install.
 1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
 2. Click **Copy to Drive** before typing anything
 3. Run the setup cell at the top, then work down the notebook
-4. **File > Download > Download .ipynb**, then upload the activity to Gradescope
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope (optional, for feedback)
 
 Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- `lab04-activity.ipynb` with the saved histogram, downloaded as `.ipynb` and uploaded to Gradescope; debugging script fixed; lab quiz
+- `lab04-activity.ipynb` with the saved histogram, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded); debugging script fixed; lab quiz on Canvas
+
+The Gradescope submission is optional and does not count toward your grade. The lab quiz on
+Canvas is the graded item.
 
 ## References
 
+- Lab slides are posted on Canvas.
 - Matplotlib and SciPy cheat sheets in `slides/`

@@ -57,12 +57,14 @@ Convert dates, draw time series / histograms / box plots, save figures, and comp
 1. Click **Open in Colab** on a notebook above
 2. Click **Copy to Drive** *before you type anything*
 3. Run the setup cell at the top, then work down the notebook
-4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope
+4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope (optional, for feedback)
 
 [Full lab workflow]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 
 ## Deliverables
 
-- `lab04-activity.ipynb` with the saved histogram, downloaded as `.ipynb` and uploaded to Gradescope
+- `lab04-activity.ipynb` with the saved histogram, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded)
 - Debugging script fixed
-- Lab quiz on Canvas
+- Lab quiz on Canvas. This is the graded item.
+
+Lab slides are posted on Canvas.

@@ -30,14 +30,15 @@ Labs are Colab-only — nothing to install.
 1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
 2. Click **Copy to Drive** before typing anything
 3. Run the setup cell at the top, then work down the notebook
-4. **File > Download > Download .ipynb**, then upload the activity to Gradescope
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope (optional, for feedback)
 
 Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- `lab11-activity.ipynb` with the competition header (team names and EIDs), downloaded as `.ipynb` and uploaded to Gradescope. Each team may win at most one challenge.
+- `lab11-activity.ipynb` with the competition header (team names and EIDs), downloaded as `.ipynb` and uploaded to Gradescope (not graded, but required to enter the competition). Each team may win at most one challenge.
 
 ## References
 
+- Lab slides are posted on Canvas.
 - Labs 5–6 (sklearn regression metrics and train/test splits)

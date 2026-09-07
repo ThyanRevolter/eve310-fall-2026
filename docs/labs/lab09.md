@@ -56,11 +56,13 @@ for-loop over `DATA_DIR.iterdir()` works in Colab exactly as it does on a laptop
 1. Click **Open in Colab** on a notebook above
 2. Click **Copy to Drive** *before you type anything*
 3. Run the setup cell at the top, then work down the notebook
-4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope
+4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope (optional, for feedback)
 
 [Full lab workflow]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 
 ## Deliverables
 
-- `lab09-multiple-files.ipynb` showing a figure written for each building, downloaded as `.ipynb` and uploaded to Gradescope
-- Lab quiz on Canvas
+- `lab09-multiple-files.ipynb` showing a figure written for each building, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded)
+- Lab quiz on Canvas. This is the graded item.
+
+Lab slides are posted on Canvas.

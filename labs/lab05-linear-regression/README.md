@@ -23,7 +23,6 @@ Train/test splits, scikit-learn `LinearRegression`, R² and adjusted R², residu
 | `notebooks/lab05-tutorial.ipynb` | Worked sklearn tutorial |
 | `notebooks/lab05-traffic-example.ipynb` | Same data with NumPy and seaborn |
 | `notebooks/lab05-activity.ipynb` | Coefficient / split / random_state questions |
-| `slides/` | Lab slides |
 | `figures/Image.png` | Adjusted-R² slide image from 2025 |
 
 ## How to run
@@ -33,14 +32,18 @@ Labs are Colab-only — nothing to install.
 1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
 2. Click **Copy to Drive** before typing anything
 3. Run the setup cell at the top, then work down the notebook
-4. **File > Download > Download .ipynb**, then upload the activity to Gradescope
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope (optional, for feedback)
 
 Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- `lab05-activity.ipynb` with the questions answered, downloaded as `.ipynb` and uploaded to Gradescope; lab quiz on Canvas
+- `lab05-activity.ipynb` with the questions answered, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded); lab quiz on Canvas
+
+The Gradescope submission is optional and does not count toward your grade. The lab quiz on
+Canvas is the graded item.
 
 ## References
 
+- Lab slides are posted on Canvas.
 - Lecture linear-regression notes; `lab05-traffic-example.ipynb`

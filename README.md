@@ -28,7 +28,7 @@ install — no Python, no Anaconda, no Git.
 1. Open the lab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
 2. Click **Copy to Drive** before you type anything
 3. Run the setup cell at the top, then work down the notebook
-4. **File > Download > Download .ipynb** and upload the activity to Gradescope
+4. **File > Download > Download .ipynb** and upload the activity to Gradescope (optional, for feedback; the lab quiz on Canvas is graded)
 
 The full walkthrough, with screenshots of each menu, is in
 [docs/setup.md](docs/setup.md).

@@ -24,7 +24,7 @@ Build a more realistic energy-use model: drop 3-sigma outliers, add an interacti
 | `notebooks/lab06-activity.ipynb` | ECJ energy, z-score standardization |
 | `data/JES_Energy_Lab6Tutorial.csv` | Tutorial data |
 | `data/ECJ_Energy_Lab6Activity.csv` | Activity data |
-| `slides/` | Lab slides and tutorial PDF |
+| `slides/` | Tutorial PDF |
 
 ## How to run
 
@@ -33,14 +33,18 @@ Labs are Colab-only — nothing to install.
 1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
 2. Click **Copy to Drive** before typing anything
 3. Run the setup cell at the top, then work down the notebook
-4. **File > Download > Download .ipynb**, then upload the activity to Gradescope
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope (optional, for feedback)
 
 Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- `lab06-activity.ipynb` with train and test R², downloaded as `.ipynb` and uploaded to Gradescope; lab quiz
+- `lab06-activity.ipynb` with train and test R², downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded); lab quiz
+
+The Gradescope submission is optional and does not count toward your grade. The lab quiz on
+Canvas is the graded item.
 
 ## References
 
+- Lab slides are posted on Canvas.
 - Lab 5 (sklearn regression) and Lab 4 (plotting)

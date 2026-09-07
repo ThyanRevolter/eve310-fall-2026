@@ -52,17 +52,20 @@ Lists vs arrays, zero-based indexing, importing a CSV, and why NaN-aware statist
 1. Click **Open in Colab** on a notebook above
 2. Click **Copy to Drive** *before you type anything*
 3. Run the setup cell at the top, then work down the notebook
-4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope
+4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope (optional, for feedback)
 
 [Full lab workflow]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 
 ## Deliverables
 
-- `lab02-activity.ipynb`, downloaded as `.ipynb` and uploaded to Gradescope
-- Lab quiz on Canvas (have `water_con` ready)
+- `lab02-activity.ipynb`, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded)
+- Lab quiz on Canvas (have `water_con` ready). This is the graded item.
 
-The activity notebook is auto-graded out of 100 points, one graded item per variable the
-exercises ask you to define. The autograder re-runs your notebook from a clean session, so use
+The Gradescope autograder reports feedback out of 100 points, one item per variable the
+exercises ask you to define, but the submission is optional and does not count toward your
+grade. The lab quiz on Canvas is the graded item. The autograder re-runs your notebook from a clean session, so use
 **Runtime > Restart session and run all** and confirm everything works top to bottom before
 you submit. Keep the variable names exactly as the starter cells give them, and replace every
 `--` placeholder. You can submit as many times as you like before the deadline.
+
+Lab slides are posted on Canvas.

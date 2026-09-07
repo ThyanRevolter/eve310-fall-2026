@@ -23,7 +23,6 @@ The same outlier-clean + monthly box plot workflow, first on one campus building
 | `notebooks/lab09-single-file.ipynb` | One building (DCP) |
 | `notebooks/lab09-multiple-files.ipynb` | All `water_*.csv` files |
 | `data/water_*.csv` | Campus building water series |
-| `slides/` | Lab slides |
 
 ## How to run
 
@@ -32,14 +31,18 @@ Labs are Colab-only — nothing to install.
 1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
 2. Click **Copy to Drive** before typing anything
 3. Run the setup cell at the top, then work down the notebook
-4. **File > Download > Download .ipynb**, then upload the activity to Gradescope
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope (optional, for feedback)
 
 Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- `lab09-multiple-files.ipynb` showing a figure written for each building, downloaded as `.ipynb` and uploaded to Gradescope; lab quiz on Canvas
+- `lab09-multiple-files.ipynb` showing a figure written for each building, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded); lab quiz on Canvas
+
+The Gradescope submission is optional and does not count toward your grade. The lab quiz on
+Canvas is the graded item.
 
 ## References
 
+- Lab slides are posted on Canvas.
 - Labs 4–6 (plotting, outliers, datetime handling)

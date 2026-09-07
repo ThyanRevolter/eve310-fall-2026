@@ -39,9 +39,9 @@ A GitHub Pages site is public on the web even if the repository is private. Cola
 ## Resources
 
 - [Canvas](https://utexas.instructure.com/courses/1450736) — assignments, due dates, quizzes, grades, and announcements
-- [Gradescope](https://www.gradescope.com/) — where completed lab activity notebooks are uploaded
+- [Gradescope](https://www.gradescope.com/) — optional upload of lab activity notebooks for autograder feedback (not graded)
 - [Lab workflow]({{ '/setup/' | relative_url }}) — Colab, Copy to Drive, and submitting a `.ipynb`
-- [Course repository](https://github.com/{{ site.github_repo }}) — lab notebooks, data, and slides
+- [Course repository](https://github.com/{{ site.github_repo }}) — lab notebooks and data (slides are on Canvas)
 
 ## Local preview of this site
 

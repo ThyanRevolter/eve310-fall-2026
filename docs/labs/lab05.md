@@ -52,11 +52,13 @@ Train/test splits, scikit-learn `LinearRegression`, R² and adjusted R², residu
 1. Click **Open in Colab** on a notebook above
 2. Click **Copy to Drive** *before you type anything*
 3. Run the setup cell at the top, then work down the notebook
-4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope
+4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope (optional, for feedback)
 
 [Full lab workflow]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 
 ## Deliverables
 
-- `lab05-activity.ipynb` with the questions answered, downloaded as `.ipynb` and uploaded to Gradescope
-- Lab quiz on Canvas
+- `lab05-activity.ipynb` with the questions answered, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded)
+- Lab quiz on Canvas. This is the graded item.
+
+Lab slides are posted on Canvas.

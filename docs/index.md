@@ -25,7 +25,7 @@ clustering, and linear optimization — implemented in Python.
 {: .important }
 > Labs run in **Google Colab** — nothing to install. Open the lab link, click **Copy to
 > Drive** before you type anything, then download the finished activity as `.ipynb` and
-> upload it to Gradescope. [Full walkthrough]({{ '/setup/' | relative_url }})
+> upload it to Gradescope for feedback (optional, not graded). [Full walkthrough]({{ '/setup/' | relative_url }})
 
 ---
 

@@ -21,7 +21,6 @@ Apply last week's loops to logistic-regression probabilities from lecture: sweep
 | Path | Description |
 | --- | --- |
 | `notebooks/lab08-activity.ipynb` | Threshold sweep (tutorial + activity) |
-| `slides/Lab_8-v2.pptx` | Lab slides |
 
 ## How to run
 
@@ -30,14 +29,18 @@ Labs are Colab-only — nothing to install.
 1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
 2. Click **Copy to Drive** before typing anything
 3. Run the setup cell at the top, then work down the notebook
-4. **File > Download > Download .ipynb**, then upload the activity to Gradescope
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope (optional, for feedback)
 
 Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- `lab08-activity.ipynb` with the precision/recall figure, downloaded as `.ipynb` and uploaded to Gradescope; lab quiz
+- `lab08-activity.ipynb` with the precision/recall figure, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded); lab quiz
+
+The Gradescope submission is optional and does not count toward your grade. The lab quiz on
+Canvas is the graded item.
 
 ## References
 
+- Lab slides are posted on Canvas.
 - Classification lectures on precision, recall, and threshold choice
