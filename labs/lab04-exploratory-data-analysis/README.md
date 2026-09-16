@@ -22,10 +22,12 @@ Convert dates, draw time series / histograms / box plots, save figures, and comp
 | --- | --- |
 | `notebooks/lab04-tutorial.ipynb` | Tutorial |
 | `notebooks/lab04-activity.ipynb` | In-lab activity |
-| `notebooks/debugging_exercise.py` | Short debugging script (intentional bugs) |
+| `notebooks/lab04-debugging.ipynb` | Debugging exercise: one cell with intentional bugs to fix in Colab |
+| `notebooks/debugging_exercise.py` | Script version of the same exercise (source of the notebook) |
 | `data/JES_Water_Lab4_Tutorial.csv` | Tutorial extract |
 | `data/JES_Water_Lab4_Activity.csv` | Activity extract |
 | `slides/` | matplotlib/SciPy cheat sheets |
+| `autograder/` | Gradescope autograder (staff only, not committed) |
 
 ## How to run
 
@@ -34,16 +36,24 @@ Labs are Colab-only — nothing to install.
 1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
 2. Click **Copy to Drive** before typing anything
 3. Run the setup cell at the top, then work down the notebook
-4. **File > Download > Download .ipynb**, then upload the activity to Gradescope (optional, for feedback)
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope for feedback
 
 Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- `lab04-activity.ipynb` with the saved histogram, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded); debugging script fixed; lab quiz on Canvas
+- Lab quiz on Canvas (have `water_df`, the three figures, and the Part F statistics ready). This is the graded item.
+- `lab04-activity.ipynb`, downloaded as `.ipynb` and uploaded to Gradescope. **This submission
+  is not graded** and does not count toward your final grade.
+- The debugging notebook is worked in lab and not submitted.
 
-The Gradescope submission is optional and does not count toward your grade. The lab quiz on
-Canvas is the graded item.
+The Gradescope autograder is there for feedback: it re-runs your notebook from a clean session
+and reports, part by part, whether the dataframe, each figure, the saved PDF, and each statistic
+are right. Use **Runtime > Restart session and run all** before you download, keep the variable
+names exactly as given in the starter cells (`fig1`, `fig2`, `fig3`, `water_iqr`, ...), and
+replace every `--` placeholder — a leftover `--` makes the whole cell fail. You can submit as
+many times as you like. The Canvas quiz asks about the values and plots you produce in the
+activity, so finish it before you take the quiz.
 
 ## References
 

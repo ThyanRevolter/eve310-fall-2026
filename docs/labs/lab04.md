@@ -43,9 +43,9 @@ Convert dates, draw time series / histograms / box plots, save figures, and comp
 
 {% include notebook.html path="labs/lab04-exploratory-data-analysis/notebooks/lab04-activity.ipynb" %}
 
-**`debugging_exercise.py`** — Short debugging script (intentional bugs)
+**`lab04-debugging.ipynb`** — Debugging exercise: one cell with intentional bugs to fix
 
-[GitHub](https://github.com/{{ site.github_repo }}/blob/{{ site.github_branch }}/labs/lab04-exploratory-data-analysis/notebooks/debugging_exercise.py){: .btn .btn-outline }
+{% include notebook.html path="labs/lab04-exploratory-data-analysis/notebooks/lab04-debugging.ipynb" %}
 
 ## Data
 
@@ -57,14 +57,23 @@ Convert dates, draw time series / histograms / box plots, save figures, and comp
 1. Click **Open in Colab** on a notebook above
 2. Click **Copy to Drive** *before you type anything*
 3. Run the setup cell at the top, then work down the notebook
-4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope (optional, for feedback)
+4. When you finish the activity: **File > Download > Download .ipynb**, then upload that file to Gradescope for feedback
 
 [Full lab workflow]({{ '/setup/' | relative_url }}){: .btn .btn-outline }
 
 ## Deliverables
 
-- `lab04-activity.ipynb` with the saved histogram, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded)
-- Debugging script fixed
-- Lab quiz on Canvas. This is the graded item.
+- Lab quiz on Canvas (have `water_df`, the three figures, and the Part F statistics ready). This is the graded item.
+- `lab04-activity.ipynb`, downloaded as `.ipynb` and uploaded to Gradescope. **This submission is
+  not graded** and does not count toward your final grade.
+- The debugging notebook is worked in lab and not submitted.
+
+The Gradescope autograder is there for feedback only. It re-runs your notebook from a clean
+session and reports, part by part, whether the dataframe, each figure, the saved PDF, and each
+statistic are right, so use **Runtime > Restart session and run all** and confirm everything works
+top to bottom before you download. Keep the variable names exactly as the starter cells give them
+(`fig1`, `fig2`, `fig3`, `water_iqr`, ...), and replace every `--` placeholder. You can submit as
+many times as you like. The Canvas quiz asks about the values and plots you produce in the
+activity, so finish it before you take the quiz.
 
 Lab slides are posted on Canvas.
