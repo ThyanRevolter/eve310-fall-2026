@@ -23,7 +23,6 @@ Convert dates, draw time series / histograms / box plots, save figures, and comp
 | `notebooks/lab04-tutorial.ipynb` | Tutorial |
 | `notebooks/lab04-activity.ipynb` | In-lab activity |
 | `notebooks/lab04-debugging.ipynb` | Debugging exercise: one cell with intentional bugs to fix in Colab |
-| `notebooks/debugging_exercise.py` | Script version of the same exercise (source of the notebook) |
 | `data/JES_Water_Lab4_Tutorial.csv` | Tutorial extract |
 | `data/JES_Water_Lab4_Activity.csv` | Activity extract |
 | `slides/` | matplotlib/SciPy cheat sheets |

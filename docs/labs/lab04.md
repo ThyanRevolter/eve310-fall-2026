@@ -1,13 +1,13 @@
 ---
 layout: page
-title: Lab 04 · Plotting and EDA
+title: Lab 04 · Plotting and Exploratory Data Analysis
 parent: Labs
 nav_order: 4
 permalink: /labs/lab04/
 description: Time series, histograms, box plots, and descriptive statistics.
 ---
 
-# Lab 04 · Plotting and EDA
+# Lab 04 · Plotting and Exploratory Data Analysis
 {: .no_toc }
 
 **Module 1**
