@@ -22,8 +22,9 @@ Train/test splits, scikit-learn `LinearRegression`, R² and adjusted R², residu
 | --- | --- |
 | `notebooks/lab05-tutorial.ipynb` | Worked sklearn tutorial |
 | `notebooks/lab05-traffic-example.ipynb` | Same data with NumPy and seaborn |
-| `notebooks/lab05-activity.ipynb` | Coefficient / split / random_state questions |
+| `notebooks/lab05-activity.ipynb` | In-lab activity: coefficients, a 60/40 split, and `random_state` |
 | `figures/Image.png` | Adjusted-R² slide image from 2025 |
+| `autograder/` | Gradescope autograder (staff only, not committed) |
 
 ## How to run
 
@@ -32,16 +33,23 @@ Labs are Colab-only — nothing to install.
 1. Open the notebook in Colab from the [course website](https://thyanrevolter.github.io/eve310-fall-2026/labs/)
 2. Click **Copy to Drive** before typing anything
 3. Run the setup cell at the top, then work down the notebook
-4. **File > Download > Download .ipynb**, then upload the activity to Gradescope (optional, for feedback)
+4. **File > Download > Download .ipynb**, then upload the activity to Gradescope for feedback
 
 Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- `lab05-activity.ipynb` with the questions answered, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded); lab quiz on Canvas
+- Lab quiz on Canvas (have the activity's models fit and Questions 1–4 run). This is the graded item.
+- `lab05-activity.ipynb`, downloaded as `.ipynb` and uploaded to Gradescope. **This submission
+  is not graded** and does not count toward your final grade.
 
-The Gradescope submission is optional and does not count toward your grade. The lab quiz on
-Canvas is the graded item.
+The Gradescope autograder is there for feedback: it re-runs your notebook from a clean session
+and reports, question by question, whether the intercepts, slopes, betas, R² values, and test
+sets are right. Use **Runtime > Restart session and run all** before you download, keep the
+variable names exactly as given in the starter cells (`intercept_uni`, `betas_cat`,
+`r2_test_adj_60`, `slopes_no_seed`, ...), and replace every `--` placeholder — a leftover `--`
+makes the whole cell fail. You can submit as many times as you like. The Canvas quiz asks about
+the values you compute in the activity, so finish it before you take the quiz.
 
 ## References
 
