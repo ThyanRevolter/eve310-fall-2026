@@ -25,7 +25,7 @@ description: sklearn LinearRegression, R², residuals, and one-hot encoding.
 
 ## Overview
 
-Train/test splits, scikit-learn `LinearRegression`, R² and adjusted R², residual plots, and one-hot encoding of a categorical predictor (work status) on the lecture traffic example.
+Train/test splits, scikit-learn `LinearRegression`, R² and adjusted R², residual plots, and one-hot encoding of a categorical predictor (work status) on a traffic example (people per household vs daily trips) that Lecture 10 revisits.
 
 ## Learning objectives
 
@@ -39,7 +39,7 @@ Train/test splits, scikit-learn `LinearRegression`, R² and adjusted R², residu
 
 {% include notebook.html path="labs/lab05-linear-regression/notebooks/lab05-tutorial.ipynb" %}
 
-**`lab05-traffic-example.ipynb`** — Same data with NumPy and seaborn
+**`lab05-traffic-example.ipynb`** — Same data with NumPy and seaborn (Lecture 10's code, as a preview)
 
 {% include notebook.html path="labs/lab05-linear-regression/notebooks/lab05-traffic-example.ipynb" %}
 

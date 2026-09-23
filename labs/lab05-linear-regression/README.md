@@ -4,7 +4,7 @@
 
 ## Overview
 
-Train/test splits, scikit-learn `LinearRegression`, R² and adjusted R², residual plots, and one-hot encoding of a categorical predictor (work status) on the lecture traffic example.
+Train/test splits, scikit-learn `LinearRegression`, R² and adjusted R², residual plots, and one-hot encoding of a categorical predictor (work status) on a traffic example (people per household vs daily trips) that Lecture 10 revisits.
 
 ## Learning objectives
 
@@ -21,7 +21,7 @@ Train/test splits, scikit-learn `LinearRegression`, R² and adjusted R², residu
 | Path | Description |
 | --- | --- |
 | `notebooks/lab05-tutorial.ipynb` | Worked sklearn tutorial |
-| `notebooks/lab05-traffic-example.ipynb` | Same data with NumPy and seaborn |
+| `notebooks/lab05-traffic-example.ipynb` | Same data with NumPy and seaborn (Lecture 10's code, as a preview) |
 | `notebooks/lab05-activity.ipynb` | In-lab activity: coefficients, a 60/40 split, and `random_state` |
 | `figures/Image.png` | Adjusted-R² slide image from 2025 |
 | `autograder/` | Gradescope autograder (staff only, not committed) |
@@ -54,4 +54,4 @@ the values you compute in the activity, so finish it before you take the quiz.
 ## References
 
 - Lab slides are posted on Canvas.
-- Lecture linear-regression notes; `lab05-traffic-example.ipynb`
+- Lectures 8–9: univariate linear regression (train/test split, least squares, residuals); `lab05-traffic-example.ipynb` previews Lecture 10's traffic example
