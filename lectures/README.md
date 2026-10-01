@@ -12,6 +12,7 @@ cell as it comes up. The code is complete: there is nothing to fill in and nothi
 | --- | --- | --- | --- |
 | `notebooks/linear-algebra-review.ipynb` | 2 | Vectors and matrices in NumPy, `reshape`, dot and element-wise products | [Colab](https://colab.research.google.com/github/ThyanRevolter/eve310-fall-2026/blob/main/lectures/notebooks/linear-algebra-review.ipynb) |
 | `notebooks/linear-regression-traffic-example.ipynb` | 2 | `np.polyfit`, scikit-learn `LinearRegression`, R², residual plot | [Colab](https://colab.research.google.com/github/ThyanRevolter/eve310-fall-2026/blob/main/lectures/notebooks/linear-regression-traffic-example.ipynb) |
+| `notebooks/multivariate-linear-regression.ipynb` | 2 | Normal equations in NumPy with three features, prediction, residual plot, R² from SSE and SST | [Colab](https://colab.research.google.com/github/ThyanRevolter/eve310-fall-2026/blob/main/lectures/notebooks/multivariate-linear-regression.ipynb) |
 
 ## Following along
 

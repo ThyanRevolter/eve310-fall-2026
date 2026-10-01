@@ -35,6 +35,7 @@ complete: there is nothing to fill in and nothing to submit.
 | --- | --- | --- | --- |
 | [Linear algebra review](#linear-algebra-review) | 2 | Vectors and matrices in NumPy, `reshape`, dot and element-wise products | [open](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/lectures/notebooks/linear-algebra-review.ipynb){:target="_blank" rel="noopener"} |
 | [Linear regression traffic example](#traffic-example) | 2 | `np.polyfit`, scikit-learn `LinearRegression`, R², residual plot | [open](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/lectures/notebooks/linear-regression-traffic-example.ipynb){:target="_blank" rel="noopener"} |
+| [Multivariate linear regression](#multivariate-regression) | 2 | Normal equations in NumPy with three features, prediction, residual plot, R² from SSE and SST | [open](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/lectures/notebooks/multivariate-linear-regression.ipynb){:target="_blank" rel="noopener"} |
 
 ## Follow along in lecture
 
@@ -81,6 +82,21 @@ households. The notebook fits the same line with `np.polyfit` and with scikit-le
 
 {% include notebook.html path="lectures/notebooks/linear-regression-traffic-example.ipynb" %}
 
+## Multivariate linear regression
+{: #multivariate-regression }
+
+**Module 2** · `multivariate-linear-regression.ipynb`
+
+The water quality example with three features: temperature, dissolved oxygen, and flow rate for
+five samples, used to predict the downstream concentration. The notebook builds the matrix `X`
+with a column of ones, computes the coefficients with the normal equations in NumPy, predicts a
+new sample, plots predicted vs observed values and the residuals, and computes R² from SSE and SST.
+
+- Run the cell that adds the column of ones only once. Each run adds one more column, and the normal equations then fail. To recover, run the cell above it (`X = np.c_[Temp,DO,Flow]`), then that cell once.
+- The model has 4 coefficients and only 5 samples, so its high R² says little about new samples.
+
+{% include notebook.html path="lectures/notebooks/multivariate-linear-regression.ipynb" %}
+
 ## If something goes wrong
 
 | Symptom | Fix |
@@ -88,5 +104,6 @@ households. The notebook fits the same line with `np.polyfit` and with scikit-le
 | `NameError: name 'np' is not defined` (or `x`, `plt`, ...) | A cell was skipped, or the runtime restarted. Run the cells again from the top, one at a time. |
 | `ValueError` in the linear algebra review | Expected, if the cell is marked **Expect an error**. Go on to the next cell. |
 | `TypeError: expected 1D vector for x` in the traffic example | A NumPy cell ran after the scikit-learn cell. Run the cell that creates the two arrays, then the NumPy cell. |
+| `LinAlgError: Singular matrix`, or coefficients that make no sense, in multivariate linear regression | The cell that adds the column of ones ran twice. Run the cell above it (`X = np.c_[Temp,DO,Flow]`), then the column of ones cell once. |
 | Your changes are gone | The notebook was never copied to Drive. Click **Copy to Drive** first next time, and look in `Colab Notebooks` in your Drive for the copy. |
 | Colab opened on the wrong account | Sign out of all Google accounts, sign back in with your UT EID account, and reopen the link. |
