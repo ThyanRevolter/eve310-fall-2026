@@ -25,13 +25,13 @@ description: If statements and for loops over array indices.
 
 ## Overview
 
-Logical operators, `if`/`else`, and `for` loops over array indices. These are the tools used next week to sweep a classification threshold.
+Logical operators, `if`/`elif`/`else`, and `for` loops over array indices, ending with the loop-plus-if pattern (largest so far, a count, a running total). These are the tools used next week to sweep a classification threshold. A short lab, by design.
 
 ## Learning objectives
 
-1. Write logical comparisons and if/else blocks
-2. Iterate with `for i in range(...)`
-3. Combine a loop and a conditional to compute min/max/sum
+1. Write logical comparisons, combine them with `and` / `or`, and write if/elif/else blocks
+2. Iterate with `for i in range(len(...))`
+3. Combine a loop and a conditional to find a minimum, add values up, and count values past a threshold
 
 ## Notebooks
 
@@ -39,7 +39,7 @@ Logical operators, `if`/`else`, and `for` loops over array indices. These are th
 
 {% include notebook.html path="labs/lab07-control-flow/notebooks/lab07-tutorial.ipynb" %}
 
-**`lab07-activity.ipynb`** — Min and sum via loops
+**`lab07-activity.ipynb`** — Three short loops: minimum and its index, sum and mean, outlier counts
 
 {% include notebook.html path="labs/lab07-control-flow/notebooks/lab07-activity.ipynb" %}
 

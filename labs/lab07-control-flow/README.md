@@ -4,13 +4,13 @@
 
 ## Overview
 
-Logical operators, `if`/`else`, and `for` loops over array indices. These are the tools used next week to sweep a classification threshold.
+Logical operators, `if`/`elif`/`else`, and `for` loops over array indices, ending with the loop-plus-if pattern (largest so far, a count, a running total). These are the tools used next week to sweep a classification threshold. A short lab, by design.
 
 ## Learning objectives
 
-1. Write logical comparisons and if/else blocks
-2. Iterate with `for i in range(...)`
-3. Combine a loop and a conditional to compute min/max/sum
+1. Write logical comparisons, combine them with `and` / `or`, and write if/elif/else blocks
+2. Iterate with `for i in range(len(...))`
+3. Combine a loop and a conditional to find a minimum, add values up, and count values past a threshold
 
 ## What to bring
 
@@ -21,7 +21,7 @@ Logical operators, `if`/`else`, and `for` loops over array indices. These are th
 | Path | Description |
 | --- | --- |
 | `notebooks/lab07-tutorial.ipynb` | Tutorial |
-| `notebooks/lab07-activity.ipynb` | Min and sum via loops |
+| `notebooks/lab07-activity.ipynb` | Three loops over a seeded random array: minimum and its index, sum and mean, outlier counts with `if` / `elif` |
 
 ## How to run
 
@@ -36,7 +36,7 @@ Full walkthrough: [`docs/setup.md`](../../docs/setup.md).
 
 ## Deliverables
 
-- `lab07-activity.ipynb`, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded); lab quiz on Canvas
+- `lab07-activity.ipynb` with `min_val`, `loop_sum` and `n_outliers`, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded); lab quiz on Canvas
 
 The Gradescope submission is optional and does not count toward your grade. The lab quiz on
 Canvas is the graded item.
@@ -44,4 +44,4 @@ Canvas is the graded item.
 ## References
 
 - Lab slides are posted on Canvas.
-- Lab 2 indexing review
+- Lab 2 (indexing) and Lab 6 (the 3 standard deviation rule the activity re-counts by hand)
