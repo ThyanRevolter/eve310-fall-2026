@@ -94,14 +94,15 @@ h1 { margin: 0; font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 600; line-he
 .cm .cell .n { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 500; line-height: 1.2; font-variant-numeric: tabular-nums; }
 .cm .cell .w { color: var(--fg-2); font-size: 0.8rem; }
 .sum { margin: 10px 0 0; color: var(--fg-3); font-size: 0.85rem; }
-.tiles { display: grid; gap: 10px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-@media (max-width: 520px) { .tiles { grid-template-columns: 1fr; } }
-.tile { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: grid; gap: 2px; min-width: 0; }
-.tile .k { font-weight: 600; font-size: 0.9rem; }
-.tile .f { font-family: var(--font-mono); font-size: 0.78rem; color: var(--fg-2); white-space: nowrap; overflow-x: auto; }
-.tile .v { font-family: var(--font-mono); font-size: 1.7rem; font-weight: 500; line-height: 1.2; font-variant-numeric: tabular-nums; }
-.tile .q { color: var(--fg-2); font-size: 0.8rem; }
-.tile .note { color: var(--accent-ink); font-size: 0.78rem; }
+/* one score per row: name, formula and question on the left, the value on the right */
+.tiles { display: grid; gap: 10px; grid-template-columns: 1fr; }
+.tile { border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; display: grid; min-width: 0;
+  grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "k v" "f v" "q v" "n n"; column-gap: 16px; row-gap: 2px; align-items: center; }
+.tile .k { grid-area: k; font-weight: 600; font-size: 0.95rem; }
+.tile .f { grid-area: f; font-family: var(--font-mono); font-size: 0.85rem; color: var(--fg); }
+.tile .v { grid-area: v; font-family: var(--font-mono); font-size: 1.9rem; font-weight: 500; line-height: 1.1; font-variant-numeric: tabular-nums; text-align: right; }
+.tile .q { grid-area: q; color: var(--fg-2); font-size: 0.8rem; }
+.tile .note { grid-area: n; color: var(--accent-ink); font-size: 0.78rem; padding-top: 4px; }
 .try { display: grid; gap: 10px; }
 .try ol { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; max-width: 70ch; }
 .try li::marker { color: var(--accent-ink); font-weight: 600; }
