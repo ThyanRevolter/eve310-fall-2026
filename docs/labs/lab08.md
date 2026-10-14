@@ -4,7 +4,7 @@ title: Lab 08 · Classification thresholds
 parent: Labs
 nav_order: 8
 permalink: /labs/lab08/
-description: Sweep a decision threshold and plot precision vs recall.
+description: Turn probabilities into labels with a threshold, count the four outcomes, and sweep the threshold with a for loop.
 ---
 
 # Lab 08 · Classification thresholds
@@ -25,17 +25,22 @@ description: Sweep a decision threshold and plot precision vs recall.
 
 ## Overview
 
-Apply last week's loops to logistic-regression probabilities from lecture: sweep the decision threshold and plot precision vs recall.
+Last week's loops get their first real job: a classification model gives each well a probability, a threshold turns it into a yes/no label, and a for loop tries every threshold. The tutorial counts the four outcomes (true and false positives, true and false negatives) with a loop and an if, computes precision and recall from the counts, checks them against scikit-learn, and sweeps a grid of thresholds to plot precision and recall. The activity does the same for all 643 wells of the Long Island TCE study from lecture and chooses a threshold from a stated requirement. Another short lab, by design.
 
 ## Learning objectives
 
-1. Convert probabilities to labels with a threshold
-2. Loop over a grid of thresholds
-3. Plot precision and recall against threshold
+1. Turn a model's predicted probabilities into labels with a threshold
+2. Count the four classification outcomes with a loop and an if, and compute precision and recall from them
+3. Sweep a grid of thresholds with a for loop and plot precision and recall against the threshold
+4. Choose a threshold from what each kind of mistake costs
 
 ## Notebooks
 
-**`lab08-activity.ipynb`** — Threshold sweep (tutorial + activity)
+**`lab08-tutorial.ipynb`** — Tutorial, typed along in lab
+
+{% include notebook.html path="labs/lab08-classification-thresholds/notebooks/lab08-tutorial.ipynb" %}
+
+**`lab08-activity.ipynb`** — Three questions on the 643 wells: the four counts at a threshold of 0.3, a 21-threshold sweep with its plot, and the threshold that meets a recall requirement
 
 {% include notebook.html path="labs/lab08-classification-thresholds/notebooks/lab08-activity.ipynb" %}
 
@@ -50,7 +55,7 @@ Apply last week's loops to logistic-regression probabilities from lecture: sweep
 
 ## Deliverables
 
-- `lab08-activity.ipynb` with the precision/recall figure, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded)
+- `lab08-activity.ipynb` with the four counts, precision and recall, the sweep arrays and figure, and the chosen threshold, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded)
 - Lab quiz on Canvas. This is the graded item.
 
 Lab slides are posted on Canvas.
