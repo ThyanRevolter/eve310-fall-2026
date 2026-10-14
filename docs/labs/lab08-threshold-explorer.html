@@ -21,6 +21,7 @@
   --nodetect: #2a78d6;
   --ok-bg: #e4f1e7;
   --bad-bg: #fbe9e5;
+  --shadow: 0 4px 14px rgba(20, 24, 32, 0.10);
   --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
@@ -29,6 +30,7 @@
     --bg: #15161a; --surface: #1f2026; --fg: #ebecef; --fg-2: #b4b7be; --fg-3: #7f838c; --line: #34363d;
     --accent: #f08a3e; --accent-soft: rgba(240, 138, 62, 0.16); --accent-ink: #f6a56a;
     --detect: #e66767; --nodetect: #3987e5; --ok-bg: #1d3226; --bad-bg: #3b2320;
+    --shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
     color-scheme: dark;
   }
 }
@@ -36,11 +38,15 @@
   --bg: #15161a; --surface: #1f2026; --fg: #ebecef; --fg-2: #b4b7be; --fg-3: #7f838c; --line: #34363d;
   --accent: #f08a3e; --accent-soft: rgba(240, 138, 62, 0.16); --accent-ink: #f6a56a;
   --detect: #e66767; --nodetect: #3987e5; --ok-bg: #1d3226; --bad-bg: #3b2320;
+  --shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
-.page { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 40px; display: grid; gap: 20px; }
+/* flex, not grid: a sticky child of a grid is pinned inside its own row, a sticky child of a flex column rides the whole page */
+.page { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 40px; display: flex; flex-direction: column; gap: 20px; }
+.page > * { min-width: 0; }
+.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; box-shadow: var(--shadow); }
 header { display: grid; gap: 6px; }
 .eyebrow { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink); font-weight: 600; }
 h1 { margin: 0; font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 600; line-height: 1.15; text-wrap: balance; }
@@ -63,6 +69,7 @@ h1 { margin: 0; font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 600; line-he
 .slider input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
 .readout { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 500; min-width: 3.2ch; text-align: right; font-variant-numeric: tabular-nums; }
 .presets { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; color: var(--fg-3); font-size: 0.85rem; }
+@media (max-width: 720px) { .presets .hint { display: none; } .controls { padding-block: 10px; } }
 .presets button { font: inherit; font-family: var(--font-mono); padding: 4px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--fg); cursor: pointer; }
 .presets button:hover { border-color: var(--accent); }
 .presets button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -130,10 +137,10 @@ footer a, .try a { color: var(--accent-ink); }
       <input type="range" id="thr" min="0" max="1" step="0.01" value="0.5" aria-describedby="thr-help">
       <output class="readout" id="thr-out" for="thr">0.50</output>
       <div class="presets" id="thr-help">
-        <span>A well is flagged when its probability is <em>above</em> the threshold. Jump to</span>
+        <span class="hint">A well is flagged when its probability is <em>above</em> the threshold. Jump to</span>
         <button type="button" data-t="0.5">0.50</button>
         <button type="button" data-t="0.3">0.30</button>
-        <span>or use the arrow keys.</span>
+        <span class="hint">or use the arrow keys. The controls stay put while you scroll.</span>
       </div>
     </div>
   </section>
