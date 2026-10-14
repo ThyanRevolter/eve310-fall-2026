@@ -34,6 +34,12 @@ Last week's loops get their first real job: a classification model gives each we
 3. Sweep a grid of thresholds with a for loop and plot precision and recall against the threshold
 4. Choose a threshold from what each kind of mistake costs
 
+## Threshold explorer
+
+Slide a threshold over the Long Island wells and watch the four outcomes, precision and recall change. Open it beside the tutorial.
+
+[Open the threshold explorer]({{ '/labs/lab08-threshold-explorer.html' | relative_url }}){: .btn .btn-purple target="_blank" rel="noopener"}
+
 ## Notebooks
 
 **`lab08-tutorial.ipynb`** — Tutorial, typed along in lab

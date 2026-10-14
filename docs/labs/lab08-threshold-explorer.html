@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TCE Threshold Explorer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a control strip, the well plot full width, then the four outcomes and the metrics beside the sweep chart; everything stacks to one column on a phone. */
+:root {
+  --bg: #f4f5f7;
+  --surface: #ffffff;
+  --fg: #1b1d22;
+  --fg-2: #555962;
+  --fg-3: #858a94;
+  --line: #dcdfe5;
+  --accent: #bf5700;
+  --accent-soft: rgba(191, 87, 0, 0.10);
+  --accent-ink: #9a4600;
+  --detect: #e34948;
+  --nodetect: #2a78d6;
+  --ok-bg: #e4f1e7;
+  --bad-bg: #fbe9e5;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15161a; --surface: #1f2026; --fg: #ebecef; --fg-2: #b4b7be; --fg-3: #7f838c; --line: #34363d;
+    --accent: #f08a3e; --accent-soft: rgba(240, 138, 62, 0.16); --accent-ink: #f6a56a;
+    --detect: #e66767; --nodetect: #3987e5; --ok-bg: #1d3226; --bad-bg: #3b2320;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15161a; --surface: #1f2026; --fg: #ebecef; --fg-2: #b4b7be; --fg-3: #7f838c; --line: #34363d;
+  --accent: #f08a3e; --accent-soft: rgba(240, 138, 62, 0.16); --accent-ink: #f6a56a;
+  --detect: #e66767; --nodetect: #3987e5; --ok-bg: #1d3226; --bad-bg: #3b2320;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+.page { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 40px; display: grid; gap: 20px; }
+header { display: grid; gap: 6px; }
+.eyebrow { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink); font-weight: 600; }
+h1 { margin: 0; font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 600; line-height: 1.15; text-wrap: balance; }
+.lede { margin: 0; max-width: 64ch; color: var(--fg-2); font-size: 1.02rem; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; min-width: 0; }
+.panel h2 { margin: 0 0 2px; font-size: 1rem; font-weight: 600; }
+.panel .sub { margin: 0 0 12px; color: var(--fg-2); font-size: 0.9rem; }
+.controls { display: grid; gap: 16px; grid-template-columns: auto 1fr; align-items: center; }
+@media (max-width: 720px) { .controls { grid-template-columns: 1fr; } }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg label { position: relative; }
+.seg input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.seg span { display: block; padding: 8px 14px; font-size: 0.9rem; font-weight: 500; color: var(--fg-2); background: var(--surface); cursor: pointer; }
+.seg label + label span { border-left: 1px solid var(--line); }
+.seg input:checked + span { background: var(--accent-soft); color: var(--accent-ink); }
+.seg input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: -2px; }
+.slider { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; min-width: 0; }
+.slider label { font-weight: 500; }
+.slider input[type=range] { width: 100%; accent-color: var(--accent); min-width: 0; }
+.slider input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+.readout { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 500; min-width: 3.2ch; text-align: right; font-variant-numeric: tabular-nums; }
+.presets { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; color: var(--fg-3); font-size: 0.85rem; }
+.presets button { font: inherit; font-family: var(--font-mono); padding: 4px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--fg); cursor: pointer; }
+.presets button:hover { border-color: var(--accent); }
+.presets button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.chart { position: relative; width: 100%; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.tip { position: absolute; pointer-events: none; background: var(--fg); color: var(--bg); font-size: 0.8rem; line-height: 1.35; padding: 6px 9px; border-radius: 6px; max-width: 240px; z-index: 2; white-space: nowrap; }
+.tip b { font-weight: 600; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 8px; font-size: 0.85rem; color: var(--fg-2); align-items: center; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+.legend i.sq { border-radius: 2px; width: 14px; height: 10px; }
+.legend i.ln { width: 16px; height: 2px; border-radius: 1px; vertical-align: 3px; }
+.two { display: grid; gap: 20px; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); }
+@media (max-width: 860px) { .two { grid-template-columns: 1fr; } }
+.stack { display: grid; gap: 20px; min-width: 0; }
+.cm { display: grid; grid-template-columns: auto 1fr 1fr; gap: 6px; font-size: 0.85rem; }
+.cm .h { color: var(--fg-2); align-self: end; padding: 0 4px 4px; }
+.cm .h.top { text-align: center; }
+.cm .r { color: var(--fg-2); align-self: center; padding-right: 6px; line-height: 1.25; }
+.cm .cell { border-radius: 8px; padding: 10px 12px; display: grid; gap: 0; background: var(--ok-bg); }
+.cm .cell.bad { background: var(--bad-bg); }
+.cm .cell .k { font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-2); font-weight: 600; }
+.cm .cell .n { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 500; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.cm .cell .w { color: var(--fg-2); font-size: 0.8rem; }
+.sum { margin: 10px 0 0; color: var(--fg-3); font-size: 0.85rem; }
+.tiles { display: grid; gap: 10px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 520px) { .tiles { grid-template-columns: 1fr; } }
+.tile { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: grid; gap: 2px; min-width: 0; }
+.tile .k { font-weight: 600; font-size: 0.9rem; }
+.tile .f { font-family: var(--font-mono); font-size: 0.78rem; color: var(--fg-2); white-space: nowrap; overflow-x: auto; }
+.tile .v { font-family: var(--font-mono); font-size: 1.7rem; font-weight: 500; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.tile .q { color: var(--fg-2); font-size: 0.8rem; }
+.tile .note { color: var(--accent-ink); font-size: 0.78rem; }
+.try { display: grid; gap: 10px; }
+.try ol { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; max-width: 70ch; }
+.try li::marker { color: var(--accent-ink); font-weight: 600; }
+code { font-family: var(--font-mono); font-size: 0.88em; background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+details summary { cursor: pointer; font-weight: 600; }
+details summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.tablewrap { overflow-x: auto; margin-top: 10px; }
+table { border-collapse: collapse; font-size: 0.85rem; min-width: 560px; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { text-align: right; padding: 5px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { color: var(--fg-2); font-weight: 600; }
+th:first-child, td:first-child { text-align: left; }
+tr.flag td { background: var(--accent-soft); }
+footer { color: var(--fg-3); font-size: 0.8rem; max-width: 80ch; }
+footer a, .try a { color: var(--accent-ink); }
+@media (prefers-reduced-motion: no-preference) { .cm .cell, tr td { transition: background-color 150ms; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="eyebrow">EVE 310 · Lab 8 · Classification thresholds</div>
+    <h1>TCE Threshold Explorer</h1>
+    <p class="lede">A logistic regression gives every Long Island well a probability that trichloroethylene (TCE) is above 3 ppb. The model does not say yes or no. A threshold does. Slide it and watch the four outcomes, precision and recall change.</p>
+  </header>
+
+  <section class="panel controls" aria-label="Controls">
+    <div class="seg" role="radiogroup" aria-label="Data set">
+      <label><input type="radio" name="dataset" id="ds-ten" value="ten" checked><span>10 testing wells (tutorial)</span></label>
+      <label><input type="radio" name="dataset" id="ds-all" value="all"><span>All 643 wells (activity)</span></label>
+    </div>
+    <div class="slider">
+      <label for="thr">Threshold</label>
+      <input type="range" id="thr" min="0" max="1" step="0.01" value="0.5" aria-describedby="thr-help">
+      <output class="readout" id="thr-out" for="thr">0.50</output>
+      <div class="presets" id="thr-help">
+        <span>A well is flagged when its probability is <em>above</em> the threshold. Jump to</span>
+        <button type="button" data-t="0.5">0.50</button>
+        <button type="button" data-t="0.3">0.30</button>
+        <span>or use the arrow keys.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Where each well sits</h2>
+    <p class="sub" id="wells-sub">Model probability of a detection for each well. Everything right of the line is flagged.</p>
+    <div class="chart" id="wells-chart"></div>
+    <div class="legend">
+      <span><i style="background: var(--detect)"></i>True detection (y = 1)</span>
+      <span><i style="background: var(--nodetect)"></i>No detection (y = 0)</span>
+      <span><i class="sq" style="background: var(--accent-soft); border: 1px solid var(--accent)"></i>Flagged: probability above the threshold</span>
+    </div>
+  </section>
+
+  <div class="two">
+    <div class="stack">
+      <section class="panel">
+        <h2>The four outcomes</h2>
+        <p class="sub">True label down the side, the threshold's decision across the top.</p>
+        <div class="cm" id="cm">
+          <div></div>
+          <div class="h top">Flagged (predicted 1)</div>
+          <div class="h top">Not flagged (predicted 0)</div>
+          <div class="r">True 1<br>detection</div>
+          <div class="cell" id="c-tp"><span class="k">TP · true positive</span><span class="n">0</span><span class="w">caught</span></div>
+          <div class="cell bad" id="c-fn"><span class="k">FN · false negative</span><span class="n">0</span><span class="w">missed</span></div>
+          <div class="r">True 0<br>no detection</div>
+          <div class="cell bad" id="c-fp"><span class="k">FP · false positive</span><span class="n">0</span><span class="w">false alarm</span></div>
+          <div class="cell" id="c-tn"><span class="k">TN · true negative</span><span class="n">0</span><span class="w">left alone</span></div>
+        </div>
+        <p class="sum" id="cm-sum"></p>
+      </section>
+
+      <section class="panel">
+        <h2>From counts to scores</h2>
+        <p class="sub">Each score is one fraction of the counts above.</p>
+        <div class="tiles">
+          <div class="tile" id="t-prec">
+            <span class="k">Precision</span>
+            <span class="f">TP / (TP + FP)</span>
+            <span class="v">–</span>
+            <span class="q">Of the flagged wells, how many are real detections?</span>
+            <span class="note" hidden>Nothing is flagged, so this is 0 / 0. The lab reports 1 (<code>zero_division=1</code>).</span>
+          </div>
+          <div class="tile" id="t-rec">
+            <span class="k">Recall</span>
+            <span class="f">TP / (TP + FN)</span>
+            <span class="v">–</span>
+            <span class="q">Of the real detections, how many did we catch?</span>
+          </div>
+          <div class="tile" id="t-acc">
+            <span class="k">Accuracy</span>
+            <span class="f">(TP + TN) / all</span>
+            <span class="v">–</span>
+            <span class="q">Right answers of both kinds. Misleading when one class is rare.</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel">
+      <h2>Every threshold at once</h2>
+      <p class="sub">The sweep the lab's for loop computes. Click or drag on the chart to move the threshold.</p>
+      <div class="chart" id="sweep-chart"></div>
+      <div class="legend">
+        <span><i class="ln" style="background: var(--nodetect)"></i>Precision</span>
+        <span><i class="ln" style="background: var(--detect)"></i>Recall</span>
+        <span><i class="ln" style="background: var(--accent)"></i>Current threshold</span>
+      </div>
+    </section>
+  </div>
+
+  <section class="panel try">
+    <h2>Try this</h2>
+    <ol>
+      <li>On the ten testing wells, start at 0.50: three wells are flagged, two of them real, and three detections are missed. Precision 0.667, recall 0.4, the numbers from Lecture 16. Now drag to 0.30. Two more wells are flagged, both real detections. Both scores rise to 0.8.</li>
+      <li>Drag the threshold up slowly and watch recall. It only ever steps down or stays flat: removing a flag either drops a false alarm (recall unchanged) or loses a real detection (recall down). Precision tends to rise, but it can dip when a real detection loses its flag before a false alarm does.</li>
+      <li>Switch to all 643 wells and drag past 0.82. Nothing is flagged. Recall is 0, and precision shows 1 only because of the <code>zero_division=1</code> convention.</li>
+      <li>A missed detection leaves people drinking contaminated water. A false alarm costs one more lab test. Which way should a county move the threshold, and which score does it give up to get there?</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <details id="table-details">
+      <summary>The wells as a table, at this threshold</summary>
+      <div class="tablewrap"><table id="table"><thead><tr><th>Probability</th><th>Density (persons / acre)</th><th>Wells</th><th>Detections</th><th>Flagged?</th><th>Outcomes</th></tr></thead><tbody></tbody></table></div>
+    </details>
+  </section>
+
+  <footer>Data: TCE detections in shallow groundwater on Long Island, NY, against population density near the well (Eckhardt et al., 1989), as tabulated in Helsel and Hirsch, <em>Statistical Methods in Water Resources</em>, example 15.1. The probabilities come from the logistic regression of Lecture 16; the ten testing wells are that lecture's test set, as typed in the <a href="https://thyanrevolter.github.io/eve310-fall-2026/labs/lab08/">Lab 8 tutorial</a>.</footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  // ---------------------------------------------------------------- data
+  // Each group: p = model probability of a detection, d = population density, n = wells, k = true detections.
+  const TEN = {
+    name: 'the 10 testing wells',
+    groups: [
+      [2, 0, 0.087], [5, 0, 0.158], [11, 1, 0.42], [13, 1, 0.532], [6, 0, 0.191],
+      [3, 0, 0.107], [16, 0, 0.690], [5, 1, 0.159], [18, 1, 0.777], [11, 1, 0.42],
+    ].map(function (w, i) { return { p: w[2], d: w[0], n: 1, k: w[1], well: i + 1 }; }),
+  };
+  const ALL = {
+    name: 'all 643 wells',
+    groups: [
+      [1, 149, 1, 0.071], [2, 84, 4, 0.087], [3, 98, 10, 0.107], [5, 111, 25, 0.158],
+      [6, 44, 11, 0.190], [8, 32, 8, 0.270], [9, 43, 29, 0.316], [11, 50, 19, 0.421],
+      [13, 11, 6, 0.533], [14, 13, 2, 0.588], [17, 7, 2, 0.738], [19, 1, 0, 0.815],
+    ].map(function (g) { return { p: g[3], d: g[0], n: g[1], k: g[2] }; }),
+  };
+
+  function outcomes(groups, t) {
+    var tp = 0, fp = 0, fn = 0, tn = 0;
+    groups.forEach(function (g) {
+      if (g.p > t) { tp += g.k; fp += g.n - g.k; } else { fn += g.k; tn += g.n - g.k; }
+    });
+    var n = tp + fp + fn + tn;
+    return {
+      tp: tp, fp: fp, fn: fn, tn: tn, n: n,
+      flagged: tp + fp,
+      precision: tp + fp > 0 ? tp / (tp + fp) : 1,
+      precisionDefined: tp + fp > 0,
+      recall: tp / (tp + fn),
+      accuracy: (tp + tn) / n,
+    };
+  }
+
+  // ---------------------------------------------------------------- state
+  var state = { dataset: TEN, t: 0.5 };
+  var $ = function (id) { return document.getElementById(id); };
+  var fmt3 = function (x) { return x.toFixed(3); };
+  var css = function (name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); };
+  var SVG = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, text) {
+    var e = document.createElementNS(SVG, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  // ---------------------------------------------------------------- tooltip
+  function tooltip(container) {
+    var tip = document.createElement('div');
+    tip.className = 'tip';
+    tip.hidden = true;
+    container.appendChild(tip);
+    return {
+      show: function (html, x, y) {
+        tip.innerHTML = html;
+        tip.hidden = false;
+        var w = container.clientWidth, tw = tip.offsetWidth, th = tip.offsetHeight;
+        var left = x + 12; if (left + tw > w) left = x - tw - 12; if (left < 0) left = 0;
+        var top = y - th - 10; if (top < 0) top = y + 14;
+        tip.style.left = left + 'px'; tip.style.top = top + 'px';
+      },
+      hide: function () { tip.hidden = true; },
+    };
+  }
+
+  // ---------------------------------------------------------------- well plot
+  var wellsChart = $('wells-chart'), wellsTip = tooltip(wellsChart);
+  function drawWells() {
+    var groups = state.dataset.groups.slice().sort(function (a, b) { return a.p - b.p; });
+    var t = state.t;
+    var W = Math.max(wellsChart.clientWidth, 280), H = 260;
+    var m = { l: 44, r: 16, t: 26, b: 34 };
+    var pw = W - m.l - m.r, ph = H - m.t - m.b;
+    var x = function (p) { return m.l + p * pw; };
+    var old = wellsChart.querySelector('svg'); if (old) old.remove();
+    var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, width: W, height: H, role: 'img',
+      'aria-label': 'Wells placed by model probability, threshold at ' + t.toFixed(2) });
+    var line = css('--line'), fg2 = css('--fg-2'), fg3 = css('--fg-3'), accent = css('--accent'), surface = css('--surface');
+    // flagged region
+    svg.appendChild(el('rect', { x: x(t), y: m.t, width: Math.max(0, x(1) - x(t)), height: ph, fill: css('--accent-soft') }));
+    // x axis
+    svg.appendChild(el('line', { x1: m.l, x2: m.l + pw, y1: m.t + ph, y2: m.t + ph, stroke: line, 'stroke-width': 1 }));
+    for (var v = 0; v <= 1.0001; v += 0.1) {
+      svg.appendChild(el('line', { x1: x(v), x2: x(v), y1: m.t + ph, y2: m.t + ph + 4, stroke: line, 'stroke-width': 1 }));
+      svg.appendChild(el('text', { x: x(v), y: m.t + ph + 18, 'text-anchor': 'middle', 'font-size': 11, fill: fg2, 'font-family': 'inherit' }, v.toFixed(1)));
+    }
+    svg.appendChild(el('text', { x: m.l + pw / 2, y: H - 2, 'text-anchor': 'middle', 'font-size': 12, fill: fg2, 'font-family': 'inherit' }, 'Model probability of a detection'));
+
+    var big = groups.some(function (g) { return g.n > 12; });
+    if (big) {
+      // columns: no-detection segment at the base, detections on top, 2px surface gap
+      var maxN = Math.max.apply(null, groups.map(function (g) { return g.n; }));
+      var yTop = Math.ceil(maxN / 50) * 50;
+      var y = function (c) { return m.t + ph - c / yTop * ph; };
+      for (var g = 0; g <= yTop; g += 50) {
+        svg.appendChild(el('line', { x1: m.l, x2: m.l + pw, y1: y(g), y2: y(g), stroke: line, 'stroke-width': 1 }));
+        svg.appendChild(el('text', { x: m.l - 6, y: y(g) + 4, 'text-anchor': 'end', 'font-size': 11, fill: fg2, 'font-family': 'inherit' }, String(g)));
+      }
+      svg.appendChild(el('text', { x: 12, y: m.t + ph / 2, transform: 'rotate(-90 12 ' + (m.t + ph / 2) + ')', 'text-anchor': 'middle', 'font-size': 12, fill: fg2, 'font-family': 'inherit' }, 'Wells'));
+      var minGap = Infinity;
+      for (var i = 1; i < groups.length; i++) minGap = Math.min(minGap, x(groups[i].p) - x(groups[i - 1].p));
+      var cw = Math.max(4, Math.min(14, Math.floor(minGap * 0.7)));
+      groups.forEach(function (gr) {
+        var flagged = gr.p > t, h0 = gr.n - gr.k, h1 = gr.k;
+        var cx = x(gr.p) - cw / 2;
+        var seg0 = el('rect', { x: cx, y: y(h0), width: cw, height: Math.max(0, y(0) - y(h0)), fill: css('--nodetect') });
+        var seg1 = el('rect', { x: cx, y: y(gr.n), width: cw, height: Math.max(0, y(h0) - y(gr.n) - (h0 > 0 && h1 > 0 ? 2 : 0)), fill: css('--detect'), rx: 2 });
+        var hit = el('rect', { x: cx - 6, y: m.t, width: cw + 12, height: ph, fill: 'transparent' });
+        var html = '<b>Density ' + gr.d + ' persons / acre</b><br>' + gr.n + ' wells, ' + gr.k + ' detections<br>probability ' + fmt3(gr.p) +
+          ' → ' + (flagged ? '<b>flagged</b>' : '<b>not flagged</b>') + '<br>' +
+          (flagged ? gr.k + ' TP, ' + (gr.n - gr.k) + ' FP' : gr.k + ' FN, ' + (gr.n - gr.k) + ' TN');
+        hit.addEventListener('pointermove', function (ev) { var r = wellsChart.getBoundingClientRect(); wellsTip.show(html, ev.clientX - r.left, ev.clientY - r.top); });
+        hit.addEventListener('pointerleave', wellsTip.hide);
+        svg.appendChild(seg0); svg.appendChild(seg1); svg.appendChild(hit);
+      });
+    } else {
+      // dots: one per well, stacked when they would overlap
+      var r = 7, binW = 2 * r + 4, bins = {};
+      groups.forEach(function (gr) {
+        var b = Math.round(x(gr.p) / binW);
+        bins[b] = (bins[b] || 0) + 1;
+        var level = bins[b];
+        var cy = m.t + ph - 12 - (level - 1) * (2 * r + 3);
+        var flagged = gr.p > t;
+        var dot = el('circle', { cx: x(gr.p), cy: cy, r: r, fill: gr.k ? css('--detect') : css('--nodetect'), stroke: surface, 'stroke-width': 2 });
+        var hit = el('circle', { cx: x(gr.p), cy: cy, r: r + 6, fill: 'transparent' });
+        var outcome = gr.k ? (flagged ? 'TP, a detection we caught' : 'FN, a detection we missed') : (flagged ? 'FP, a false alarm' : 'TN, correctly left alone');
+        var html = '<b>Well ' + gr.well + '</b> · density ' + gr.d + '<br>true label ' + gr.k + ', probability ' + fmt3(gr.p) + '<br>' + (flagged ? 'flagged' : 'not flagged') + ': <b>' + outcome + '</b>';
+        hit.addEventListener('pointermove', function (ev) { var rc = wellsChart.getBoundingClientRect(); wellsTip.show(html, ev.clientX - rc.left, ev.clientY - rc.top); });
+        hit.addEventListener('pointerleave', wellsTip.hide);
+        svg.appendChild(dot); svg.appendChild(hit);
+      });
+    }
+    // threshold line, on top
+    svg.appendChild(el('line', { x1: x(t), x2: x(t), y1: m.t - 4, y2: m.t + ph, stroke: accent, 'stroke-width': 2 }));
+    svg.appendChild(el('text', { x: x(t) + (t > 0.8 ? -6 : 6), y: m.t - 8, 'text-anchor': t > 0.8 ? 'end' : 'start', 'font-size': 12, 'font-weight': 600, fill: css('--accent-ink'), 'font-family': 'inherit' }, 'threshold ' + t.toFixed(2)));
+    svg.appendChild(el('text', { x: x(1) - 4, y: m.t + 14, 'text-anchor': 'end', 'font-size': 11, fill: fg3, 'font-family': 'inherit' }, t < 0.97 ? 'flagged' : ''));
+    svg.appendChild(el('text', { x: m.l + 4, y: m.t + 14, 'text-anchor': 'start', 'font-size': 11, fill: fg3, 'font-family': 'inherit' }, t > 0.03 ? 'not flagged' : ''));
+    wellsChart.insertBefore(svg, wellsChart.firstChild);
+  }
+
+  // ---------------------------------------------------------------- sweep chart
+  var sweepChart = $('sweep-chart'), sweepTip = tooltip(sweepChart);
+  var GRID = []; for (var i = 0; i <= 100; i++) GRID.push(i / 100);
+  function drawSweep() {
+    var groups = state.dataset.groups, t = state.t;
+    var W = Math.max(sweepChart.clientWidth, 280), H = 300;
+    var m = { l: 40, r: 14, t: 16, b: 36 };
+    var pw = W - m.l - m.r, ph = H - m.t - m.b;
+    var x = function (v) { return m.l + v * pw; }, y = function (v) { return m.t + ph - v * ph; };
+    var old = sweepChart.querySelector('svg'); if (old) old.remove();
+    var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, width: W, height: H, role: 'img',
+      'aria-label': 'Precision and recall against the threshold for ' + state.dataset.name });
+    var line = css('--line'), fg2 = css('--fg-2'), accent = css('--accent'), surface = css('--surface');
+    for (var v = 0; v <= 1.0001; v += 0.2) {
+      svg.appendChild(el('line', { x1: m.l, x2: m.l + pw, y1: y(v), y2: y(v), stroke: line, 'stroke-width': 1 }));
+      svg.appendChild(el('text', { x: m.l - 6, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: fg2, 'font-family': 'inherit' }, v.toFixed(1)));
+    }
+    for (var u = 0; u <= 1.0001; u += 0.2) {
+      svg.appendChild(el('text', { x: x(u), y: m.t + ph + 18, 'text-anchor': 'middle', 'font-size': 11, fill: fg2, 'font-family': 'inherit' }, u.toFixed(1)));
+    }
+    svg.appendChild(el('text', { x: m.l + pw / 2, y: H - 2, 'text-anchor': 'middle', 'font-size': 12, fill: fg2, 'font-family': 'inherit' }, 'Threshold'));
+    var rows = GRID.map(function (g) { return outcomes(groups, g); });
+    var path = function (key) { return GRID.map(function (g, i) { return (i ? 'L' : 'M') + x(g).toFixed(1) + ' ' + y(rows[i][key]).toFixed(1); }).join(' '); };
+    svg.appendChild(el('path', { d: path('precision'), fill: 'none', stroke: css('--nodetect'), 'stroke-width': 2, 'stroke-linejoin': 'round' }));
+    svg.appendChild(el('path', { d: path('recall'), fill: 'none', stroke: css('--detect'), 'stroke-width': 2, 'stroke-linejoin': 'round' }));
+    // current threshold
+    var cur = outcomes(groups, t);
+    svg.appendChild(el('line', { x1: x(t), x2: x(t), y1: m.t, y2: m.t + ph, stroke: accent, 'stroke-width': 2 }));
+    svg.appendChild(el('circle', { cx: x(t), cy: y(cur.precision), r: 5, fill: css('--nodetect'), stroke: surface, 'stroke-width': 2 }));
+    svg.appendChild(el('circle', { cx: x(t), cy: y(cur.recall), r: 5, fill: css('--detect'), stroke: surface, 'stroke-width': 2 }));
+    // hover crosshair + click or drag to set
+    var hover = el('line', { x1: 0, x2: 0, y1: m.t, y2: m.t + ph, stroke: fg2, 'stroke-width': 1, 'stroke-dasharray': '3 3', visibility: 'hidden' });
+    svg.appendChild(hover);
+    var hit = el('rect', { x: m.l, y: m.t, width: pw, height: ph, fill: 'transparent', style: 'cursor: crosshair; touch-action: none' });
+    svg.appendChild(hit);
+    var toT = function (ev) {
+      var rc = svg.getBoundingClientRect();
+      var px = (ev.clientX - rc.left) * (W / rc.width);
+      return Math.min(1, Math.max(0, Math.round((px - m.l) / pw * 100) / 100));
+    };
+    hit.addEventListener('pointermove', function (ev) {
+      var tt = toT(ev), o = outcomes(groups, tt);
+      hover.setAttribute('x1', x(tt)); hover.setAttribute('x2', x(tt)); hover.setAttribute('visibility', 'visible');
+      var rc = sweepChart.getBoundingClientRect();
+      sweepTip.show('<b>threshold ' + tt.toFixed(2) + '</b><br>precision ' + fmt3(o.precision) + (o.precisionDefined ? '' : ' (0 / 0 → 1)') + '<br>recall ' + fmt3(o.recall) + '<br>' + o.flagged + ' of ' + o.n + ' flagged', ev.clientX - rc.left, ev.clientY - rc.top);
+      if (ev.buttons & 1) setThreshold(tt);
+    });
+    hit.addEventListener('pointerdown', function (ev) { hit.setPointerCapture(ev.pointerId); setThreshold(toT(ev)); });
+    hit.addEventListener('pointerleave', function () { hover.setAttribute('visibility', 'hidden'); sweepTip.hide(); });
+    sweepChart.insertBefore(svg, sweepChart.firstChild);
+  }
+
+  // ---------------------------------------------------------------- counts, scores, table
+  function setCell(id, n) { $(id).querySelector('.n').textContent = n; }
+  function renderNumbers() {
+    var o = outcomes(state.dataset.groups, state.t);
+    setCell('c-tp', o.tp); setCell('c-fp', o.fp); setCell('c-fn', o.fn); setCell('c-tn', o.tn);
+    $('cm-sum').textContent = o.tp + ' + ' + o.fp + ' + ' + o.fn + ' + ' + o.tn + ' = ' + o.n + ' wells. ' + o.flagged + ' flagged, ' + (o.tp + o.fn) + ' real detections.';
+    var tp = $('t-prec'), tr = $('t-rec'), ta = $('t-acc');
+    tp.querySelector('.f').textContent = 'TP / (TP + FP) = ' + o.tp + ' / ' + (o.tp + o.fp);
+    tp.querySelector('.v').textContent = fmt3(o.precision);
+    tp.querySelector('.note').hidden = o.precisionDefined;
+    tr.querySelector('.f').textContent = 'TP / (TP + FN) = ' + o.tp + ' / ' + (o.tp + o.fn);
+    tr.querySelector('.v').textContent = fmt3(o.recall);
+    ta.querySelector('.f').textContent = '(TP + TN) / all = ' + (o.tp + o.tn) + ' / ' + o.n;
+    ta.querySelector('.v').textContent = fmt3(o.accuracy);
+    $('wells-sub').textContent = state.dataset === TEN
+      ? 'The ten wells Lecture 16 kept for testing, placed by the model’s probability. Everything right of the line is flagged.'
+      : 'All 643 wells of the study, stacked at the twelve population densities. Each column splits into detections and non-detections; everything right of the line is flagged.';
+    // table
+    var body = $('table').querySelector('tbody');
+    body.innerHTML = '';
+    state.dataset.groups.slice().sort(function (a, b) { return a.p - b.p || a.d - b.d; }).forEach(function (g) {
+      var flagged = g.p > state.t, tr = document.createElement('tr');
+      if (flagged) tr.className = 'flag';
+      var cells = [fmt3(g.p), String(g.d), String(g.n), String(g.k), flagged ? 'yes' : 'no',
+        flagged ? g.k + ' TP, ' + (g.n - g.k) + ' FP' : g.k + ' FN, ' + (g.n - g.k) + ' TN'];
+      cells.forEach(function (c) { var td = document.createElement('td'); td.textContent = c; tr.appendChild(td); });
+      body.appendChild(tr);
+    });
+  }
+
+  // ---------------------------------------------------------------- wiring
+  var slider = $('thr'), out = $('thr-out');
+  function render() { renderNumbers(); drawWells(); drawSweep(); }
+  function setThreshold(t) {
+    t = Math.min(1, Math.max(0, Math.round(t * 100) / 100));
+    if (t === state.t) return;
+    state.t = t; slider.value = t; out.textContent = t.toFixed(2);
+    render();
+  }
+  slider.addEventListener('input', function () { setThreshold(parseFloat(slider.value)); });
+  Array.prototype.forEach.call(document.querySelectorAll('.presets button'), function (b) {
+    b.addEventListener('click', function () { setThreshold(parseFloat(b.dataset.t)); slider.focus(); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('input[name=dataset]'), function (r) {
+    r.addEventListener('change', function () { if (r.checked) { state.dataset = r.value === 'all' ? ALL : TEN; render(); } });
+  });
+  var resizeTimer;
+  window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(function () { drawWells(); drawSweep(); }, 120); });
+  var themeWatch = window.matchMedia('(prefers-color-scheme: dark)');
+  if (themeWatch.addEventListener) themeWatch.addEventListener('change', render);
+  new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  out.textContent = state.t.toFixed(2);
+  render();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { drawWells(); drawSweep(); });
+})();
+</script>
+</body>
+</html>

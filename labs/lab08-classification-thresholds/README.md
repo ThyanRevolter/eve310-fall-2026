@@ -23,6 +23,7 @@ Last week's loops get their first real job: a classification model gives each we
 | --- | --- |
 | `notebooks/lab08-tutorial.ipynb` | Tutorial (typed along in lab): the ten testing wells from lecture, threshold 0.5, the four counts, precision and recall, the sweep and its plot |
 | `notebooks/lab08-activity.ipynb` | Three questions on the 643 wells: the four counts at a threshold of 0.3, a 21-threshold sweep with its plot, and the threshold that keeps recall at 0.8 or more with the highest precision |
+| [Threshold explorer](https://thyanrevolter.github.io/eve310-fall-2026/labs/lab08-threshold-explorer.html) | Interactive page: slide the threshold over the ten testing wells or all 643 and watch the four outcomes, precision and recall change (source in `docs/labs/`) |
 | `data/TCE_LongIsland.csv` | 643 wells: `density` (persons per acre near the well), `detect` (1 if TCE above 3 ppb was measured), `prob` (the lecture model's probability of a detection, rounded to 3 decimals) |
 
 ## How to run
