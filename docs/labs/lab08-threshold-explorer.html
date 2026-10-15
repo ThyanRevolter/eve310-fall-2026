@@ -151,9 +151,9 @@ footer a, .try a { color: var(--accent-ink); }
     <p class="sub" id="wells-sub">Model probability of a detection for each well. Everything right of the line is flagged.</p>
     <div class="chart" id="wells-chart"></div>
     <div class="legend">
-      <span><i style="background: var(--detect)"></i>True detection (y = 1)</span>
-      <span><i style="background: var(--nodetect)"></i>No detection (y = 0)</span>
-      <span><i class="sq" style="background: var(--accent-soft); border: 1px solid var(--accent)"></i>Flagged: probability above the threshold</span>
+      <span><i style="background: var(--detect)"></i>Lab result: detection (y = 1)</span>
+      <span><i style="background: var(--nodetect)"></i>Lab result: no detection (y = 0)</span>
+      <span><i class="sq" style="background: var(--accent-soft); border: 1px solid var(--accent)"></i>Model says yes at this threshold (flagged)</span>
     </div>
   </section>
 
@@ -375,8 +375,8 @@ footer a, .try a { color: var(--accent-ink); }
     // threshold line, on top
     svg.appendChild(el('line', { x1: x(t), x2: x(t), y1: m.t - 4, y2: m.t + ph, stroke: accent, 'stroke-width': 2 }));
     svg.appendChild(el('text', { x: x(t) + (t > 0.8 ? -6 : 6), y: m.t - 8, 'text-anchor': t > 0.8 ? 'end' : 'start', 'font-size': 12, 'font-weight': 600, fill: css('--accent-ink'), 'font-family': 'inherit' }, 'threshold ' + t.toFixed(2)));
-    svg.appendChild(el('text', { x: x(1) - 4, y: m.t + 14, 'text-anchor': 'end', 'font-size': 11, fill: fg3, 'font-family': 'inherit' }, t < 0.97 ? 'flagged' : ''));
-    svg.appendChild(el('text', { x: m.l + 4, y: m.t + 14, 'text-anchor': 'start', 'font-size': 11, fill: fg3, 'font-family': 'inherit' }, t > 0.03 ? 'not flagged' : ''));
+    svg.appendChild(el('text', { x: x(1) - 4, y: m.t + 14, 'text-anchor': 'end', 'font-size': 11, fill: fg3, 'font-family': 'inherit' }, t < 0.9 ? 'model says yes: flagged' : ''));
+    svg.appendChild(el('text', { x: m.l + 4, y: m.t + 14, 'text-anchor': 'start', 'font-size': 11, fill: fg3, 'font-family': 'inherit' }, t > 0.1 ? 'model says no' : ''));
     wellsChart.insertBefore(svg, wellsChart.firstChild);
   }
 
