@@ -309,7 +309,8 @@ footer a, .try a { color: var(--accent-ink); }
   function drawWells() {
     var groups = state.dataset.groups.slice().sort(function (a, b) { return a.p - b.p; });
     var t = state.t;
-    var W = Math.max(wellsChart.clientWidth, 280), H = 260;
+    var total = groups.reduce(function (s, g) { return s + g.n; }, 0);
+    var W = Math.max(wellsChart.clientWidth, 280), H = total > 30 ? 380 : 260;
     var m = { l: 44, r: 16, t: 26, b: 34 };
     var pw = W - m.l - m.r, ph = H - m.t - m.b;
     var x = function (p) { return m.l + p * pw; };
@@ -327,51 +328,80 @@ footer a, .try a { color: var(--accent-ink); }
     }
     svg.appendChild(el('text', { x: m.l + pw / 2, y: H - 2, 'text-anchor': 'middle', 'font-size': 12, fill: fg2, 'font-family': 'inherit' }, 'Model probability of a detection'));
 
-    var big = groups.some(function (g) { return g.n > 12; });
-    if (big) {
-      // columns: no-detection segment at the base, detections on top, 2px surface gap
-      var maxN = Math.max.apply(null, groups.map(function (g) { return g.n; }));
-      var yTop = Math.ceil(maxN / 50) * 50;
-      var y = function (c) { return m.t + ph - c / yTop * ph; };
-      for (var g = 0; g <= yTop; g += 50) {
-        svg.appendChild(el('line', { x1: m.l, x2: m.l + pw, y1: y(g), y2: y(g), stroke: line, 'stroke-width': 1 }));
-        svg.appendChild(el('text', { x: m.l - 6, y: y(g) + 4, 'text-anchor': 'end', 'font-size': 11, fill: fg2, 'font-family': 'inherit' }, String(g)));
-      }
-      svg.appendChild(el('text', { x: 12, y: m.t + ph / 2, transform: 'rotate(-90 12 ' + (m.t + ph / 2) + ')', 'text-anchor': 'middle', 'font-size': 12, fill: fg2, 'font-family': 'inherit' }, 'Wells'));
+    // Both data sets draw the same way: one dot per well, placed at its probability and stacked upward,
+    // no-detection wells first and detections on top, against a "Wells" axis. Groups closer than one dot
+    // (and on the same side of the line) share a stack. Dots shrink so the tallest stack fits the plot.
+    var unit = total <= 30;
+    var maxGroup = Math.max.apply(null, groups.map(function (g) { return g.n; }));
+    var yTop = unit ? Math.max(4, maxGroup) : Math.ceil(maxGroup / 50) * 50;
+    // Big stacks are packed `cols` dots abreast, as many as fit between the two closest densities.
+    var cols = 1;
+    if (!unit) {
       var minGap = Infinity;
-      for (var i = 1; i < groups.length; i++) minGap = Math.min(minGap, x(groups[i].p) - x(groups[i - 1].p));
-      var cw = Math.max(4, Math.min(14, Math.floor(minGap * 0.7)));
-      groups.forEach(function (gr) {
-        var flagged = gr.p > t, h0 = gr.n - gr.k, h1 = gr.k;
-        var cx = x(gr.p) - cw / 2;
-        var seg0 = el('rect', { x: cx, y: y(h0), width: cw, height: Math.max(0, y(0) - y(h0)), fill: css('--nodetect') });
-        var seg1 = el('rect', { x: cx, y: y(gr.n), width: cw, height: Math.max(0, y(h0) - y(gr.n) - (h0 > 0 && h1 > 0 ? 2 : 0)), fill: css('--detect'), rx: 2 });
-        var hit = el('rect', { x: cx - 6, y: m.t, width: cw + 12, height: ph, fill: 'transparent' });
-        var html = '<b>Density ' + gr.d + ' persons / acre</b><br>' + gr.n + ' wells, ' + gr.k + ' detections<br>probability ' + fmt3(gr.p) +
-          ' → ' + (flagged ? '<b>flagged</b>' : '<b>not flagged</b>') + '<br>' +
-          (flagged ? gr.k + ' TP, ' + (gr.n - gr.k) + ' FP' : gr.k + ' FN, ' + (gr.n - gr.k) + ' TN');
-        hit.addEventListener('pointermove', function (ev) { var r = wellsChart.getBoundingClientRect(); wellsTip.show(html, ev.clientX - r.left, ev.clientY - r.top); });
-        hit.addEventListener('pointerleave', wellsTip.hide);
-        svg.appendChild(seg0); svg.appendChild(seg1); svg.appendChild(hit);
-      });
-    } else {
-      // dots: one per well, stacked when they would overlap
-      var r = 7, binW = 2 * r + 4, bins = {};
-      groups.forEach(function (gr) {
-        var b = Math.round(x(gr.p) / binW);
-        bins[b] = (bins[b] || 0) + 1;
-        var level = bins[b];
-        var cy = m.t + ph - 12 - (level - 1) * (2 * r + 3);
-        var flagged = gr.p > t;
-        var dot = el('circle', { cx: x(gr.p), cy: cy, r: r, fill: gr.k ? css('--detect') : css('--nodetect'), stroke: surface, 'stroke-width': 2 });
-        var hit = el('circle', { cx: x(gr.p), cy: cy, r: r + 6, fill: 'transparent' });
-        var outcome = gr.k ? (flagged ? 'TP, a detection we caught' : 'FN, a detection we missed') : (flagged ? 'FP, a false alarm' : 'TN, correctly left alone');
-        var html = '<b>Well ' + gr.well + '</b> · density ' + gr.d + '<br>true label ' + gr.k + ', probability ' + fmt3(gr.p) + '<br>' + (flagged ? 'flagged' : 'not flagged') + ': <b>' + outcome + '</b>';
-        hit.addEventListener('pointermove', function (ev) { var rc = wellsChart.getBoundingClientRect(); wellsTip.show(html, ev.clientX - rc.left, ev.clientY - rc.top); });
-        hit.addEventListener('pointerleave', wellsTip.hide);
-        svg.appendChild(dot); svg.appendChild(hit);
-      });
+      for (var gi = 1; gi < groups.length; gi++) minGap = Math.min(minGap, x(groups[gi].p) - x(groups[gi - 1].p));
+      cols = Math.max(1, Math.min(4, Math.floor(Math.sqrt(Math.max(0, minGap - 4) * yTop / ph))));
     }
+    var pitch = ph / (yTop / cols);                          // distance between dot centres, both ways
+    var r = Math.max(1, Math.min(7, pitch / 2 - (pitch > 8 ? 1 : 0.3)));  // 7 px for ten wells, about 2 px for 643
+    var binW = cols * pitch + 4;
+    var clusters = [];
+    groups.forEach(function (g) {
+      var px = x(g.p), c = clusters[clusters.length - 1];
+      if (c && px - c.x0 < binW && c.flagged === (g.p > t)) { c.items.push(g); c.n += g.n; c.k += g.k; c.xs.push(px); }
+      else clusters.push({ x0: px, xs: [px], items: [g], n: g.n, k: g.k, flagged: g.p > t });
+    });
+    var maxN = Math.max.apply(null, clusters.map(function (c) { return c.n; }));
+    if (maxN > yTop) { yTop = unit ? maxN : Math.ceil(maxN / 50) * 50; pitch = ph / (yTop / cols); r = Math.max(1, Math.min(7, pitch / 2 - (pitch > 8 ? 1 : 0.3))); }
+    var step = unit ? 1 : 50;
+    var y = function (c) { return m.t + ph - c / cols * pitch; };   // c counts wells; each row holds `cols` of them
+    for (var g = 0; g <= yTop; g += step) {
+      svg.appendChild(el('line', { x1: m.l, x2: m.l + pw, y1: y(g), y2: y(g), stroke: line, 'stroke-width': 1 }));
+      svg.appendChild(el('text', { x: m.l - 6, y: y(g) + 4, 'text-anchor': 'end', 'font-size': 11, fill: fg2, 'font-family': 'inherit' }, String(g)));
+    }
+    svg.appendChild(el('text', { x: 12, y: m.t + ph / 2, transform: 'rotate(-90 12 ' + (m.t + ph / 2) + ')', 'text-anchor': 'middle', 'font-size': 12, fill: fg2, 'font-family': 'inherit' }, 'Wells'));
+    var hoverable = function (shape, html) {
+      shape.addEventListener('pointermove', function (ev) { var rc = wellsChart.getBoundingClientRect(); wellsTip.show(html, ev.clientX - rc.left, ev.clientY - rc.top); });
+      shape.addEventListener('pointerleave', wellsTip.hide);
+      svg.appendChild(shape);
+    };
+    var ring = r >= 4 ? { stroke: surface, 'stroke-width': 2 } : {};
+    clusters.forEach(function (c) {
+      var cx = c.xs.reduce(function (s, v) { return s + v; }, 0) / c.xs.length;
+      var flagged = c.flagged;
+      var dotY = function (i) { return y(i + 1) + pitch / 2; };  // dot i sits in the band between gridlines i and i + 1
+      if (unit) {
+        var dots = [];
+        c.items.forEach(function (g) { for (var i = 0; i < g.n - g.k; i++) dots.push({ g: g, k: 0 }); });
+        c.items.forEach(function (g) { for (var i = 0; i < g.k; i++) dots.push({ g: g, k: 1 }); });
+        dots.forEach(function (d, i) {
+          var g = d.g;
+          var outcome = d.k ? (flagged ? 'TP, a detection we caught' : 'FN, a detection we missed') : (flagged ? 'FP, a false alarm' : 'TN, correctly left alone');
+          var html = '<b>Well ' + g.well + '</b> · density ' + g.d + ' persons / acre<br>lab result ' + d.k + ', probability ' + fmt3(g.p) + '<br>' +
+            (flagged ? 'model says yes' : 'model says no') + ': <b>' + outcome + '</b>';
+          var attrs = { cx: cx, cy: dotY(i), r: r, fill: d.k ? css('--detect') : css('--nodetect') };
+          for (var k in ring) attrs[k] = ring[k];
+          svg.appendChild(el('circle', attrs));
+          hoverable(el('circle', { cx: cx, cy: dotY(i), r: r + 6, fill: 'transparent' }), html);
+        });
+      } else {
+        // hundreds of wells: the dots are drawn with one path per colour, one hit area per stack
+        var blue = '', red = '';
+        for (var i = 0; i < c.n; i++) {
+          var row = Math.floor(i / cols), col = i % cols;
+          var px = cx + (col - (cols - 1) / 2) * pitch, py = m.t + ph - (row + 0.5) * pitch;
+          var d = 'M' + (px - r).toFixed(2) + ' ' + py.toFixed(2) + 'a' + r.toFixed(2) + ' ' + r.toFixed(2) + ' 0 1 0 ' + (2 * r).toFixed(2) + ' 0a' + r.toFixed(2) + ' ' + r.toFixed(2) + ' 0 1 0 ' + (-2 * r).toFixed(2) + ' 0';
+          if (i < c.n - c.k) blue += d; else red += d;
+        }
+        if (blue) svg.appendChild(el('path', { d: blue, fill: css('--nodetect') }));
+        if (red) svg.appendChild(el('path', { d: red, fill: css('--detect') }));
+        var who = c.items.map(function (g) { return 'density ' + g.d + ' (p = ' + fmt3(g.p) + ')'; }).join(', ');
+        var html = '<b>' + (c.items.length > 1 ? 'Densities ' + c.items.map(function (g) { return g.d; }).join(', ') : 'Density ' + c.items[0].d) + ' persons / acre</b><br>' +
+          c.n + ' wells, ' + c.k + ' detections<br>' + (c.items.length > 1 ? who : 'probability ' + fmt3(c.items[0].p)) + '<br>' +
+          (flagged ? 'model says yes' : 'model says no') + ': <b>' + (flagged ? c.k + ' TP, ' + (c.n - c.k) + ' FP' : c.k + ' FN, ' + (c.n - c.k) + ' TN') + '</b>';
+        var half = cols * pitch / 2;
+        hoverable(el('rect', { x: cx - half - 5, y: y(c.n) - pitch - 4, width: 2 * half + 10, height: Math.max(8, y(0) - y(c.n) + pitch + 4), fill: 'transparent' }), html);
+      }
+    });
     // threshold line, on top
     svg.appendChild(el('line', { x1: x(t), x2: x(t), y1: m.t - 4, y2: m.t + ph, stroke: accent, 'stroke-width': 2 }));
     svg.appendChild(el('text', { x: x(t) + (t > 0.8 ? -6 : 6), y: m.t - 8, 'text-anchor': t > 0.8 ? 'end' : 'start', 'font-size': 12, 'font-weight': 600, fill: css('--accent-ink'), 'font-family': 'inherit' }, 'threshold ' + t.toFixed(2)));
@@ -447,8 +477,8 @@ footer a, .try a { color: var(--accent-ink); }
     ta.querySelector('.f').textContent = '(TP + TN) / all = ' + (o.tp + o.tn) + ' / ' + o.n;
     ta.querySelector('.v').textContent = fmt3(o.accuracy);
     $('wells-sub').textContent = state.dataset === TEN
-      ? 'The ten wells Lecture 16 kept for testing, placed by the model’s probability. Everything right of the line is flagged.'
-      : 'All 643 wells of the study, stacked at the twelve population densities. Each column splits into detections and non-detections; everything right of the line is flagged.';
+      ? 'The ten wells Lecture 16 kept for testing, one dot per well, placed by the model’s probability and stacked where two wells share one. Everything right of the line is flagged.'
+      : 'All 643 wells of the study, one dot per well, stacked at the twelve population densities with the detections on top. Everything right of the line is flagged.';
     // table
     var body = $('table').querySelector('tbody');
     body.innerHTML = '';
