@@ -32,6 +32,7 @@ description: Notebooks to run alongside the lecture, in Google Colab.
 | [Linear algebra review](#linear-algebra-review) | Linear Regression | Vectors and matrices in NumPy, `reshape`, dot and element-wise products | [open](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/lectures/notebooks/linear-algebra-review.ipynb){:target="_blank" rel="noopener"} |
 | [Linear regression traffic example](#traffic-example) | Linear Regression | `np.polyfit`, scikit-learn `LinearRegression`, R², residual plot | [open](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/lectures/notebooks/linear-regression-traffic-example.ipynb){:target="_blank" rel="noopener"} |
 | [Multivariate linear regression](#multivariate-regression) | Linear Regression | Normal equations in NumPy with three features, prediction, residual plot, R² from SSE and SST | [open](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/lectures/notebooks/multivariate-linear-regression.ipynb){:target="_blank" rel="noopener"} |
+| [Logistic regression example](#logistic-regression-example) | Logistic Regression | Sigmoid function, scikit-learn `LogisticRegression`, predicted probabilities and decision boundary, accuracy and confusion matrix | [open](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/lectures/notebooks/logistic-regression-example.ipynb){:target="_blank" rel="noopener"} |
 
 
 
