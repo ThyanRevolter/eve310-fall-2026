@@ -4,7 +4,7 @@ title: Lab 09 · Batch processing
 parent: Labs
 nav_order: 9
 permalink: /labs/lab09/
-description: Loop the same plotting workflow over many campus water files.
+description: List the files in a folder and run the same cleaning-and-plotting analysis on every one with a for loop.
 ---
 
 # Lab 09 · Batch processing many files
@@ -25,31 +25,32 @@ description: Loop the same plotting workflow over many campus water files.
 
 ## Overview
 
-The same outlier-clean + monthly box plot workflow, first on one campus building water file, then inside a for loop over every CSV in `data/`.
+Every lab so far analyzed one file. Today's job is 24 files of daily water consumption, one per campus building, and the same analysis wanted for each: Lab 6's outlier rule and a box plot by month. The tutorial writes the analysis for one file so that only the file name would change, lists the folder with `os.listdir`, keeps the CSV names in a list with a loop and `append`, and then runs the analysis once per file name with one for loop, saving one figure per building. The activity runs the same loop to collect one number per building into a table, then finds the top building and draws one bar per building. Nothing new from lecture; another short lab, by design.
 
 ## Learning objectives
 
-1. Parse datetimes and drop 3-sigma outliers
-2. Save a labeled monthly box plot
-3. Loop over all CSVs in a folder
+1. Read one data file, name it from its file name, and run a cleaning-and-plotting analysis on it
+2. List every file in a folder and keep only the CSV files, with a loop that builds a list
+3. Repeat the same analysis on every file with one for loop, saving one figure per file
+4. Collect one number per file into a table and read the table back (the activity)
 
 ## Notebooks
 
-**`lab09-single-file.ipynb`** — One building (DCP)
+**`lab09-tutorial.ipynb`** — Tutorial, typed along in lab
 
-{% include notebook.html path="labs/lab09-batch-processing/notebooks/lab09-single-file.ipynb" %}
+{% include notebook.html path="labs/lab09-batch-processing/notebooks/lab09-tutorial.ipynb" %}
 
-**`lab09-multiple-files.ipynb`** — All `water_*.csv` files
+**`lab09-activity.ipynb`** — Three questions on the same 24 files: the CSV filter loop, a loop that collects each building's removed days and cleaned mean into a table, and the building with the highest cleaned mean with a bar chart
 
-{% include notebook.html path="labs/lab09-batch-processing/notebooks/lab09-multiple-files.ipynb" %}
+{% include notebook.html path="labs/lab09-batch-processing/notebooks/lab09-activity.ipynb" %}
 
 ## Data
 
-- `data/water_*.csv` — campus building water series
+- `data/water_XXX.csv` — 24 campus buildings, 2009 to 2017: `DateTime` (one row per day) and `Water ( Gallons )`
+- `data/water_notes.txt` — a notes file, not a CSV, so the loop has something to skip
 
 {: .note }
-This lab uses 24 building files. The setup cell downloads all of them into `DATA_DIR`, so the
-for-loop over `DATA_DIR.iterdir()` works in Colab exactly as it does on a laptop.
+The setup cell downloads all 25 files into `DATA_DIR`, so `os.listdir(DATA_DIR)` works in Colab exactly as it does on a laptop.
 
 ## Run it
 
@@ -62,7 +63,7 @@ for-loop over `DATA_DIR.iterdir()` works in Colab exactly as it does on a laptop
 
 ## Deliverables
 
-- `lab09-multiple-files.ipynb` showing a figure written for each building, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded)
+- `lab09-activity.ipynb` with the CSV list, the summary table, the top building, the total of removed days and the bar chart, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded)
 - Lab quiz on Canvas. This is the graded item.
 
 Lab slides are posted on Canvas.
