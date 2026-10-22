@@ -60,7 +60,8 @@ Colab runtime.
 Each module has one homework assignment, lecture and lab quizzes, and in-class examples.
 Assignment handouts, due dates, and grades live on
 [Canvas](https://utexas.instructure.com/courses/1450736), which is the source of truth for
-anything with a deadline. This repository holds lab material and lecture notebooks only.
+anything with a deadline. This repository holds lab material, lecture notebooks, and the data
+files that assignment notebooks download with their setup cell.
 
 ## Repository layout
 
@@ -69,6 +70,7 @@ anything with a deadline. This repository holds lab material and lecture noteboo
 ├── labs/                 # one folder per weekly lab (notebooks + slides + data)
 │   ├── README.md         # lab list, the Colab setup cell, how to add a lab
 │   └── _template/        # walkthrough template for a new lab
+├── assignments/          # data files downloaded by assignment notebooks (handouts stay on Canvas)
 ├── lectures/             # notebooks students run alongside the lecture
 │   ├── README.md         # notebook list, how to add a lecture notebook
 │   └── notebooks/
