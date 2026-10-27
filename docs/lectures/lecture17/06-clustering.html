@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clustering &middot; EVE 310 Lecture 17</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="lecture17.css">
+</head>
+<body>
+<nav class="topbar" aria-label="Lecture 17 pages">
+  <a class="home" href="index.html">Lecture 17</a>
+  <a class="chip" href="01-metrics.html">1 Metrics</a>
+  <a class="chip" href="02-threshold.html">2 Threshold</a>
+  <a class="chip" href="03-pipes.html">3 Pipes</a>
+  <a class="chip" href="04-one-vs-all.html">4 One-vs-all</a>
+  <a class="chip" href="05-per-class.html">5 Per class</a>
+  <a class="chip" href="06-clustering.html" aria-current="page">6 Clustering</a>
+</nav>
+<main>
+<h1><span class="eyebrow">6 &middot; Unsupervised</span><br>Take away the labels</h1>
+<p class="lede">Same table, label column deleted. Find groups whose members are similar to each other and different from the other groups.</p>
+<div class="bench">
+  <div class="btnrow">
+    <button id="b-sup" aria-pressed="true">Supervised: labels known</button>
+    <button id="b-unsup" aria-pressed="false">Unsupervised: labels removed</button>
+    <button id="b-groups" aria-pressed="false">Find the groups</button>
+  </div>
+  <div class="row">
+    <div class="chartbox" id="clus"></div>
+    <div>
+      <p id="clus-text"></p>
+      <p>Next lectures answer three questions:</p>
+      <ul>
+        <li>What does <em>similar</em> mean? Distance, once the features are on comparable scales.</li>
+        <li>How many groups?</li>
+        <li>How good is a grouping when there is no label to check against?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<p class="note">Where it shows up: communities in social networks, genes that act together, faces in a photo app, groundwater sources grouped by contaminant profile to decide which wells to monitor most.</p>
+</main>
+<nav class="pager" aria-label="Previous and next">
+  <a href="05-per-class.html">Back: Metrics per class</a>
+  <a href="index.html">Back to the overview</a>
+</nav>
+<script src="lecture17.js"></script>
+</body>
+</html>

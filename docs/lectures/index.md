@@ -34,7 +34,9 @@ description: Notebooks to run alongside the lecture, in Google Colab.
 | [Multivariate linear regression](#multivariate-regression) | Linear Regression | Normal equations in NumPy with three features, prediction, residual plot, R² from SSE and SST | [open](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/lectures/notebooks/multivariate-linear-regression.ipynb){:target="_blank" rel="noopener"} |
 | [Logistic regression example](#logistic-regression-example) | Logistic Regression | Sigmoid function, scikit-learn `LogisticRegression`, predicted probabilities and decision boundary, accuracy and confusion matrix | [open](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/lectures/notebooks/logistic-regression-example.ipynb){:target="_blank" rel="noopener"} |
 
+## Lecture 17 companion pages
+{: .no_toc }
 
+Six short interactive pages for Tuesday, October 27: the confusion matrix and its metrics, a threshold slider on the Lab 8 wells with the ROC curve, the Austin pipe-failure model, one-vs-all classification, metrics per class, and a first look at clustering.
 
-
-
+[Open the Lecture 17 pages]({{ '/lectures/lecture17/' | relative_url }}){: .btn .btn-purple target="_blank" rel="noopener"}

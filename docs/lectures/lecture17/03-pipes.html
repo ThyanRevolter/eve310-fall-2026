@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Austin pipes &middot; EVE 310 Lecture 17</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="lecture17.css">
+</head>
+<body>
+<nav class="topbar" aria-label="Lecture 17 pages">
+  <a class="home" href="index.html">Lecture 17</a>
+  <a class="chip" href="01-metrics.html">1 Metrics</a>
+  <a class="chip" href="02-threshold.html">2 Threshold</a>
+  <a class="chip" href="03-pipes.html" aria-current="page">3 Pipes</a>
+  <a class="chip" href="04-one-vs-all.html">4 One-vs-all</a>
+  <a class="chip" href="05-per-class.html">5 Per class</a>
+  <a class="chip" href="06-clustering.html">6 Clustering</a>
+</nav>
+<main>
+<h1><span class="eyebrow">3 &middot; Application</span><br>Which Austin pipes will fail?</h1>
+<p class="lede">Logistic regression on Austin Water's network. Features: pipe age, material, diameter, length, past failures, soil, land use, rainfall, pressure zone.</p>
+<div class="tiles">
+  <div class="tile"><div class="l">Pipe segments</div><div class="v">135,946</div></div>
+  <div class="tile"><div class="l">Pipes that failed</div><div class="v">4,225</div><div class="d">about 3 percent</div></div>
+  <div class="tile"><div class="l">Recorded failures</div><div class="v">6,989</div><div class="d">2000 to 2019</div></div>
+</div>
+<p>Three percent is the point. "No pipe ever fails" is 97 percent accurate and useless.</p>
+<div class="bench">
+  <div class="row">
+    <div>
+      <h2>Confusion matrix, test data</h2>
+      <div class="cm">
+        <div></div><div class="hdr">Predicted no failure</div><div class="hdr">Predicted failure</div>
+        <div class="rh">No failure</div><div class="cell tn"><b>2,475</b><span>TN</span></div><div class="cell fp"><b>416</b><span>FP</span></div>
+        <div class="rh">Failed</div><div class="cell fn"><b>416</b><span>FN</span></div><div class="cell tp"><b>840</b><span>TP</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="tiles">
+        <div class="tile"><div class="l">Precision</div><div class="v">0.67</div><div class="d">840 / 1,256</div></div>
+        <div class="tile"><div class="l">Recall</div><div class="v">0.67</div><div class="d">840 / 1,256</div></div>
+        <div class="tile"><div class="l">Accuracy</div><div class="v">0.80</div><div class="d">3,315 / 4,147</div></div>
+      </div>
+      <p>FP = FN = 416, so precision equals recall. That is where the two curves cross on the slide: threshold 0.69, both 0.67.</p>
+    </div>
+  </div>
+</div>
+<div class="quiz">
+  <p><b>Menti 1.</b> Legend hidden. One curve falls from 1.0 to 0, the other climbs from 0.3. Which is recall?</p>
+  <details><summary>Answer</summary><div class="ans">The falling one. A low threshold flags every pipe, so recall starts at 1 and can only fall as the threshold rises. Precision starts at the failure share, 0.30, and climbs.</div></details>
+</div>
+</main>
+<nav class="pager" aria-label="Previous and next">
+  <a href="02-threshold.html">Back: Threshold bench</a>
+  <a href="04-one-vs-all.html">Next: One-vs-all</a>
+</nav>
+<script src="lecture17.js"></script>
+</body>
+</html>

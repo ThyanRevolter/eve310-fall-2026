@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Metrics per class &middot; EVE 310 Lecture 17</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="lecture17.css">
+</head>
+<body>
+<nav class="topbar" aria-label="Lecture 17 pages">
+  <a class="home" href="index.html">Lecture 17</a>
+  <a class="chip" href="01-metrics.html">1 Metrics</a>
+  <a class="chip" href="02-threshold.html">2 Threshold</a>
+  <a class="chip" href="03-pipes.html">3 Pipes</a>
+  <a class="chip" href="04-one-vs-all.html">4 One-vs-all</a>
+  <a class="chip" href="05-per-class.html" aria-current="page">5 Per class</a>
+  <a class="chip" href="06-clustering.html">6 Clustering</a>
+</nav>
+<main>
+<h1><span class="eyebrow">5 &middot; Multi-class</span><br>Precision and recall per class</h1>
+<p class="lede">Rows are the true fruit, columns the prediction. Pick a class; everything else counts as "not that class". The numbers are editable.</p>
+<div class="bench">
+  <div class="btnrow" id="cls-buttons"></div>
+  <div class="row">
+    <div>
+      <div class="cm3" id="cm3"></div>
+      <div class="key" style="margin-top:.6rem"><span><span class="dot" style="background:var(--good)"></span>TP, the diagonal</span><span><span class="dot" style="background:var(--warn)"></span>FP, rest of the column</span><span><span class="dot" style="background:var(--crit)"></span>FN, rest of the row</span><span><span class="dot" style="background:var(--muted)"></span>TN, everything else</span></div>
+    </div>
+    <div>
+      <div class="tiles" id="cls-tiles"></div>
+      <p class="note" id="cls-formulas"></p>
+    </div>
+  </div>
+  <h2>All three classes</h2>
+  <div class="tablewrap"><table id="cls-table"><thead><tr><th>Class</th><th>TP</th><th>FP</th><th>FN</th><th>TN</th><th>Accuracy</th><th>Precision</th><th>Recall</th></tr></thead><tbody></tbody></table></div>
+  <p class="note" id="cls-overall"></p>
+</div>
+<p>Per-class accuracy looks fine, 0.4 to 0.6, for a model that is right 10 times in 36. True negatives flatter it. Precision and recall per class tell the truth.</p>
+<div class="quiz">
+  <p><b>Menti 2.</b> Precision 0.90, recall 0.30. Better where false positives are costly, or where false negatives are costly?</p>
+  <details><summary>Answer</summary><div class="ans">Where false positives are costly. Ninety percent of its flags are real, but it misses 70 percent of the positives. F1 = 0.45, so neither balanced nor high.</div></details>
+</div>
+</main>
+<nav class="pager" aria-label="Previous and next">
+  <a href="04-one-vs-all.html">Back: One-vs-all</a>
+  <a href="06-clustering.html">Next: Clustering</a>
+</nav>
+<script src="lecture17.js"></script>
+</body>
+</html>
