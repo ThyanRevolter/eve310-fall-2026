@@ -37,6 +37,6 @@ description: Notebooks to run alongside the lecture, in Google Colab.
 ## Lecture 17 companion pages
 {: .no_toc }
 
-Six short interactive pages for Tuesday, October 27: the confusion matrix and its metrics, a threshold slider on the Lab 8 wells with the ROC curve, the Austin pipe-failure model, one-vs-all classification, metrics per class, and a first look at clustering.
+Three short interactive pages for Tuesday, October 27: one-vs-all classification, precision and recall per class, and a first look at clustering. The threshold slider and the ROC curve are in the [Lab 8 threshold explorer]({{ '/labs/lab08-threshold-explorer.html' | relative_url }}).
 
 [Open the Lecture 17 pages]({{ '/lectures/lecture17/' | relative_url }}){: .btn .btn-purple target="_blank" rel="noopener"}

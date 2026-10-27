@@ -1,4 +1,4 @@
-/* Lecture 17 companion pages. Layout: a one-line top bar with the six section chips, one reading column, each interactive bench on a raised surface; everything stacks to one column on a phone. */
+/* Lecture 17 pages. Layout: a one-line top bar with the three section chips, one reading column, each interactive bench on a raised surface; everything stacks to one column on a phone. */
 :root {
   --bg: #f4f5f2;
   --surface: #ffffff;
@@ -73,28 +73,12 @@ code, .mono { font-family: var(--mono); font-size: .9em; }
 .pager { max-width: 60rem; margin: 1.6rem auto 0; display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--line); padding-top: .8rem; }
 .pager a { text-decoration: none; color: var(--accent); font-weight: 600; }
 /* controls */
-label.slider { display: block; font-weight: 600; }
-input[type=range] { width: 100%; accent-color: var(--accent); margin: .4rem 0 .2rem; }
 button { font: inherit; font-weight: 600; font-size: .95rem; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; padding: .35rem .8rem; cursor: pointer; }
 button:hover { border-color: var(--accent); }
 button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .btnrow { display: flex; flex-wrap: wrap; gap: .5rem; margin: .4rem 0 .8rem; }
-/* formula table */
-.ftable { width: 100%; max-width: 44rem; }
-.ftable td:first-child { font-weight: 600; white-space: nowrap; }
-.ftable td { text-align: left; vertical-align: top; }
-.ftable td.f { font-family: var(--mono); font-size: .9rem; white-space: nowrap; }
 /* confusion matrices */
-.cm { display: grid; grid-template-columns: auto 1fr 1fr; gap: 4px; font-size: .95rem; max-width: 24rem; }
-.cm .hdr { text-align: center; color: var(--muted); font-size: .85rem; padding: .2rem; align-self: end; }
-.cm .rh { color: var(--muted); font-size: .85rem; padding: .2rem .5rem .2rem 0; align-self: center; text-align: right; }
-.cm .cell { border-radius: 6px; padding: .55rem .6rem; min-height: 4.2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: .1rem; border: 1px solid var(--line); }
-.cm .cell b { font-family: var(--mono); font-size: 1.4rem; font-weight: 600; }
-.cm .cell span { font-size: .8rem; color: var(--muted); }
-.cell.tp, .cell.tn { background: var(--good-wash); }
-.cell.fp { background: var(--warn-wash); }
-.cell.fn { background: var(--crit-wash); }
 .cm3 { display: grid; grid-template-columns: auto repeat(3, minmax(4.6rem, 6rem)); gap: 4px; }
 .cm3 .hdr, .cm3 .rh { color: var(--muted); font-size: .85rem; }
 .cm3 .hdr { text-align: center; align-self: end; padding-bottom: .2rem; }
@@ -119,15 +103,11 @@ th { color: var(--muted); font-weight: 600; font-size: .78rem; text-transform: u
 details { margin: .6rem 0; }
 summary { cursor: pointer; font-weight: 600; color: var(--accent); }
 .key { display: flex; flex-wrap: wrap; gap: .9rem; font-size: .85rem; color: var(--muted); margin: .3rem 0; }
-.key i { display: inline-block; width: 1.2rem; height: 0; border-top: 3px solid; vertical-align: middle; margin-right: .3rem; }
-.key i.dash { border-top-style: dashed; }
 .key .dot { display: inline-block; width: .7rem; height: .7rem; border-radius: 50%; vertical-align: middle; margin-right: .3rem; }
 svg { max-width: 100%; height: auto; display: block; }
 svg text { font-family: var(--body); fill: var(--fg); font-size: 12px; }
 svg .mut { fill: var(--muted); }
-svg .grid { stroke: var(--grid); stroke-width: 1; }
 svg .axis { stroke: var(--line); stroke-width: 1; }
-.tooltip { position: absolute; pointer-events: none; background: var(--fg); color: var(--bg); font-family: var(--mono); font-size: .78rem; padding: .3rem .5rem; border-radius: 4px; white-space: nowrap; transform: translate(-50%, -115%); z-index: 2; }
 .chartbox { position: relative; }
 .quiz { border-left: 4px solid var(--accent); padding: .2rem 0 .2rem 1rem; margin: 1rem 0; max-width: 44rem; }
 .quiz .ans { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: .6rem .9rem; margin-top: .4rem; }

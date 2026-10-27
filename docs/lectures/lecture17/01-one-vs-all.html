@@ -10,15 +10,12 @@
 <body>
 <nav class="topbar" aria-label="Lecture 17 pages">
   <a class="home" href="index.html">Lecture 17</a>
-  <a class="chip" href="01-metrics.html">1 Metrics</a>
-  <a class="chip" href="02-threshold.html">2 Threshold</a>
-  <a class="chip" href="03-pipes.html">3 Pipes</a>
-  <a class="chip" href="04-one-vs-all.html" aria-current="page">4 One-vs-all</a>
-  <a class="chip" href="05-per-class.html">5 Per class</a>
-  <a class="chip" href="06-clustering.html">6 Clustering</a>
+  <a class="chip" href="01-one-vs-all.html" aria-current="page">1 One-vs-all</a>
+  <a class="chip" href="02-per-class.html">2 Per class</a>
+  <a class="chip" href="03-clustering.html">3 Clustering</a>
 </nav>
 <main>
-<h1><span class="eyebrow">4 &middot; Multi-class</span><br>One-vs-all</h1>
+<h1><span class="eyebrow">1 &middot; Multi-class</span><br>One-vs-all</h1>
 <p class="lede">Three classes, three binary models: triangle or not, circle or not, square or not. The highest probability wins. Click anywhere to place a new point.</p>
 <div class="bench">
   <div class="ovr" id="ovr"></div>
@@ -28,8 +25,8 @@
 <p class="note">The three probabilities do not add up to 1: three separate models, only their order matters. In scikit-learn, <code>OneVsRestClassifier(LogisticRegression())</code> does exactly this.</p>
 </main>
 <nav class="pager" aria-label="Previous and next">
-  <a href="03-pipes.html">Back: Austin pipes</a>
-  <a href="05-per-class.html">Next: Metrics per class</a>
+  <a href="index.html">Back to the overview</a>
+  <a href="02-per-class.html">Next: Metrics per class</a>
 </nav>
 <script src="lecture17.js"></script>
 </body>
