@@ -22,7 +22,7 @@
   <div class="bars" id="ovr-bars"></div>
   <p class="note" id="ovr-verdict"></p>
 </div>
-<p class="note">Each line is where its model gives P = 0.5. The three probabilities do not add up to 1: three separate models, only their order matters. In scikit-learn, <code>OneVsRestClassifier(LogisticRegression())</code> does exactly this.</p>
+<p class="note">In the first three panels each line is where its model gives P = 0.5. The fourth panel shades the plane by the largest P: its borders are ties between two models, not those lines, and at the dot all three tie, each far below 0.5, yet a point there still gets a class. The three probabilities do not add up to 1: three separate models, only their order matters. In scikit-learn, <code>OneVsRestClassifier(LogisticRegression())</code> does exactly this.</p>
 </main>
 <nav class="pager" aria-label="Previous and next">
   <a href="index.html">Back to the overview</a>

@@ -39,29 +39,70 @@
       ovr.textContent = '';
       const W = 230, H = 230, L = 26, R = 10, T = 10, B = 26;
       const sx = (v) => L + v / 9 * (W - L - R), sy = (v) => T + (1 - v / 9) * (H - T - B);
-      MODELS.forEach((m) => {
+      const frame = (label) => { // one panel: a figure holding an svg with the axis box and axis labels
         const fig = document.createElement('figure'); ovr.appendChild(fig);
-        const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, role: 'img', 'aria-label': `model ${m.k}: ${m.name} versus everything else` }, fig);
+        const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, role: 'img', 'aria-label': label }, fig);
         el('rect', { x: L, y: T, width: W - L - R, height: H - T - B, fill: 'none', class: 'axis' }, svg);
-        const xl = el('text', { x: W - R, y: H - 6, 'text-anchor': 'end', class: 'mut' }, svg); xl.textContent = 'x\u2081';
-        const yl = el('text', { x: 8, y: T + 10, class: 'mut' }, svg); yl.textContent = 'x\u2082';
-        const clipId = 'clip' + m.k; const clip = el('clipPath', { id: clipId }, svg); el('rect', { x: L, y: T, width: W - L - R, height: H - T - B }, clip);
-        const yAt = (x) => -(m.w[0] * x + m.b) / m.w[1];
-        el('line', { x1: sx(-2), y1: sy(yAt(-2)), x2: sx(11), y2: sy(yAt(11)), stroke: css(m.col), 'stroke-width': 2, 'clip-path': `url(#${clipId})` }, svg);
-        PTS.forEach((p) => marker(svg, p.c, sx(p.x), sy(p.y), p.c === m.k ? css(m.col) : css('--muted'), p.c === m.k));
+        const xl = el('text', { x: W - R, y: H - 6, 'text-anchor': 'end', class: 'mut' }, svg); xl.textContent = 'x₁';
+        const yl = el('text', { x: 8, y: T + 10, class: 'mut' }, svg); yl.textContent = 'x₂';
+        return { fig, svg };
+      };
+      const placeNew = (svg) => { // the X marking the new point; a click anywhere in the panel moves it
         const g = el('g', {}, svg);
         const nx = sx(newPt.x), ny = sy(newPt.y), cross = `M${nx - 7},${ny - 7}L${nx + 7},${ny + 7}M${nx - 7},${ny + 7}L${nx + 7},${ny - 7}`;
         el('path', { d: cross, stroke: css('--surface'), 'stroke-width': 7, 'stroke-linecap': 'round', fill: 'none' }, g);
         el('path', { d: cross, stroke: css('--accent'), 'stroke-width': 3.5, 'stroke-linecap': 'round', fill: 'none' }, g);
-        const lab = el('text', { x: sx(newPt.x) + 12, y: sy(newPt.y) + 4, 'font-size': 11, 'font-weight': 600 }, g); lab.textContent = 'new x';
+        const lab = el('text', { x: nx + 12, y: ny + 4, 'font-size': 11, 'font-weight': 600 }, g); lab.textContent = 'new x';
         svg.addEventListener('click', (e) => {
           const r = svg.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width * W, py = (e.clientY - r.top) / r.height * H;
           newPt = { x: Math.min(9, Math.max(0, (px - L) / (W - L - R) * 9)), y: Math.min(9, Math.max(0, (1 - (py - T) / (H - T - B)) * 9)) };
           draw();
         });
-        const cap = document.createElement('figcaption'); cap.textContent = `Model ${m.k}: ${m.name} vs. everything else`;
-        const fx = document.createElement('span'); fx.className = 'mono'; fx.textContent = 'P = ' + formula(m); cap.append(document.createElement('br'), fx); fig.appendChild(cap);
+      };
+      const caption = (fig, text, mono) => {
+        const cap = document.createElement('figcaption'); cap.textContent = text;
+        const fx = document.createElement('span'); fx.className = 'mono'; fx.textContent = mono; cap.append(document.createElement('br'), fx); fig.appendChild(cap);
+      };
+      MODELS.forEach((m) => {
+        const { fig, svg } = frame(`model ${m.k}: ${m.name} versus everything else`);
+        const clipId = 'clip' + m.k; const clip = el('clipPath', { id: clipId }, svg); el('rect', { x: L, y: T, width: W - L - R, height: H - T - B }, clip);
+        const yAt = (x) => -(m.w[0] * x + m.b) / m.w[1];
+        el('line', { x1: sx(-2), y1: sy(yAt(-2)), x2: sx(11), y2: sy(yAt(11)), stroke: css(m.col), 'stroke-width': 2, 'clip-path': `url(#${clipId})` }, svg);
+        PTS.forEach((p) => marker(svg, p.c, sx(p.x), sy(p.y), p.c === m.k ? css(m.col) : css('--muted'), p.c === m.k));
+        placeNew(svg);
+        caption(fig, `Model ${m.k}: ${m.name} vs. everything else`, 'P = ' + formula(m));
       });
+      // fourth panel: the plane shaded by the model with the largest P; each border is a tie between two models
+      const { fig: fig4, svg: svg4 } = frame('all three models together: each region is the class with the largest probability');
+      const keep = (poly, f) => { // the part of a convex polygon where f >= 0
+        const out = [];
+        poly.forEach((a, i) => { const b = poly[(i + 1) % poly.length]; const fa = f(a), fb = f(b);
+          if (fa >= 0) out.push(a);
+          if ((fa >= 0) !== (fb >= 0)) { const t = fa / (fa - fb); out.push({ x: a.x + t * (b.x - a.x), y: a.y + t * (b.y - a.y) }); } });
+        return out;
+      };
+      const box = [{ x: 0, y: 0 }, { x: 9, y: 0 }, { x: 9, y: 9 }, { x: 0, y: 9 }];
+      MODELS.forEach((m) => {
+        const region = MODELS.filter((o) => o !== m).reduce((poly, o) => keep(poly, (p) => z(m, p) - z(o, p)), box);
+        if (region.length < 3) return;
+        el('polygon', { points: region.map((p) => `${sx(p.x)},${sy(p.y)}`).join(' '), fill: css(m.col), 'fill-opacity': .18 }, svg4);
+        region.forEach((a, i) => { const b = region[(i + 1) % region.length]; // region edges that are not box edges are the ties
+          const onBox = (a.x === b.x && (a.x === 0 || a.x === 9)) || (a.y === b.y && (a.y === 0 || a.y === 9));
+          if (!onBox) el('line', { x1: sx(a.x), y1: sy(a.y), x2: sx(b.x), y2: sy(b.y), stroke: css('--fg'), 'stroke-opacity': .5, 'stroke-width': 1.5 }, svg4);
+        });
+      });
+      PTS.forEach((p) => marker(svg4, p.c, sx(p.x), sy(p.y), css(MODELS[p.c - 1].col), true));
+      const [m1, m2, m3] = MODELS; // the tie point, where z1 = z2 = z3
+      const a1 = m1.w[0] - m2.w[0], b1 = m1.w[1] - m2.w[1], c1 = m2.b - m1.b, a2 = m1.w[0] - m3.w[0], b2 = m1.w[1] - m3.w[1], c2 = m3.b - m1.b, det = a1 * b2 - a2 * b1;
+      const tie = Math.abs(det) > 1e-9 ? { x: (c1 * b2 - c2 * b1) / det, y: (a1 * c2 - a2 * c1) / det } : null;
+      let tieText = 'no single tie point';
+      if (tie && tie.x >= 0 && tie.x <= 9 && tie.y >= 0 && tie.y <= 9) {
+        el('circle', { cx: sx(tie.x), cy: sy(tie.y), r: 4.5, fill: css('--surface'), stroke: css('--fg'), 'stroke-width': 2 }, svg4);
+        const tl = el('text', { x: sx(tie.x) - 8, y: sy(tie.y) - 7, 'text-anchor': 'end', 'font-size': 11, 'font-weight': 600 }, svg4); tl.textContent = 'tie';
+        tieText = `tie at x₁ = ${tie.x.toFixed(1)}, x₂ = ${tie.y.toFixed(1)}, every P = ${prob(m1, tie).toFixed(2)}`;
+      }
+      placeNew(svg4);
+      caption(fig4, 'All three: largest P wins', tieText);
       const bars = $('#ovr-bars'); bars.textContent = '';
       const ps = MODELS.map((m) => ({ m, p: prob(m, newPt) })); const best = ps.reduce((a, b) => (b.p > a.p ? b : a));
       ps.forEach(({ m, p }) => {
