@@ -22,7 +22,11 @@
       { k: 3, name: 'squares', w: [-1.2394, -1.1166], b: 8.4484, col: '--s3' },
     ];
     const sig = (z) => 1 / (1 + Math.exp(-z));
-    const prob = (m, p) => sig(m.w[0] * p.x + m.w[1] * p.y + m.b);
+    const z = (m, p) => m.w[0] * p.x + m.w[1] * p.y + m.b;
+    const prob = (m, p) => sig(z(m, p));
+    const num = (v, d) => v.toFixed(d).replace('-', '\u2212');
+    const term = (v, s) => (v < 0 ? ' \u2212 ' : ' + ') + Math.abs(v).toFixed(2) + s;
+    const formula = (m) => `\u03c3(${num(m.w[0], 2)}\u00b7x\u2081${term(m.w[1], '\u00b7x\u2082')}${term(m.b, '')})`;
     let newPt = { x: 3.0, y: 6.0 };
     const ovr = $('#ovr');
     function marker(parent, cls, cx, cy, col, filled) {
@@ -39,30 +43,34 @@
         const fig = document.createElement('figure'); ovr.appendChild(fig);
         const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, role: 'img', 'aria-label': `model ${m.k}: ${m.name} versus everything else` }, fig);
         el('rect', { x: L, y: T, width: W - L - R, height: H - T - B, fill: 'none', class: 'axis' }, svg);
-        const xl = el('text', { x: W - R, y: H - 6, 'text-anchor': 'end', class: 'mut' }, svg); xl.textContent = 'x1';
-        const yl = el('text', { x: 8, y: T + 10, class: 'mut' }, svg); yl.textContent = 'x2';
+        const xl = el('text', { x: W - R, y: H - 6, 'text-anchor': 'end', class: 'mut' }, svg); xl.textContent = 'x\u2081';
+        const yl = el('text', { x: 8, y: T + 10, class: 'mut' }, svg); yl.textContent = 'x\u2082';
         const clipId = 'clip' + m.k; const clip = el('clipPath', { id: clipId }, svg); el('rect', { x: L, y: T, width: W - L - R, height: H - T - B }, clip);
         const yAt = (x) => -(m.w[0] * x + m.b) / m.w[1];
         el('line', { x1: sx(-2), y1: sy(yAt(-2)), x2: sx(11), y2: sy(yAt(11)), stroke: css(m.col), 'stroke-width': 2, 'clip-path': `url(#${clipId})` }, svg);
         PTS.forEach((p) => marker(svg, p.c, sx(p.x), sy(p.y), p.c === m.k ? css(m.col) : css('--muted'), p.c === m.k));
         const g = el('g', {}, svg);
-        el('circle', { cx: sx(newPt.x), cy: sy(newPt.y), r: 9, fill: css('--accent'), stroke: css('--surface'), 'stroke-width': 2.5 }, g);
+        const nx = sx(newPt.x), ny = sy(newPt.y), cross = `M${nx - 7},${ny - 7}L${nx + 7},${ny + 7}M${nx - 7},${ny + 7}L${nx + 7},${ny - 7}`;
+        el('path', { d: cross, stroke: css('--surface'), 'stroke-width': 7, 'stroke-linecap': 'round', fill: 'none' }, g);
+        el('path', { d: cross, stroke: css('--accent'), 'stroke-width': 3.5, 'stroke-linecap': 'round', fill: 'none' }, g);
         const lab = el('text', { x: sx(newPt.x) + 12, y: sy(newPt.y) + 4, 'font-size': 11, 'font-weight': 600 }, g); lab.textContent = 'new x';
         svg.addEventListener('click', (e) => {
           const r = svg.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width * W, py = (e.clientY - r.top) / r.height * H;
           newPt = { x: Math.min(9, Math.max(0, (px - L) / (W - L - R) * 9)), y: Math.min(9, Math.max(0, (1 - (py - T) / (H - T - B)) * 9)) };
           draw();
         });
-        const cap = document.createElement('figcaption'); cap.textContent = `Model ${m.k}: ${m.name} vs. everything else`; fig.appendChild(cap);
+        const cap = document.createElement('figcaption'); cap.textContent = `Model ${m.k}: ${m.name} vs. everything else`;
+        const fx = document.createElement('span'); fx.className = 'mono'; fx.textContent = 'P = ' + formula(m); cap.append(document.createElement('br'), fx); fig.appendChild(cap);
       });
       const bars = $('#ovr-bars'); bars.textContent = '';
       const ps = MODELS.map((m) => ({ m, p: prob(m, newPt) })); const best = ps.reduce((a, b) => (b.p > a.p ? b : a));
       ps.forEach(({ m, p }) => {
-        const n = document.createElement('div'); n.textContent = `P(${m.name})`; n.className = best.m === m ? 'win' : ''; bars.appendChild(n);
+        const n = document.createElement('div'); n.textContent = `P(${m.name}) =`; n.className = best.m === m ? 'win' : ''; bars.appendChild(n);
+        const zc = document.createElement('div'); zc.className = 'pz' + (best.m === m ? ' win' : ''); zc.textContent = `\u03c3(${num(z(m, newPt), 2)})`; bars.appendChild(zc);
         const tr = document.createElement('div'); tr.className = 'track'; const f = document.createElement('div'); f.className = 'fill'; f.style.width = (p * 100).toFixed(1) + '%'; f.style.background = css(m.col); tr.appendChild(f); bars.appendChild(tr);
         const v = document.createElement('div'); v.className = 'pv' + (best.m === m ? ' win' : ''); v.textContent = p.toFixed(2); bars.appendChild(v);
       });
-      $('#ovr-verdict').textContent = `x1 = ${newPt.x.toFixed(1)}, x2 = ${newPt.y.toFixed(1)}: model ${best.m.k} wins, so this is a ${best.m.name.slice(0, -1)}. The three probabilities add up to ${ps.reduce((s, q) => s + q.p, 0).toFixed(2)}, not 1.`;
+      $('#ovr-verdict').textContent = `x\u2081 = ${newPt.x.toFixed(1)}, x\u2082 = ${newPt.y.toFixed(1)}: model ${best.m.k} wins, so this is a ${best.m.name.slice(0, -1)}. The three probabilities add up to ${ps.reduce((s, q) => s + q.p, 0).toFixed(2)}, not 1.`;
     }
     draw();
     return draw;

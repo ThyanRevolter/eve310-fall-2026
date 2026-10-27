@@ -111,9 +111,10 @@ svg .axis { stroke: var(--line); stroke-width: 1; }
 .ovr figure { margin: 0; }
 .ovr figcaption { font-size: .85rem; color: var(--muted); text-align: center; margin-top: .2rem; }
 .ovr svg { cursor: crosshair; }
-.bars { display: grid; grid-template-columns: 7rem 1fr 4rem; gap: .35rem .6rem; align-items: center; max-width: 30rem; margin-top: .8rem; }
+.bars { display: grid; grid-template-columns: max-content max-content minmax(3rem, 1fr) 3rem; gap: .35rem .6rem; align-items: center; max-width: 32rem; margin-top: .8rem; }
 .bars .track { height: 12px; background: var(--muted-wash); border-radius: 6px; overflow: hidden; }
 .bars .fill { height: 100%; border-radius: 6px; }
+.bars .pz { font-family: var(--mono); }
 .bars .pv { font-family: var(--mono); text-align: right; }
 .bars .win { font-weight: 600; }
 @media (prefers-reduced-motion: no-preference) { .bars .fill { transition: width .25s ease; } }

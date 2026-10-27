@@ -16,13 +16,13 @@
 </nav>
 <main>
 <h1><span class="eyebrow">1 &middot; Multi-class</span><br>One-vs-all</h1>
-<p class="lede">Three classes, three binary models: triangle or not, circle or not, square or not. The highest probability wins. Click anywhere to place a new point.</p>
+<p class="lede">Three classes, three binary models: triangle or not, circle or not, square or not. Each is a logistic regression, P = σ(w₁x₁ + w₂x₂ + b) with σ(z) = 1 / (1 + e<sup>−z</sup>). The highest probability wins. Click anywhere to place a new point.</p>
 <div class="bench">
   <div class="ovr" id="ovr"></div>
   <div class="bars" id="ovr-bars"></div>
   <p class="note" id="ovr-verdict"></p>
 </div>
-<p class="note">The three probabilities do not add up to 1: three separate models, only their order matters. In scikit-learn, <code>OneVsRestClassifier(LogisticRegression())</code> does exactly this.</p>
+<p class="note">Each line is where its model gives P = 0.5. The three probabilities do not add up to 1: three separate models, only their order matters. In scikit-learn, <code>OneVsRestClassifier(LogisticRegression())</code> does exactly this.</p>
 </main>
 <nav class="pager" aria-label="Previous and next">
   <a href="index.html">Back to the overview</a>
