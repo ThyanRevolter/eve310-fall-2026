@@ -141,4 +141,5 @@
   if ($('#clus')) redraws.push(initClustering());
   const redrawAll = () => redraws.forEach((f) => f());
   if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', redrawAll);
+  new MutationObserver(redrawAll).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 })();
