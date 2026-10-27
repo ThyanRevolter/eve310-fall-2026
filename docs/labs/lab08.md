@@ -46,7 +46,7 @@ Last week's loops get their first real job: a classification model gives each we
 
 ## Threshold explorer
 
-Slide a threshold over the Long Island wells and watch the four outcomes, precision and recall change. Open it beside the tutorial.
+Slide a threshold over the Long Island wells and watch the four outcomes, the scores (precision, recall, accuracy, F1, false positive rate) and the ROC curve change. Open it beside the tutorial.
 
 [Open the threshold explorer]({{ '/labs/lab08-threshold-explorer.html' | relative_url }}){: .btn .btn-purple target="_blank" rel="noopener"}
 

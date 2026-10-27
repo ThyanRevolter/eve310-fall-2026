@@ -6,7 +6,7 @@
 <title>TCE Threshold Explorer</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: a control strip, the well plot full width, then the four outcomes and the metrics beside the sweep chart; everything stacks to one column on a phone. */
+/* Layout: a control strip, the well plot full width, then the four outcomes and the scores beside the sweep chart and the ROC curve; everything stacks to one column on a phone. */
 :root {
   --bg: #f4f5f7;
   --surface: #ffffff;
@@ -125,7 +125,7 @@ footer a, .try a { color: var(--accent-ink); }
   <header>
     <div class="eyebrow">EVE 310 · Lab 8 · Classification thresholds</div>
     <h1>TCE Threshold Explorer</h1>
-    <p class="lede">A logistic regression gives every Long Island well a probability that trichloroethylene (TCE) is above 3 ppb. The model does not say yes or no. A threshold does. Slide it and watch the four outcomes, precision and recall change.</p>
+    <p class="lede">A logistic regression gives every Long Island well a probability that trichloroethylene (TCE) is above 3 ppb. The model does not say yes or no. A threshold does. Slide it and watch the four outcomes, the scores and the ROC curve change.</p>
   </header>
 
   <section class="panel controls" aria-label="Controls">
@@ -191,7 +191,7 @@ footer a, .try a { color: var(--accent-ink); }
             <span class="k">Recall</span>
             <span class="f">TP / (TP + FN)</span>
             <span class="v">–</span>
-            <span class="q">Of the real detections, how many did we catch?</span>
+            <span class="q">Of the real detections, how many did we catch? Also called the true positive rate (TPR), the y-axis of the ROC curve.</span>
           </div>
           <div class="tile" id="t-acc">
             <span class="k">Accuracy</span>
@@ -199,10 +199,23 @@ footer a, .try a { color: var(--accent-ink); }
             <span class="v">–</span>
             <span class="q">Right answers of both kinds. Misleading when one class is rare.</span>
           </div>
+          <div class="tile" id="t-f1">
+            <span class="k">F1 score</span>
+            <span class="f">2 · P · R / (P + R)</span>
+            <span class="v">–</span>
+            <span class="q">One number that is high only when precision and recall are both high. Zero when nothing real is caught.</span>
+          </div>
+          <div class="tile" id="t-fpr">
+            <span class="k">False positive rate</span>
+            <span class="f">FP / (FP + TN)</span>
+            <span class="v">–</span>
+            <span class="q">Of the wells with no detection, how many were flagged anyway? The x-axis of the ROC curve.</span>
+          </div>
         </div>
       </section>
     </div>
 
+    <div class="stack">
     <section class="panel">
       <h2>Every threshold at once</h2>
       <p class="sub">The sweep the lab's for loop computes. Click or drag on the chart to move the threshold.</p>
@@ -213,6 +226,19 @@ footer a, .try a { color: var(--accent-ink); }
         <span><i class="ln" style="background: var(--accent)"></i>Current threshold</span>
       </div>
     </section>
+
+    <section class="panel">
+      <h2>ROC curve</h2>
+      <p class="sub">One point per threshold: false positive rate across, true positive rate (recall) up. Sweeping the threshold from 1 down to 0 walks the curve from the bottom-left corner to the top-right. Click a point to jump to its threshold.</p>
+      <div class="chart" id="roc-chart"></div>
+      <div class="legend">
+        <span><i class="ln" style="background: var(--nodetect)"></i>ROC curve</span>
+        <span><i class="ln" style="background: var(--fg-3)"></i>Coin flip, area 0.5</span>
+        <span><i style="background: var(--accent)"></i>Current threshold</span>
+      </div>
+      <p class="sum" id="roc-note"></p>
+    </section>
+    </div>
   </div>
 
   <section class="panel try">
@@ -221,6 +247,7 @@ footer a, .try a { color: var(--accent-ink); }
       <li>On the ten testing wells, start at 0.50: three wells are flagged, two of them real, and three detections are missed. Precision 0.667, recall 0.4, the numbers from Lecture 16. Now drag to 0.30. Two more wells are flagged, both real detections. Both scores rise to 0.8.</li>
       <li>Drag the threshold up slowly and watch recall. It only ever steps down or stays flat: removing a flag either drops a false alarm (recall unchanged) or loses a real detection (recall down). Precision tends to rise, but it can dip when a real detection loses its flag before a false alarm does.</li>
       <li>Switch to all 643 wells and drag past 0.82. Nothing is flagged. Recall is 0, and precision shows 1 only because of the <code>zero_division=1</code> convention.</li>
+      <li>Each threshold is one point on the ROC curve. Drag the slider from 1 down to 0 and watch the dot walk from the bottom-left corner to the top-right. The area under the curve, 0.78 for the ten wells, never changes with the threshold: it scores how well the model <em>ranks</em> the wells, and the threshold only picks a point on it.</li>
       <li>A missed detection leaves people drinking contaminated water. A false alarm costs one more lab test. Which way should a county move the threshold, and which score does it give up to get there?</li>
     </ol>
   </section>
@@ -269,6 +296,8 @@ footer a, .try a { color: var(--accent-ink); }
       precisionDefined: tp + fp > 0,
       recall: tp / (tp + fn),
       accuracy: (tp + tn) / n,
+      fpr: fp + tn > 0 ? fp / (fp + tn) : 0,
+      f1: tp > 0 ? 2 * tp / (2 * tp + fp + fn) : 0,
     };
   }
 
@@ -454,12 +483,67 @@ footer a, .try a { color: var(--accent-ink); }
       var tt = toT(ev), o = outcomes(groups, tt);
       hover.setAttribute('x1', x(tt)); hover.setAttribute('x2', x(tt)); hover.setAttribute('visibility', 'visible');
       var rc = sweepChart.getBoundingClientRect();
-      sweepTip.show('<b>threshold ' + tt.toFixed(2) + '</b><br>precision ' + fmt3(o.precision) + (o.precisionDefined ? '' : ' (0 / 0 → 1)') + '<br>recall ' + fmt3(o.recall) + '<br>' + o.flagged + ' of ' + o.n + ' flagged', ev.clientX - rc.left, ev.clientY - rc.top);
+      sweepTip.show('<b>threshold ' + tt.toFixed(2) + '</b><br>precision ' + fmt3(o.precision) + (o.precisionDefined ? '' : ' (0 / 0 → 1)') + '<br>recall ' + fmt3(o.recall) + '<br>F1 ' + fmt3(o.f1) + ' · accuracy ' + fmt3(o.accuracy) + '<br>' + o.flagged + ' of ' + o.n + ' flagged', ev.clientX - rc.left, ev.clientY - rc.top);
       if (ev.buttons & 1) setThreshold(tt);
     });
     hit.addEventListener('pointerdown', function (ev) { hit.setPointerCapture(ev.pointerId); setThreshold(toT(ev)); });
     hit.addEventListener('pointerleave', function () { hover.setAttribute('visibility', 'hidden'); sweepTip.hide(); });
     sweepChart.insertBefore(svg, sweepChart.firstChild);
+  }
+
+  // ---------------------------------------------------------------- ROC curve
+  var rocChart = $('roc-chart'), rocTip = tooltip(rocChart);
+  function rocPoints(groups) {
+    // walk the slider grid from 1 down to 0; each distinct (FPR, TPR) pair is one corner, with the thresholds that produce it
+    var pts = [];
+    for (var i = GRID.length - 1; i >= 0; i--) {
+      var o = outcomes(groups, GRID[i]), last = pts[pts.length - 1];
+      if (last && last.fpr === o.fpr && last.tpr === o.recall) { last.tMin = GRID[i]; last.o = o; }
+      else pts.push({ fpr: o.fpr, tpr: o.recall, tMax: GRID[i], tMin: GRID[i], o: o });
+    }
+    var auc = 0;
+    for (var j = 1; j < pts.length; j++) auc += (pts[j].fpr - pts[j - 1].fpr) * (pts[j].tpr + pts[j - 1].tpr) / 2;
+    return { pts: pts, auc: auc };
+  }
+  function drawROC() {
+    var groups = state.dataset.groups, t = state.t;
+    var W = Math.max(rocChart.clientWidth, 280), H = 320;
+    var m = { l: 44, r: 14, t: 16, b: 40 };
+    var pw = W - m.l - m.r, ph = H - m.t - m.b;
+    var x = function (v) { return m.l + v * pw; }, y = function (v) { return m.t + ph - v * ph; };
+    var old = rocChart.querySelector('svg'); if (old) old.remove();
+    var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, width: W, height: H, role: 'img',
+      'aria-label': 'ROC curve for ' + state.dataset.name });
+    var line = css('--line'), fg2 = css('--fg-2'), fg3 = css('--fg-3'), accent = css('--accent'), surface = css('--surface');
+    for (var v = 0; v <= 1.0001; v += 0.2) {
+      svg.appendChild(el('line', { x1: m.l, x2: m.l + pw, y1: y(v), y2: y(v), stroke: line, 'stroke-width': 1 }));
+      svg.appendChild(el('line', { x1: x(v), x2: x(v), y1: m.t, y2: m.t + ph, stroke: line, 'stroke-width': 1 }));
+      svg.appendChild(el('text', { x: m.l - 6, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: fg2, 'font-family': 'inherit' }, v.toFixed(1)));
+      svg.appendChild(el('text', { x: x(v), y: m.t + ph + 18, 'text-anchor': 'middle', 'font-size': 11, fill: fg2, 'font-family': 'inherit' }, v.toFixed(1)));
+    }
+    svg.appendChild(el('text', { x: m.l + pw / 2, y: H - 4, 'text-anchor': 'middle', 'font-size': 12, fill: fg2, 'font-family': 'inherit' }, 'False positive rate  FP / (FP + TN)'));
+    svg.appendChild(el('text', { x: 12, y: m.t + ph / 2, transform: 'rotate(-90 12 ' + (m.t + ph / 2) + ')', 'text-anchor': 'middle', 'font-size': 12, fill: fg2, 'font-family': 'inherit' }, 'True positive rate  TP / (TP + FN)'));
+    svg.appendChild(el('line', { x1: x(0), y1: y(0), x2: x(1), y2: y(1), stroke: fg3, 'stroke-width': 1, 'stroke-dasharray': '4 4' }));
+    var roc = rocPoints(groups);
+    svg.appendChild(el('path', { d: roc.pts.map(function (p, i) { return (i ? 'L' : 'M') + x(p.fpr).toFixed(1) + ' ' + y(p.tpr).toFixed(1); }).join(' '),
+      fill: 'none', stroke: css('--nodetect'), 'stroke-width': 2, 'stroke-linejoin': 'round' }));
+    svg.appendChild(el('text', { x: x(1) - 4, y: y(0) - 8, 'text-anchor': 'end', 'font-size': 13, 'font-weight': 600, fill: fg2, 'font-family': 'inherit' }, 'area under the curve ' + roc.auc.toFixed(2)));
+    roc.pts.forEach(function (p) {
+      svg.appendChild(el('circle', { cx: x(p.fpr), cy: y(p.tpr), r: 4, fill: css('--nodetect'), stroke: surface, 'stroke-width': 2 }));
+      var range = p.tMin === p.tMax ? 'threshold ' + p.tMax.toFixed(2) : 'thresholds ' + p.tMin.toFixed(2) + ' to ' + p.tMax.toFixed(2);
+      var html = '<b>' + range + '</b><br>FPR ' + fmt3(p.fpr) + ', TPR ' + fmt3(p.tpr) + '<br>' + p.o.flagged + ' of ' + p.o.n + ' flagged: ' + p.o.tp + ' TP, ' + p.o.fp + ' FP';
+      var hit = el('circle', { cx: x(p.fpr), cy: y(p.tpr), r: 12, fill: 'transparent', style: 'cursor: pointer' });
+      hit.addEventListener('pointermove', function (ev) { var rc = rocChart.getBoundingClientRect(); rocTip.show(html, ev.clientX - rc.left, ev.clientY - rc.top); });
+      hit.addEventListener('pointerleave', rocTip.hide);
+      hit.addEventListener('click', function () { setThreshold(p.tMax); });
+      svg.appendChild(hit);
+    });
+    var cur = outcomes(groups, t);
+    svg.appendChild(el('circle', { cx: x(cur.fpr), cy: y(cur.recall), r: 7, fill: accent, stroke: surface, 'stroke-width': 2.5, 'pointer-events': 'none' }));
+    rocChart.insertBefore(svg, rocChart.firstChild);
+    $('roc-note').textContent = state.dataset === TEN
+      ? 'Area 0.78, the value on the Lecture 17 slide. Wells 2 and 8 both sit at density 5, so the model gives them one probability (the tutorial’s 0.158 and 0.159 differ only by rounding): the slider flags both or neither, and the curve takes a diagonal step there.'
+      : 'Area 0.79. Each of the twelve population densities is one step of the curve.';
   }
 
   // ---------------------------------------------------------------- counts, scores, table
@@ -476,6 +560,11 @@ footer a, .try a { color: var(--accent-ink); }
     tr.querySelector('.v').textContent = fmt3(o.recall);
     ta.querySelector('.f').textContent = '(TP + TN) / all = ' + (o.tp + o.tn) + ' / ' + o.n;
     ta.querySelector('.v').textContent = fmt3(o.accuracy);
+    var tf = $('t-f1'), tx = $('t-fpr');
+    tf.querySelector('.f').textContent = '2 · P · R / (P + R) = 2 · ' + fmt3(o.precision) + ' · ' + fmt3(o.recall) + ' / ' + fmt3(o.precision + o.recall);
+    tf.querySelector('.v').textContent = fmt3(o.f1);
+    tx.querySelector('.f').textContent = 'FP / (FP + TN) = ' + o.fp + ' / ' + (o.fp + o.tn);
+    tx.querySelector('.v').textContent = fmt3(o.fpr);
     $('wells-sub').textContent = state.dataset === TEN
       ? 'The ten wells Lecture 16 kept for testing, one dot per well, placed by the model’s probability and stacked where two wells share one. Everything right of the line is flagged.'
       : 'All 643 wells of the study, one dot per well, stacked at the twelve population densities with the detections on top. Everything right of the line is flagged.';
@@ -494,7 +583,7 @@ footer a, .try a { color: var(--accent-ink); }
 
   // ---------------------------------------------------------------- wiring
   var slider = $('thr'), out = $('thr-out');
-  function render() { renderNumbers(); drawWells(); drawSweep(); }
+  function render() { renderNumbers(); drawWells(); drawSweep(); drawROC(); }
   function setThreshold(t) {
     t = Math.min(1, Math.max(0, Math.round(t * 100) / 100));
     if (t === state.t) return;
@@ -509,13 +598,13 @@ footer a, .try a { color: var(--accent-ink); }
     r.addEventListener('change', function () { if (r.checked) { state.dataset = r.value === 'all' ? ALL : TEN; render(); } });
   });
   var resizeTimer;
-  window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(function () { drawWells(); drawSweep(); }, 120); });
+  window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(function () { drawWells(); drawSweep(); drawROC(); }, 120); });
   var themeWatch = window.matchMedia('(prefers-color-scheme: dark)');
   if (themeWatch.addEventListener) themeWatch.addEventListener('change', render);
   new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   out.textContent = state.t.toFixed(2);
   render();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { drawWells(); drawSweep(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { drawWells(); drawSweep(); drawROC(); });
 })();
 </script>
 </body>
