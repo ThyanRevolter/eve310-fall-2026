@@ -22,9 +22,8 @@ Dates and deadlines live on Canvas, not here.
 | 07  | 3      | If statements and for loops | not released | [Colab](https://colab.research.google.com/github/ThyanRevolter/eve310-fall-2026/blob/main/labs/lab07-control-flow/notebooks/lab07-tutorial.ipynb)                  | [Colab](https://colab.research.google.com/github/ThyanRevolter/eve310-fall-2026/blob/main/labs/lab07-control-flow/notebooks/lab07-activity.ipynb)                  |
 | 08  | 3      | Classification thresholds   | not released | [Colab](https://colab.research.google.com/github/ThyanRevolter/eve310-fall-2026/blob/main/labs/lab08-classification-thresholds/notebooks/lab08-tutorial.ipynb)     | [Colab](https://colab.research.google.com/github/ThyanRevolter/eve310-fall-2026/blob/main/labs/lab08-classification-thresholds/notebooks/lab08-activity.ipynb)     |
 | 09  | 3      | Batch processing many files | not released | [Colab](https://colab.research.google.com/github/ThyanRevolter/eve310-fall-2026/blob/main/labs/lab09-batch-processing/notebooks/lab09-tutorial.ipynb)              | [Colab](https://colab.research.google.com/github/ThyanRevolter/eve310-fall-2026/blob/main/labs/lab09-batch-processing/notebooks/lab09-activity.ipynb)              |
+| 10  | 4      | Clustering with k-means     | not released | [Colab](https://colab.research.google.com/github/ThyanRevolter/eve310-fall-2026/blob/main/labs/lab10-clustering/notebooks/lab10-tutorial.ipynb)                     | [Colab](https://colab.research.google.com/github/ThyanRevolter/eve310-fall-2026/blob/main/labs/lab10-clustering/notebooks/lab10-activity.ipynb)                     |
 | 11  | 2      | Dairy-farm carbon footprint | not released | —                                                                                                                                                                    | [Colab](https://colab.research.google.com/github/ThyanRevolter/eve310-fall-2026/blob/main/labs/lab11-dairy-farm-challenge/notebooks/lab11-activity.ipynb)          |
-
-Lab 10 is reserved (no Fall 2025 source).
 
 ## The student workflow
 

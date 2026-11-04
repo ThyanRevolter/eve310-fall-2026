@@ -104,14 +104,18 @@ with a clone**. Copy those folders by hand when moving machines.
   (tutorial from the `<details>` cells, activity from a `FILLS` list) to verify numbers
   before deck, quiz and autograder are built.
 
-**Autograder pattern** (copy the previous lab's folder; Lab 9 is the latest)
+**Autograder pattern** (copy the previous lab's folder; Lab 10 is the latest)
 
 - Standard library only in the grader: `grader/spec.py` derives every expected value from
   the lab CSVs (or holds typed constants when NumPy randomness is involved), lists
   `CHECKS` with points, hints and `mistakes` (wrong value, explanation) pairs;
   `grader/checks.py` compares with 0.1% relative tolerance (0.0005 absolute floor), kinds
   include number, text, text_sequence, dataframe (`column_equals`, `column_text_equals`),
-  figure (bar heights, series, labels, box-plot median), choice, file; `grader/notebook.py`
+  figure (bar heights, series, labels, box-plot median), choice, file, and since Lab 10
+  `unordered` (sorted values or rows), `partition` (labels compared up to a renumbering),
+  `cluster_mean` (a column averaged over the student's own label) and `scatter`; when the
+  key needs scikit-learn (k-means), `spec.py` holds typed constants that `selftest.py`
+  recomputes with sklearn; `grader/notebook.py`
   runs code cells one at a time in a shared namespace (magics stripped, Agg backend, 60 s
   cap, `input()` raises); a leftover `--` is a SyntaxError that skips the cell.
 - `selftest.py` fills the real starter notebook's `--` at run time (`FILLS`), so a starter
@@ -133,7 +137,7 @@ with a clone**. Copy those folders by hand when moving machines.
   never the answer), answers with `**[CORRECT]**` marker and an indented `  - ` feedback
   line per answer, an italic `*Skill: ...*` note with slide and tutorial references.
   Code lines in a stem become a `<pre>` block. Parser: `parse` in
-  `work/qti/build_lab07_qti.py`, imported by the Lab 8 and 9 builders.
+  `work/qti/build_lab07_qti.py`, imported by the Lab 8 to 10 builders.
 - Questions 5 to 7 reuse the activity's questions with new inputs; everything else is
   code-reading or transfer. Canvas instruction text is hard-coded in the builder.
 - Canvas uses **New Quizzes** for lab quizzes. Import the zip from the New Quizzes build
@@ -143,7 +147,7 @@ with a clone**. Copy those folders by hand when moving machines.
   Settings > Import Course Content > QTI .zip, "Import existing quizzes as New Quizzes"
   unchecked).
 
-**Deck pipeline** (`work/lab_NN/deck_build/`, Lab 9 is the latest)
+**Deck pipeline** (`work/lab_NN/deck_build/`, Lab 10 is the latest)
 
 - `render.py` draws Colab-looking code cells, outputs and tables with Pillow + Pygments;
   `make_images.py` runs the tutorial's code cells (reads finished code from the
@@ -158,8 +162,8 @@ with a clone**. Copy those folders by hand when moving machines.
   Inserting a slide shifts every later slide number quoted in the quiz markdowns and the
   deck README.
 - From Lab 10 on draw the blank live-coded cell at 85 to 90% of the finished cell's
-  width (Lab 9 deck slide 11 is the reference); the half-size `pair()` cell was too small
-  to read from the room.
+  width (Lab 10's `stack()` in `build_deck.py` does it at 87%); the half-size `pair()`
+  cell of Labs 7 to 9 was too small to read from the room.
 - Each deck has a quiz-review slide for the previous lab's quiz built from the Canvas
   item analysis the user pastes: concepts and the missed questions only, no statistics,
   no bare answers.
@@ -219,7 +223,7 @@ with a clone**. Copy those folders by hand when moving machines.
 
 ```
 .
-├── labs/                      # lab01..lab09, lab11, quiz01-in-class, _template
+├── labs/                      # lab01..lab11, quiz01-in-class, _template
 │   └── labNN-slug/{README.md, notebooks/, data/, figures/.gitkeep, slides/.gitkeep, autograder/ (gitignored)}
 ├── lectures/notebooks/        # 4 follow-along notebooks (linear algebra, traffic regression, multivariate, logistic)
 ├── assignments/assignment03-regression/   # Problem 4 data + README with setup cell (handout stays on Canvas)
@@ -227,9 +231,9 @@ with a clone**. Copy those folders by hand when moving machines.
 ├── src/eve310/                # staff helpers: setup_notebook, repo_root, set_plot_style (CI imports it)
 ├── .github/workflows/         # ci.yml (uv sync + setup_notebook on every lab), pages.yml (Jekyll to Pages)
 └── work/                      # GITIGNORED staff workspace
-    ├── lab_04 .. lab_09/      # deck_build/ per lab; lab_08, lab_09 also make_notebooks.py, run_filled.py, make_data.py
-    ├── presentation/          # Lab3..Lab9_AS_2026.pptx (generated decks, hand-edited by the user)
-    ├── labNN_quiz_canvas.md, labNN_self_assessment_canvas.md   # Labs 2 to 9
+    ├── lab_04 .. lab_10/      # deck_build/ per lab; lab_08 to lab_10 also make_notebooks.py, run_filled.py, make_data.py
+    ├── presentation/          # Lab3..Lab10_AS_2026.pptx (generated decks, hand-edited by the user)
+    ├── labNN_quiz_canvas.md, labNN_self_assessment_canvas.md   # Labs 2 to 10
     ├── qti/                   # canvas_qti.py, build_labNN_qti.py, build_midcourse_survey_qti.py, zips
     ├── quiz_01/               # in-class Quiz 1 notebook, data, quiz-mode autograder, REPORT.md
     ├── survey/                # mid-course survey draft (md, docx builder, Canvas announcement)
@@ -240,7 +244,7 @@ with a clone**. Copy those folders by hand when moving machines.
     └── CONVERSION_SPEC.md     # older spec for converting 2025 assignment PDFs into assignments/ (not currently followed)
 ```
 
-## Latest state (as of 2026-11-02)
+## Latest state (as of 2026-11-04)
 
 **Labs**
 
@@ -255,12 +259,29 @@ with a clone**. Copy those folders by hand when moving machines.
 - Lab 9 (2026-10-22, batch processing): 24 `water_XXX.csv` files plus `water_notes.txt`;
   27-slide deck with a Lab 8 quiz review on slide 5; 55 selftests pass. Pushed `0a2fda1`,
   `b580f4a`. Quiz was due 2026-10-28.
-- Lab 10 slot (2026-10-29) was "reserved"; that week had no lab (Greg away, Thursday
-  lecture on Zoom; see `docs/_announcements/week10-schedule.md`).
+- Week 10 (2026-10-29) had no lab (Greg away, Thursday lecture on Zoom; see
+  `docs/_announcements/week10-schedule.md`).
+- Lab 10 (2026-11-05, clustering with k-means, Module 4): built 2026-11-04 in the Lab 9
+  pipeline, Greg's instruction was "focus on clustering". Tutorial on the lecture's 19
+  two-column points (`lecture_points.csv`, Lina Sela's k-means example reused in the 2023
+  Lab 11, the only clustering lab in `work/previous_lab/2023`): `KMeans(n_clusters=k,
+  random_state=0, n_init=10)`, `labels_` / `cluster_centers_`, `inertia_` and the by-hand
+  SSE, `silhouette_score`, the elbow loop and a Your-turn silhouette loop with `np.argmax`,
+  `predict`. Activity on `household_water.csv` (300 synthetic households, `gallons_per_day`
+  and `night_flow_gph`, three planted groups, `work/lab_10/make_data.py`, seed 310): the
+  run-as-is raw fit splits by gallons only, Q1 standardizes with the given `ddof=1` means
+  and stds and fits k = 3 (sizes 79/172/49), Q2 sweeps k = 2 to 8 (best_k 3), Q3 converts
+  the centroids back to gallons and finds the leak cluster (49 households, 296.7 gpd,
+  17.8 gph). Deck `Lab10_AS_2026.pptx`, 26 slides (slide 5 is a placeholder Lab 9 quiz
+  review, no item analysis yet); 54-point quiz due 2026-11-11 and self-assessment with
+  QTI zips; autograder with 13 checks, 133 selftests. Four review agents checked the
+  notebooks before the build; every "as in Lab N" claim was verified against the earlier
+  notebooks. Not yet committed when this file was updated.
 - Lab 11 (dairy-farm carbon footprint, Module 2 team challenge) exists only as the 2025
   conversion: `labs/lab11-dairy-farm-challenge/` with one activity notebook and the CSV.
   Not yet rebuilt in the Lab 7+ pattern; no deck, quiz or autograder.
-- Lab quiz results so far: Lab 8 quiz mean 97% (56 students).
+- Lab quiz results so far: Lab 8 quiz mean 97% (56 students). Lab 9 item analysis not
+  yet pasted (needed for the Lab 10 deck's slide 5).
 
 **Other**
 
@@ -289,14 +310,18 @@ Gradescope and Canvas steps are done by hand through the user's logins.
 3. Lecture 17 leftovers: Menti code on slides 10 and 24, PowerPoint re-save of the
    no-notes deck (Office Math fallback), Canvas upload, confirm the two added
    announcement bullets with Greg.
-4. Next lab after the reserved week: decide what runs on Thursday 2026-11-05 (Module 4
-   clustering is next in the syllabus; Lab 11 dairy-farm exists as a 2025 conversion).
-   Build it with the Lab 9 pipeline: copy `work/lab_09/` and
-   `labs/lab09-batch-processing/autograder/`, write `make_notebooks.py`, run
-   `run_filled.py`, `selftest.py`, `build.py`, `make_solution.py`, `make_images.py`,
-   `build_deck.py`, the two quiz markdowns and `build_labNN_qti.py`, the lab README,
-   `docs/labs/labNN.md` and the table rows. Include a Lab 9 quiz-review slide once the
-   user pastes the item analysis.
+4. Lab 10 (built 2026-11-04, lab is Thursday 2026-11-05): commit and push
+   `labs/lab10-clustering/`, `docs/labs/lab10.md`, `docs/labs/index.md`, `labs/README.md`
+   to `main` **before the session** (the setup cell downloads the two CSVs from `main`);
+   create the 0-point Gradescope assignment and upload
+   `labs/lab10-clustering/autograder/autograder.zip`, test with
+   `lab10-activity-solution.ipynb`; import `work/qti/lab10_quiz_qti.zip` (due Wednesday
+   2026-11-11, 11:59 pm) and `lab10_self_assessment_qti.zip` into New Quizzes; replace the
+   placeholder slide 5 with the missed Lab 9 quiz questions once the item analysis is
+   pasted (add cells to `work/lab_10/deck_build/make_images.py`, keep 26 slides so the
+   quiz markdowns' slide numbers hold); open the deck in PowerPoint and check slides 13,
+   14, 16, 21 and 24 (DejaVu wireframes only here). Any rebuild goes to a scratch path and
+   through `compare.py` first.
 5. Fix the Assignment 3 handout filename typo on Box/Canvas if Greg agrees.
 
 Replace this section with the specific ask when handing the project to a new session.
