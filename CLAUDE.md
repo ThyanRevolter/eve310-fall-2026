@@ -201,8 +201,12 @@ with a clone**. Copy those folders by hand when moving machines.
   listed in `docs/lectures/index.md` and `lectures/README.md`. Instructor code cells stay
   byte-identical; notes go in markdown; deliberate failures are marked **Expect an error**.
 - Interactive pages: `docs/labs/lab08-threshold-explorer.html` (vanilla JS + inline SVG,
-  slider, confusion matrix, precision/recall/F1/FPR, ROC) and `docs/lectures/lecture17/`
-  (three pages sharing `lecture17.css` / `lecture17.js`).
+  slider, confusion matrix, precision/recall/F1/FPR, ROC), `docs/labs/lab10-kmeans-explorer.html`
+  (k-means one step at a time on the 19 lecture points: assign/move stepper, draggable
+  centroids, k = 1 to 4, bad and bunched starts, ten random starts) and
+  `docs/lectures/lecture17/` (three pages sharing `lecture17.css` / `lecture17.js`). Pages
+  without front matter are copied to the site as they are; link them from the lab page with
+  a `relative_url` button and add a row to the lab README.
 
 **Environment on this machine (WSL2, Debian)**
 
@@ -210,13 +214,17 @@ with a clone**. Copy those folders by hand when moving machines.
   nbclient, pypdf). `uv` is at `~/miniconda3/bin/uv`, not on PATH.
 - No PowerPoint, LibreOffice, pandoc, Docker, pdftotext or pdftoppm. Read PDFs with pypdf
   (text) or pypdfium2 (page images) from `/tmp/pptxenv`.
+- Windows Chrome (`/mnt/c/Program Files/Google/Chrome/Application/chrome.exe`) runs
+  headless from WSL for page screenshots and `--dump-dom` checks; the page must sit on a
+  Windows path (copy it under `C:\Users\as239965\AppData\Local\Temp`). Windows is in dark
+  mode, so pages render dark unless the root gets `data-theme="light"`.
 - Box Drive is readable only through
   `/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -Command`
   with `Get-ChildItem -LiteralPath` / `Copy-Item` (the `/mnt/c/.../Box` mount gives I/O
   errors). Course material: `Box\EV310 Fall 2026\Labs\{Labs_2023,Labs_2025,Labs_2026}`;
   old in-class quizzes in `Labs_2023\In-person Quiz\Quiz 1..3`.
 - Claude Code auto-memory for this repo: `~/.claude/projects/-home-as239965-git-repos-eve310-fall-2026/memory/`
-  (20 files, index `MEMORY.md`). Copy it along with `work/` when moving accounts or
+  (21 files, index `MEMORY.md`). Copy it along with `work/` when moving accounts or
   machines; this file is the condensed version.
 
 ## Repository map
@@ -276,7 +284,9 @@ with a clone**. Copy those folders by hand when moving machines.
   review, no item analysis yet); 54-point quiz due 2026-11-11 and self-assessment with
   QTI zips; autograder with 13 checks, 133 selftests. Four review agents checked the
   notebooks before the build; every "as in Lab N" claim was verified against the earlier
-  notebooks. Not yet committed when this file was updated.
+  notebooks. Pushed `dfdb373`. The k-means explorer page (`docs/labs/lab10-kmeans-explorer.html`,
+  linked from `docs/labs/lab10.md` and the lab README) was added the same day; its default
+  k = 3 start ends on the tutorial's labels and SSE, and it shows no activity numbers.
 - Lab 11 (dairy-farm carbon footprint, Module 2 team challenge) exists only as the 2025
   conversion: `labs/lab11-dairy-farm-challenge/` with one activity notebook and the CSV.
   Not yet rebuilt in the Lab 7+ pattern; no deck, quiz or autograder.
@@ -310,10 +320,9 @@ Gradescope and Canvas steps are done by hand through the user's logins.
 3. Lecture 17 leftovers: Menti code on slides 10 and 24, PowerPoint re-save of the
    no-notes deck (Office Math fallback), Canvas upload, confirm the two added
    announcement bullets with Greg.
-4. Lab 10 (built 2026-11-04, lab is Thursday 2026-11-05): commit and push
-   `labs/lab10-clustering/`, `docs/labs/lab10.md`, `docs/labs/index.md`, `labs/README.md`
-   to `main` **before the session** (the setup cell downloads the two CSVs from `main`);
-   create the 0-point Gradescope assignment and upload
+4. Lab 10 (built 2026-11-04 and pushed as `dfdb373`, lab is Thursday 2026-11-05): push
+   the k-means explorer page and its two links if not yet pushed; create the 0-point
+   Gradescope assignment and upload
    `labs/lab10-clustering/autograder/autograder.zip`, test with
    `lab10-activity-solution.ipynb`; import `work/qti/lab10_quiz_qti.zip` (due Wednesday
    2026-11-11, 11:59 pm) and `lab10_self_assessment_qti.zip` into New Quizzes; replace the

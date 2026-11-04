@@ -23,6 +23,7 @@ The first unsupervised method of the course. There is no answer column: the ques
 | --- | --- |
 | `notebooks/lab10-tutorial.ipynb` | Tutorial (typed along in lab): the 19 lecture points, `KMeans` with k = 3, labels and centroids, SSE and silhouette, the loop over k |
 | `notebooks/lab10-activity.ipynb` | Three questions on 300 households: standardize and fit k = 3, choose k from the elbow and silhouette curves, convert the centroids back to gallons and find the leak cluster |
+| [k-means explorer](https://thyanrevolter.github.io/eve310-fall-2026/labs/lab10-kmeans-explorer.html) | Interactive page: k-means one step at a time on the 19 lecture points (assign every point to its nearest centroid, move every centroid to the mean, repeat until no label changes), with k, the starting centroids and ten random starts to try (source in `docs/labs/`) |
 | `data/lecture_points.csv` | The 19 points from the k-means lecture slides: `x1`, `x2` |
 | `data/household_water.csv` | 300 smart-metered households (synthetic): `household`, `gallons_per_day` (average daily use), `night_flow_gph` (smallest flow between 2 and 4 am, gallons per hour) |
 

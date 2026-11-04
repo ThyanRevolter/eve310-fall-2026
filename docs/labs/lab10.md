@@ -44,6 +44,12 @@ The first unsupervised method of the course. There is no answer column: the ques
 
 {% include notebook.html path="labs/lab10-clustering/notebooks/lab10-activity.ipynb" %}
 
+## k-means explorer
+
+Watch k-means run one step at a time on the tutorial's 19 points: every point goes to its nearest centroid, every centroid moves to the mean of its points, and the two steps repeat until no label changes. Change k, drag the starting centroids, load a bad start, and run ten random starts to see what `n_init=10` does. Open it beside the tutorial.
+
+[Open the k-means explorer]({{ '/labs/lab10-kmeans-explorer.html' | relative_url }}){: .btn .btn-purple target="_blank" rel="noopener"}
+
 ## Data
 
 - `data/lecture_points.csv` — the 19 points from the k-means lecture slides: `x1`, `x2`
