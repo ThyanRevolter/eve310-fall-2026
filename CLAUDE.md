@@ -66,6 +66,17 @@ assignment data files, and occasional TA-taught lectures.
   questions (same method, new input) go in the Canvas quiz, not into more activity parts.
 - Never reuse a scalar's name for an array in the same notebook (Lab 8 confusion);
   suffix arrays `_array` and say why in the text.
+- Mid-course survey (closed 2026-11-04, 13 responses, `work/survey/midcourse_survey_summary.md`):
+  students can complete code from a template but cannot start it, and half cannot finish the
+  activity in the hour. Applied to Lab 10 on 2026-11-05 and the rule from here on: **5 or 6
+  typed cells** (a boilerplate cell such as the data load or a one-attribute read becomes
+  **Run as is**); a **step plan** table (load, inspect, prepare, fit, check, interpret) in the
+  tutorial intro, with section titles and activity question titles naming their step; three
+  **Predict first:** lines (Menti) above cells; **Question 3 unscaffolded**: step comments plus
+  one `--` per step that students replace with as many lines as they need, check lines and plot
+  labels prewritten; Q1 and Q2 keep one-line blanks. A step's fill is whole lines
+  (`selftest.py` `STEP1`/`STEP2`, `run_filled.py` `ACT_FILLS`). Never write a literal `--` in a
+  comment: the fill machinery counts every `--`.
 - Before writing "as in lecture" or "recall", check the topic was taught before the lab
   date. 2026 lecture numbering differs from the 2025 decks in `work/lectures/`; read the
   PDF's own title and date. Lab 8 taught precision/recall from scratch because the metrics
@@ -286,7 +297,14 @@ with a clone**. Copy those folders by hand when moving machines.
   notebooks before the build; every "as in Lab N" claim was verified against the earlier
   notebooks. Pushed `dfdb373`. The k-means explorer page (`docs/labs/lab10-kmeans-explorer.html`,
   linked from `docs/labs/lab10.md` and the lab README) was added the same day; its default
-  k = 3 start ends on the tutorial's labels and SSE, and it shows no activity numbers.
+  k = 3 start ends on the tutorial's labels and SSE, and it shows no activity numbers. On
+  2026-11-05, before the lab, the survey changes above were applied through `make_notebooks.py`
+  (tutorial 33 cells, 5 typed, data and SSE cells run as is; activity Q3 unscaffolded with
+  three `--`); the user's Colab hand edits to the tutorial intro (`f9683b0`) are ported into
+  the generator; 133 selftests pass; `lab10-activity-solution.ipynb` regenerated;
+  `autograder.zip` unchanged (spec untouched). The deck on disk had been hand-edited to 21
+  slides and was not rebuilt; `build_deck.py` `stack()` now places a run-as-is cell alone, and
+  `make_images.py` asserts typed cells `[3, 4, 6, 7, 8]`.
 - Lab 11 (dairy-farm carbon footprint, Module 2 team challenge) exists only as the 2025
   conversion: `labs/lab11-dairy-farm-challenge/` with one activity notebook and the CSV.
   Not yet rebuilt in the Lab 7+ pattern; no deck, quiz or autograder.
@@ -327,10 +345,11 @@ Gradescope and Canvas steps are done by hand through the user's logins.
    `lab10-activity-solution.ipynb`; import `work/qti/lab10_quiz_qti.zip` (due Wednesday
    2026-11-11, 11:59 pm) and `lab10_self_assessment_qti.zip` into New Quizzes; replace the
    placeholder slide 5 with the missed Lab 9 quiz questions once the item analysis is
-   pasted (add cells to `work/lab_10/deck_build/make_images.py`, keep 26 slides so the
-   quiz markdowns' slide numbers hold); open the deck in PowerPoint and check slides 13,
-   14, 16, 21 and 24 (DejaVu wireframes only here). Any rebuild goes to a scratch path and
-   through `compare.py` first.
+   pasted (add cells to `work/lab_10/deck_build/make_images.py`). The deck on disk is the
+   user's 21-slide hand edit, so the slide numbers quoted in `work/lab10_quiz_canvas.md` and
+   `work/lab10_self_assessment_canvas.md` no longer match it; any rebuild goes to a scratch
+   path and through `compare.py` first, and would have to port the hand edits. Slides for the
+   data and SSE cells still show a blank "Before" version the notebook no longer has.
 5. Fix the Assignment 3 handout filename typo on Box/Canvas if Greg agrees.
 
 Replace this section with the specific ask when handing the project to a new session.
