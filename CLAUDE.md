@@ -203,7 +203,7 @@ with a clone**. Copy those folders by hand when moving machines.
 - Interactive pages: `docs/labs/lab08-threshold-explorer.html` (vanilla JS + inline SVG,
   slider, confusion matrix, precision/recall/F1/FPR, ROC), `docs/labs/lab10-kmeans-explorer.html`
   (k-means one step at a time on the 19 lecture points: assign/move stepper, draggable
-  centroids, k = 1 to 4, bad and bunched starts, ten random starts) and
+  centroids, k = 1 to 4, a bad start, ten random starts; text kept short on purpose) and
   `docs/lectures/lecture17/` (three pages sharing `lecture17.css` / `lecture17.js`). Pages
   without front matter are copied to the site as they are; link them from the lab page with
   a `relative_url` button and add a row to the lab README.

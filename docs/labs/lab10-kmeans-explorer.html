@@ -74,7 +74,7 @@ button { font: inherit; font-size: 0.92rem; font-weight: 500; padding: 7px 14px;
 button:hover:not(:disabled) { border-color: var(--accent); }
 button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 button:disabled { color: var(--fg-3); cursor: default; }
-button.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); min-width: 14.5em; }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); min-width: 13em; }
 button.primary:disabled { background: var(--surface); border-color: var(--line); color: var(--fg-3); }
 .btns { display: flex; gap: 8px; flex-wrap: wrap; }
 
@@ -129,7 +129,7 @@ button.primary:disabled { background: var(--surface); border-color: var(--line);
 .story h2 { font-size: 1.15rem; margin: 2px 0 6px; }
 .story p { margin: 0 0 8px; max-width: 62ch; }
 .story .next { color: var(--fg-2); margin: 0; }
-.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 12px 0 0; }
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 12px 0 0; }
 .stats div { border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; min-width: 0; }
 .stats dt { font-size: 0.75rem; color: var(--fg-2); }
 .stats dd { margin: 0; font-family: var(--font-mono); font-size: 1.25rem; font-weight: 500; font-variant-numeric: tabular-nums; }
@@ -150,7 +150,7 @@ td.target { color: var(--accent-ink); font-weight: 500; }
 .calc b { color: var(--fg); font-weight: 600; }
 
 /* python view and ten starts */
-pre.py { margin: 0; padding: 12px 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.5; overflow-x: auto; }
+pre.py { margin: 0; padding: 12px 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.5; overflow-x: auto; }
 .note { margin: 10px 0 0; color: var(--fg-2); font-size: 0.88rem; }
 ol.ten { list-style: none; margin: 12px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr)); gap: 6px; }
 ol.ten button { width: 100%; text-align: left; display: flex; justify-content: space-between; gap: 8px; padding: 6px 10px; font-size: 0.85rem; }
@@ -162,7 +162,6 @@ ol.ten .badge { color: var(--accent-ink); font-weight: 600; }
 .try { display: grid; gap: 10px; }
 .try ol { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; max-width: 78ch; }
 .try li::marker { color: var(--accent-ink); font-weight: 600; }
-.try li button { padding: 3px 10px; font-size: 0.85rem; margin-left: 4px; }
 footer { color: var(--fg-3); font-size: 0.8rem; max-width: 84ch; }
 footer a { color: var(--accent-ink); }
 </style>
@@ -172,7 +171,7 @@ footer a { color: var(--accent-ink); }
   <header>
     <div class="eyebrow">EVE 310 · Lab 10 · Clustering</div>
     <h1>k-means, one step at a time</h1>
-    <p class="lede">You choose the number of clusters, k. The algorithm places k centroids, then repeats two steps: <b>assign</b> every point to its nearest centroid, and <b>move</b> each centroid to the mean of the points assigned to it. When an assign step changes no labels, it is done. Press <b>Next step</b> and watch it happen on the tutorial's 19 points.</p>
+    <p class="lede">Place k centroids, then repeat two steps: <b>assign</b> each point to its nearest centroid, and <b>move</b> each centroid to the mean of its points. Stop when no label changes.</p>
   </header>
 
   <section class="panel controls" aria-label="Settings">
@@ -186,32 +185,33 @@ footer a { color: var(--accent-ink); }
       </div>
     </div>
     <div class="field">
-      <span class="flabel">Starting centroids</span>
+      <span class="flabel">Start from</span>
       <div class="btns">
-        <button type="button" id="b-default">Default start</button>
-        <button type="button" id="b-random">Random start</button>
+        <button type="button" id="b-default">Default</button>
+        <button type="button" id="b-random">Random</button>
+        <button type="button" id="b-bad">Bad start</button>
       </div>
     </div>
-    <p class="hint">Or drag a centroid (the × marks) to choose your own start; with the keyboard, Tab to a centroid and use the arrow keys. Moving a centroid starts a new run from wherever the centroids are. Keys anywhere else: → next step, ← back.</p>
+    <p class="hint">Or drag a × to start anywhere (keyboard: Tab to it, then arrow keys).</p>
   </section>
 
   <div class="two">
     <section class="panel" aria-label="The points and the centroids">
       <div class="stepbar">
-        <button type="button" id="b-back">Back</button>
-        <button type="button" id="b-next" class="primary">Next step</button>
-        <button type="button" id="b-run">Run to the end</button>
+        <button type="button" id="b-back" title="Back (←)" aria-keyshortcuts="ArrowLeft">Back</button>
+        <button type="button" id="b-next" class="primary" title="Next step (→)" aria-keyshortcuts="ArrowRight">Next step</button>
+        <button type="button" id="b-run">Run to end</button>
         <button type="button" id="b-reset">Start over</button>
       </div>
       <div class="chart" id="plot"></div>
       <div class="legend" id="legend">
-        <span><svg width="18" height="18" viewBox="-9 -9 18 18" aria-hidden="true"><path class="xhalo" d="M-5 -5L5 5M-5 5L5 -5" style="stroke-width:6"/><path class="xmark k0" d="M-5 -5L5 5M-5 5L5 -5" style="stroke-width:3"/></svg>centroid, drag it</span>
+        <span><svg width="18" height="18" viewBox="-9 -9 18 18" aria-hidden="true"><path class="xhalo" d="M-5 -5L5 5M-5 5L5 -5" style="stroke-width:6"/><path class="xmark k0" d="M-5 -5L5 5M-5 5L5 -5" style="stroke-width:3"/></svg>centroid</span>
         <span id="legend-shapes"></span>
-        <span><svg width="14" height="14" viewBox="-7 -7 14 14" aria-hidden="true"><circle class="pt none" r="5"/></svg>no cluster yet</span>
-        <span><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle class="ring" r="9"/><circle class="pt k0" r="5"/></svg>now nearer another centroid: the next assign step moves it</span>
-        <span><svg width="26" height="10" viewBox="0 -5 26 10" aria-hidden="true"><line class="trail k0" x1="1" x2="25" y1="0" y2="0"/></svg>path a centroid has taken</span>
+        <span><svg width="14" height="14" viewBox="-7 -7 14 14" aria-hidden="true"><circle class="pt none" r="5"/></svg>no label yet</span>
+        <span><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle class="ring" r="9"/><circle class="pt k0" r="5"/></svg>switches next</span>
+        <span><svg width="26" height="10" viewBox="0 -5 26 10" aria-hidden="true"><line class="trail k0" x1="1" x2="25" y1="0" y2="0"/></svg>centroid path</span>
       </div>
-      <label class="check"><input type="checkbox" id="regions" checked> Shade the region nearest each centroid</label>
+      <label class="check"><input type="checkbox" id="regions" checked> Shade the area nearest each centroid</label>
     </section>
 
     <div class="stack">
@@ -221,18 +221,17 @@ footer a { color: var(--accent-ink); }
         <p id="story-body"></p>
         <p class="next" id="story-next"></p>
         <dl class="stats">
-          <div><dt>Rounds done</dt><dd id="st-rounds">0</dd></div>
           <div><dt>Labels changed</dt><dd id="st-changed">–</dd></div>
           <div><dt>SSE</dt><dd id="st-sse">–</dd></div>
         </dl>
       </section>
 
       <section class="panel">
-        <h2>The clusters</h2>
-        <p class="sub" id="table-sub"></p>
+        <h2>Clusters</h2>
+        <p class="sub" id="table-sub" hidden>Orange: where each centroid moves next.</p>
         <div class="tablewrap">
           <table id="ctable">
-            <thead><tr><th>Cluster</th><th>Points</th><th>Centroid now<br>(x1, x2)</th><th>Mean of its points<br>(x1, x2)</th><th>Squared<br>distances</th></tr></thead>
+            <thead><tr><th>Cluster</th><th>Points</th><th>Centroid</th><th>Mean of<br>its points</th><th>Squared<br>distances</th></tr></thead>
             <tbody></tbody>
             <tfoot><tr><td>Total</td><td id="tot-n"></td><td></td><td></td><td id="tot-sse"></td></tr></tfoot>
           </table>
@@ -241,8 +240,8 @@ footer a { color: var(--accent-ink); }
       </section>
 
       <section class="panel">
-        <h2>SSE after every step</h2>
-        <p class="sub">The sum over all points of the squared distance from the point to its own centroid: square the length of every line on the plot and add them up. Odd steps assign, even steps move. Click a dot to go back to that step.</p>
+        <h2>SSE after each step</h2>
+        <p class="sub">The sum of the squared line lengths on the plot. It never goes up.</p>
         <div class="chart" id="sse-chart"></div>
       </section>
     </div>
@@ -250,15 +249,14 @@ footer a { color: var(--accent-ink); }
 
   <div class="two even">
     <section class="panel">
-      <h2>The same numbers in Python</h2>
-      <p class="sub" id="py-sub"></p>
+      <h2>In Python</h2>
       <pre class="py" id="py"></pre>
       <p class="note" id="py-note"></p>
     </section>
     <section class="panel">
-      <h2>Ten starts: what <code>n_init=10</code> does</h2>
-      <p class="sub">A start decides where a run ends. <code>KMeans(n_init=10)</code> runs the whole algorithm from ten random starts and keeps the run with the smallest SSE. Do the same here: each start picks k of the 19 points at random, and each run goes until nothing changes. Click a start to watch it.</p>
-      <button type="button" id="b-ten">Run 10 random starts</button>
+      <h2>Ten starts: <code>n_init=10</code></h2>
+      <p class="sub">KMeans tries ten starts and keeps the lowest SSE. Click a start to watch it.</p>
+      <button type="button" id="b-ten">Run 10 starts</button>
       <ol class="ten" id="ten"></ol>
       <p class="sum" id="ten-sum"></p>
     </section>
@@ -267,17 +265,15 @@ footer a { color: var(--accent-ink); }
   <section class="panel try">
     <h2>Try this</h2>
     <ol>
-      <li><b>Default start, k = 3.</b> Press <b>Next step</b> and read the step panel after each step. Centroid 0 starts in the left group and walks into the upper one; centroid 1 starts in the upper group and slides down to the lower right. After six rounds an assign step changes nothing and the run is done, at an SSE of 1624.43 with the labels <code>[2 2 2 2 2 2 2 0 0 0 0 0 0 1 1 1 1 1 1]</code>: the tutorial's <code>inertia_</code> and <code>labels_</code>, cluster numbers included.</li>
-      <li><b>Watch the SSE chart.</b> It falls at every step, assign and move alike. Sending a point to a nearer centroid can only shorten its line, and the mean of a group of points is the spot with the smallest sum of squared distances to them. There are only so many ways to split 19 points, so the loop has to stop.</li>
-      <li><b>A bad start.</b> <button type="button" data-preset="bad">Load it</button> Two centroids begin inside the lower-right group. Run it to the end. They split that group 3 and 3, and the third centroid has to cover the other 13 points. After two rounds the assignments stop changing, so k-means is done, at an SSE of 4791.79, about three times 1624.43. Done does not mean best: k-means only improves on where it starts.</li>
-      <li><b>A bunched start.</b> <button type="button" data-preset="bunched">Load it</button> All three centroids begin inside the upper group. Run it: round by round they spread out until each one sits in its own group, SSE 1624.43, after six rounds. A start that looks bad is not always bad.</li>
-      <li><b>Run 10 random starts</b> (the panel above). Most starts reach 1624.43; now and then one stops higher, like the bad start. <code>KMeans(n_init=10)</code> keeps the run with the smallest SSE, so one bad start does no harm.</li>
-      <li><b>Press Random start a few times</b> and run each one to the end. When a run finds the three groups, compare its labels in the Python view with the tutorial's. Same groups, other numbers: the cluster numbers are arbitrary, and what matters is which points share one.</li>
-      <li><b>Change k.</b> Before you run k = 2 and k = 4, predict which groups merge or split, then check the final SSE against the tutorial's elbow curve. At k = 1 the only centroid ends at the mean of all 19 points, and the SSE is 13654.21, where the elbow curve starts.</li>
+      <li>Step through the default start: done after 6 rounds, with the tutorial’s labels and SSE 1624.43.</li>
+      <li><b>Bad start</b>: done after 2 rounds at SSE 4791.79. Done is not the same as best.</li>
+      <li><b>Run 10 starts</b>: most reach 1624.43, and <code>n_init=10</code> keeps the lowest.</li>
+      <li>Press <b>Random</b> a few times: the same three groups often come back with other numbers. Label numbers are arbitrary.</li>
+      <li>Change k and compare the final SSE with the tutorial’s elbow curve.</li>
     </ol>
   </section>
 
-  <footer>Data: the 19 points of <code>lecture_points.csv</code>, the k-means example from the lecture slides, as read in the <a href="https://thyanrevolter.github.io/eve310-fall-2026/labs/lab10/">Lab 10 tutorial</a>. The page runs the plain two steps in your browser, so its numbers are the tutorial's. scikit-learn's <code>KMeans</code> runs the same loop, with two extras: it picks its starting centroids with k-means++, which spreads them apart and makes a bad start rarer than this page's plain random pick, and it never leaves a centroid without points (an empty centroid is moved onto the point farthest from its own centroid).</footer>
+  <footer>Data: the 19 points of the <a href="https://thyanrevolter.github.io/eve310-fall-2026/labs/lab10/">Lab 10 tutorial</a> (<code>lecture_points.csv</code>). scikit-learn’s <code>KMeans</code> runs the same two steps, but spreads its starts apart (k-means++) and moves an empty centroid instead of leaving it.</footer>
 </div>
 
 <script>
@@ -292,10 +288,9 @@ footer a { color: var(--accent-ink); }
   var BEST = { 1: 13654.21, 2: 5022.63, 3: 1624.43, 4: 1081.75 };
   // Starts, as row numbers. The k = 3 default takes six rounds and ends with the tutorial's labels, numbers and all.
   var DEFAULT = { 1: [0], 2: [1, 7], 3: [6, 12, 0], 4: [0, 2, 3, 13] };
-  var PRESETS = { bad: [1, 16, 17], bunched: [7, 9, 10] };
+  var BAD = [1, 16, 17];  // two centroids in the lower-right group: done after two rounds at SSE 4791.79
   var TUTORIAL3 = [2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1];
   var SHAPES = ['circle', 'square', 'triangle', 'diamond'];
-  var NUM = ['zero', 'one', 'two', 'three', 'four'];
 
   // ---------------------------------------------------------------- k-means: the two steps
   function d2(p, c) { var dx = p[0] - c[0], dy = p[1] - c[1]; return dx * dx + dy * dy; }
@@ -405,7 +400,7 @@ footer a { color: var(--accent-ink); }
   function renderLegendShapes(k) {
     var box = $('legend-shapes');
     clear(box);
-    box.appendChild(document.createTextNode('point in cluster'));
+    box.appendChild(document.createTextNode('clusters'));
     for (var j = 0; j < k; j++) { box.appendChild(swatch(j)); box.appendChild(document.createTextNode(String(j))); }
   }
 
@@ -599,20 +594,20 @@ footer a { color: var(--accent-ink); }
     });
     centroidEls.forEach(function (g, j) {
       g.setAttribute('transform', 'translate(' + x(C[j][0]).toFixed(1) + ' ' + y(C[j][1]).toFixed(1) + ')');
-      g.setAttribute('aria-label', 'Centroid ' + j + ' at ' + pair(C[j]) + '. Drag it, or use the arrow keys, to start a new run from there.');
+      g.setAttribute('aria-label', 'Centroid ' + j + ' at ' + pair(C[j]) + '. Drag it or use the arrow keys to start from there.');
     });
-    svg.setAttribute('aria-label', '19 points and ' + plural(k, 'centroid') + (labels ? ', each point colored by its cluster' : ', no point assigned yet') + '. The cluster table below lists every centroid and its points.');
+    svg.setAttribute('aria-label', '19 points and ' + plural(k, 'centroid') + (labels ? ', colored by cluster.' : ', no labels yet.') + ' The Clusters table lists the same numbers.');
   }
 
   function showPoint(i, ev) {
     if (drag) return;
     var s = current(), C = s.C, p = PTS[i], near = nearest(p, C), lab = s.labels ? s.labels[i] : null;
     var rows = C.map(function (c, j) {
-      var d = Math.sqrt(d2(p, c)).toFixed(1);
-      return 'distance to centroid ' + j + ': ' + (j === near ? '<b>' + d + ', nearest</b>' : d);
+      var d = 'to centroid ' + j + ': ' + Math.sqrt(d2(p, c)).toFixed(1);
+      return j === near ? '<b>' + d + ' (nearest)</b>' : d;
     });
-    var head = '<b>Row ' + i + ' of X</b> · ' + pt(p) + '<br>';
-    var where = lab == null ? 'no cluster yet' : (lab === near ? 'in cluster ' + lab : 'in cluster ' + lab + ', but now nearest centroid ' + near + ': the next assign step moves it');
+    var head = '<b>' + pt(p) + '</b> · row ' + i + ' of X<br>';
+    var where = lab == null ? 'no label yet' : (lab === near ? 'cluster ' + lab : 'cluster ' + lab + ', switches to ' + near + ' next');
     var rc = plot.getBoundingClientRect();
     plotTip.show(head + where + '<br>' + rows.join('<br>'), ev.clientX - rc.left, ev.clientY - rc.top);
   }
@@ -633,79 +628,56 @@ footer a { color: var(--accent-ink); }
   function cancelTween() { if (tween) { cancelAnimationFrame(tween); tween = null; } }
 
   // ---------------------------------------------------------------- the step story
-  function startSentence(s) {
-    var k = state.k, where = listAnd(s.C.map(pt));
-    var one = k === 1;
+  function startText() {
     switch (state.origin) {
-      case 'default': return (one ? 'The centroid starts on one of the points, ' : 'The ' + NUM[k] + ' centroids start on ' + NUM[k] + ' of the points: ') + where + '.';
-      case 'random': return (one ? 'The centroid starts on a point picked at random, ' : 'The ' + NUM[k] + ' centroids start on ' + NUM[k] + ' points picked at random: ') + where + '.';
-      case 'ten': return 'Start ' + (state.tenIndex + 1) + ' of the ten random starts: ' + where + '.';
-      case 'bad': return 'A bad start: two centroids begin inside the lower-right group and one in the left group, at ' + where + '.';
-      case 'bunched': return 'A bunched start: all three centroids begin inside the upper group, at ' + where + '.';
-      default: return (one ? 'The centroid starts where you put it, ' : 'The centroids start where you put them: ') + where + '.';
+      case 'default': return 'Default start.';
+      case 'random': return 'Random start.';
+      case 'ten': return 'Start ' + (state.tenIndex + 1) + ' of the ten.';
+      case 'bad': return 'Bad start: two centroids in the lower-right group.';
+      default: return 'Your start.';
     }
   }
-  function sizesText(labels) {
-    var sizes = [];
-    for (var j = 0; j < state.k; j++) sizes.push(members(labels, j).length);
-    return sizes.join(', ');
-  }
+  // points now nearer another centroid than their own: the next assign step relabels them
   function mismatches(s) {
     var out = [];
     if (s.kind !== 'move') return out;
     for (var i = 0; i < N; i++) if (nearest(PTS[i], s.C) !== s.labels[i]) out.push(i);
     return out;
   }
+  var centroidWord = function (list) { return (list.length > 1 ? 'Centroids ' : 'Centroid ') + listAnd(list.map(String)); };
   function renderStory() {
-    var s = current(), steps = state.steps, prev = steps[state.pos - 1];
-    var title = '', body = '', next = '';
-    $('story-step').textContent = 'Step ' + state.pos + ' of ' + (steps.length - 1) + (s.kind === 'start' ? '' : s.kind === 'done' ? ' · done' : ' · round ' + s.round);
+    var s = current(), k = state.k, title = '', body = '', next = '';
+    $('story-step').textContent = 'Step ' + state.pos + ' of ' + (state.steps.length - 1) + (s.kind === 'start' ? '' : s.kind === 'done' ? ' · done' : ' · round ' + s.round);
     if (s.kind === 'start') {
-      title = 'Start: ' + plural(state.k, 'centroid') + ' placed';
-      body = startSentence(s) + ' No point belongs to a cluster yet' + (state.regions ? '. The shading shows the region nearest each centroid: that is where the first assign step sends every point.' : '.');
-      next = 'Next: assign every point to its nearest centroid.';
+      title = 'Place ' + plural(k, 'centroid');
+      body = startText() + ' No point has a label yet.';
     } else if (s.kind === 'assign') {
-      title = 'Assign: every point to its nearest centroid';
-      if (s.round === 1) {
-        body = 'All 19 points get their first label, the number of the centroid they are nearest. Cluster sizes: ' + sizesText(s.labels) + '. Each line joins a point to its own centroid.';
-      } else {
-        var moves = s.changed.map(function (i) { return pt(PTS[i]) + ' from cluster ' + s.prevLabels[i] + ' to ' + s.labels[i]; });
-        body = plural(s.changed.length, 'point') + ' changed cluster' + (moves.length <= 4 ? ': ' + listAnd(moves) : '') + '. Every other point kept its label. Cluster sizes: ' + sizesText(s.labels) + '.';
+      title = 'Assign each point to its nearest centroid';
+      if (s.round === 1) body = 'Each point gets the label of its nearest centroid.';
+      else {
+        var moves = s.changed.map(function (i) { return pt(PTS[i]) + ' ' + s.prevLabels[i] + ' → ' + s.labels[i]; });
+        body = plural(s.changed.length, 'point') + ' switched cluster' + (moves.length <= 3 ? ': ' + listAnd(moves) : '') + '.';
       }
-      if (prev && prev.sse != null) body += ' The SSE fell from ' + f2(prev.sse) + ' to ' + f2(s.sse) + '.';
-      next = 'Next: move each centroid to the mean of its points (the table shows the arithmetic).';
     } else if (s.kind === 'move') {
-      title = 'Move: each centroid to the mean of its points';
-      var dist = s.C.map(function (c, j) { return Math.sqrt(d2(c, s.prevC[j])); });
-      body = dist.some(function (d) { return d > 1e-9; })
-        ? 'Each centroid went to the mean of the points assigned to it. Distance moved: ' + dist.map(function (d, j) { return 'centroid ' + j + ', ' + (d > 1e-9 ? d.toFixed(1) : '0'); }).join('; ') + '.'
-        : 'No centroid moved: each one was already at the mean of its points.';
-      if (s.empty.length) body += ' Centroid ' + listAnd(s.empty.map(String)) + ' won no points, so ' + (s.empty.length > 1 ? 'they have no mean and stay where they are' : 'it has no mean and stays where it is') + ' (scikit-learn would move an empty centroid onto the point farthest from its own centroid).';
-      body += ' The labels did not change, and the SSE fell from ' + f2(prev.sse) + ' to ' + f2(s.sse) + '.';
+      title = 'Move each centroid to the mean of its points';
       var mm = mismatches(s);
-      next = mm.length
-        ? plural(mm.length, 'point is', 'points are') + ' now nearer another centroid than their own (dashed rings), so the next assign step changes ' + (mm.length === 1 ? 'its label' : 'their labels') + '.'
-        : 'Every point is still nearest its own centroid, so the next assign step will change nothing.';
+      body = mm.length
+        ? plural(mm.length, 'point is', 'points are') + ' now nearer another centroid (dashed rings) and will switch.'
+        : 'Every point is still nearest its own centroid, so the next assign changes nothing.';
+      if (s.empty.length) body += ' ' + centroidWord(s.empty) + (s.empty.length > 1 ? ' have no points and stay put.' : ' has no points and stays put.');
     } else {
-      var rounds = s.round - 1;
-      title = s.stalled ? 'Stopped after 100 rounds' : 'Done after ' + plural(rounds, 'round');
-      body = s.stalled ? 'The labels were still changing after 100 rounds, so the page stopped the loop.'
-        : 'This assign step changed no label, so the centroids would not move either: nothing can change any more. Final SSE ' + f2(s.sse) + '.';
-      var best = BEST[state.k], empty = [];
-      for (var j = 0; j < state.k; j++) if (!members(s.labels, j).length) empty.push(j);
-      if (empty.length) {
-        next = 'Centroid ' + listAnd(empty.map(String)) + ' never won a point, so ' + (empty.length > 1 ? 'they never moved' : 'it never moved') + ' and the other centroids did all the work. scikit-learn would have moved an empty centroid onto the point farthest from its own centroid and carried on. The lowest SSE for k = ' + state.k + ' is ' + f2(best) + '.';
-      } else if (s.sse > best + 0.005) {
-        next = 'Not the best arrangement: for k = ' + state.k + ' the lowest SSE k-means reaches on these points is ' + f2(best) + '. This run got stuck where its start led it, which is why the tutorial sets n_init=10.';
-      } else {
-        next = 'The lowest SSE k-means reaches on these points for k = ' + state.k + ', the value in the tutorial’s elbow curve' + (state.k === 3 ? ' and its inertia_' : '') + '.';
-      }
+      var best = BEST[k], empty = [];
+      for (var j = 0; j < k; j++) if (!members(s.labels, j).length) empty.push(j);
+      title = s.stalled ? 'Stopped after 100 rounds' : 'Done after ' + plural(s.round - 1, 'round');
+      body = s.stalled ? 'The labels were still changing.' : 'No label changed, so nothing else will move.';
+      if (empty.length) next = centroidWord(empty) + ' never got a point (scikit-learn would move ' + (empty.length > 1 ? 'them' : 'it') + '). The best SSE for k = ' + k + ' is ' + f2(best) + '.';
+      else if (s.sse > best + 0.005) next = 'Stuck: the best SSE for k = ' + k + ' is ' + f2(best) + '. That is why KMeans tries n_init=10 starts.';
+      else next = f2(s.sse) + ' is the best SSE for k = ' + k + (k === 3 ? ', the tutorial’s inertia_.' : ', as in the tutorial’s elbow curve.');
     }
     $('story-title').textContent = title;
     $('story-body').textContent = body;
     $('story-next').textContent = next;
-    var done = s.kind === 'start' ? 0 : (s.kind === 'assign' ? s.round - 1 : (s.kind === 'move' ? s.round : s.round - 1));
-    $('st-rounds').textContent = String(done);
+    $('story-next').hidden = !next;
     $('st-changed').textContent = s.kind === 'assign' || s.kind === 'done' ? String(s.changed.length) : '–';
     $('st-sse').textContent = s.sse == null ? '–' : f2(s.sse);
   }
@@ -722,6 +694,7 @@ footer a { color: var(--accent-ink); }
       if (j === state.selected) tr.className = 'sel';
       var td0 = document.createElement('td'), b = document.createElement('button');
       b.type = 'button'; b.className = 'rowbtn';
+      b.title = 'Show the mean of cluster ' + j;
       b.setAttribute('aria-pressed', j === state.selected ? 'true' : 'false');
       b.appendChild(swatch(j));
       b.appendChild(document.createTextNode(String(j)));
@@ -742,20 +715,18 @@ footer a { color: var(--accent-ink); }
     }
     $('tot-n').textContent = labels ? '19' : '–';
     $('tot-sse').textContent = labels ? f2(total) : '–';
-    $('table-sub').textContent = !labels ? 'No labels yet, so no cluster has points or a mean.'
-      : s.kind === 'assign' ? 'The new labels give each cluster its points. The next move step takes each centroid to the mean in orange. The squared distances add up to the SSE.'
-      : 'Each centroid sits at the mean of its points, and the squared distances add up to the SSE. Click a cluster to see the arithmetic.';
+    $('table-sub').hidden = s.kind !== 'assign';
     // the arithmetic of one mean
     var j0 = state.selected, calc = $('calc');
     clear(calc);
-    if (!labels) { calc.textContent = 'Press Next step to assign the points.'; return; }
+    if (!labels) return;
     var mine = members(labels, j0);
-    if (!mine.length) { calc.textContent = 'Cluster ' + j0 + ' has no points, so it has no mean.'; return; }
+    if (!mine.length) { calc.textContent = 'Cluster ' + j0 + ' has no points.'; return; }
     var mx = mine.map(function (i) { return PTS[i][0]; }), my = mine.map(function (i) { return PTS[i][1]; }), m = meanOf(mine);
     var head = document.createElement('b');
-    head.textContent = 'Mean of cluster ' + j0 + ', ' + plural(mine.length, 'point') + ': ';
+    head.textContent = 'Cluster ' + j0 + ' mean: ';
     calc.appendChild(head);
-    calc.appendChild(document.createTextNode('x1 = (' + mx.join(' + ') + ') / ' + mine.length + ' = ' + f2(m[0]) + ', x2 = (' + my.join(' + ') + ') / ' + mine.length + ' = ' + f2(m[1]) + '.'));
+    calc.appendChild(document.createTextNode('x1 = (' + mx.join(' + ') + ') / ' + mine.length + ' = ' + f2(m[0]) + ', x2 = (' + my.join(' + ') + ') / ' + mine.length + ' = ' + f2(m[1])));
   }
 
   // ---------------------------------------------------------------- the SSE chart
@@ -787,7 +758,7 @@ footer a { color: var(--accent-ink); }
     s.appendChild(el('line', { class: 'sse-ref', x1: m.l, x2: m.l + pw, y1: y(best), y2: y(best) }));
     // no run goes below the line, so its label sits under it, unless the line is too close to the axis
     var below = y(0) - y(best) > 18;
-    s.appendChild(el('text', { class: 'sse-note', x: m.l + 6, y: below ? y(best) + 13 : y(best) - 6 }, 'lowest k-means reaches for k = ' + state.k + ': ' + f2(best)));
+    s.appendChild(el('text', { class: 'sse-note', x: m.l + 6, y: below ? y(best) + 13 : y(best) - 6 }, 'best for k = ' + state.k + ': ' + f2(best)));
     var shown = [];
     for (var n = 1; n <= pos; n++) shown.push(n);
     if (shown.length > 1) {
@@ -797,14 +768,14 @@ footer a { color: var(--accent-ink); }
       var t = steps[n], cur = n === pos;
       s.appendChild(el('circle', { class: cur ? 'sse-dot cur' : 'sse-dot', cx: x(n), cy: y(t.sse), r: cur ? 6 : 4 }));
       var hit = el('circle', { cx: x(n), cy: y(t.sse), r: 12, fill: 'transparent', style: 'cursor: pointer' });
-      var what = t.kind === 'move' ? 'move' : (t.kind === 'done' ? 'assign, nothing changed: done' : 'assign, ' + plural(t.changed.length, 'label') + ' changed');
+      var what = t.kind === 'move' ? 'move' : (t.kind === 'done' ? 'assign, no change: done' : 'assign, ' + plural(t.changed.length, 'label') + ' changed');
       var html = '<b>Step ' + n + '</b> · ' + what + '<br>SSE ' + f2(t.sse);
       hit.addEventListener('pointermove', function (ev) { var rc = sseChart.getBoundingClientRect(); sseTip.show(html, ev.clientX - rc.left, ev.clientY - rc.top); });
       hit.addEventListener('pointerleave', sseTip.hide);
       hit.addEventListener('click', function () { stopPlay(); sseTip.hide(); go(n, false); });
       s.appendChild(hit);
     });
-    if (!pos) s.appendChild(el('text', { class: 'sse-empty', x: m.l + pw / 2, y: m.t + ph / 2, 'text-anchor': 'middle' }, 'No SSE before the first assign step'));
+    if (!pos) s.appendChild(el('text', { class: 'sse-empty', x: m.l + pw / 2, y: m.t + ph / 2, 'text-anchor': 'middle' }, 'SSE starts at the first assign'));
     sseChart.insertBefore(s, sseChart.firstChild);
   }
 
@@ -813,23 +784,18 @@ footer a { color: var(--accent-ink); }
     var s = current(), k = state.k;
     // numpy lines up the columns: pad every number to the widest one
     var width = Math.max.apply(null, s.C.map(function (c) { return Math.max(f2(c[0]).length, f2(c[1]).length); }));
-    var pad = function (v) { var t = f2(v); return '        '.slice(0, width - t.length) + t; };
-    var lines = [];
-    lines.push('labels_          = ' + (s.labels ? '[' + s.labels.join(' ') + ']' : 'no labels yet'));
-    s.C.forEach(function (c, j) {
-      lines.push((j ? '                    ' : 'cluster_centers_ = [') + '[' + pad(c[0]) + ' ' + pad(c[1]) + ']' + (j === k - 1 ? ']' : ''));
-    });
-    lines.push('inertia_         = ' + (s.sse == null ? 'no SSE yet' : f2(s.sse)));
+    var pad = function (v) { var t = f2(v); return ' '.repeat(width - t.length) + t; };
+    var lhs = function (name) { return ('kmeans.' + name).padEnd(23) + ' = '; };
+    var cc = lhs('cluster_centers_') + '[';
+    var lines = [lhs('labels_') + (s.labels ? '[' + s.labels.join(' ') + ']' : 'not set yet')];
+    s.C.forEach(function (c, j) { lines.push((j ? ' '.repeat(cc.length) : cc) + '[' + pad(c[0]) + ' ' + pad(c[1]) + ']' + (j === k - 1 ? ']' : '')); });
+    lines.push(lhs('inertia_') + (s.sse == null ? 'not set yet' : f2(s.sse)));
     $('py').textContent = lines.join('\n');
-    var done = s.kind === 'done';
-    $('py-sub').textContent = done
-      ? 'The loop is done. A fitted KMeans holds these three: kmeans.labels_, kmeans.cluster_centers_ and kmeans.inertia_ (the SSE), here rounded to two decimals.'
-      : 'Still running: these change with every step. A fitted KMeans holds them once the loop is done.';
     var note = '';
-    if (done && k === 3) {
-      if (s.labels.join(',') === TUTORIAL3.join(',')) note = 'These are the tutorial’s labels, cluster numbers included.';
-      else if (canonical(s.labels) === canonical(TUTORIAL3)) note = 'The tutorial’s three groups, with other numbers: the tutorial calls the left group 2, the upper group 0 and the lower-right group 1. Which points share a number is what matters, not the number.';
-      else note = 'Not the tutorial’s clustering: compare the SSE with its 1624.43.';
+    if (s.kind === 'done' && k === 3) {
+      if (s.labels.join(',') === TUTORIAL3.join(',')) note = 'Same as the tutorial, label numbers included.';
+      else if (canonical(s.labels) === canonical(TUTORIAL3)) note = 'Same groups as the tutorial, other numbers: label numbers are arbitrary.';
+      else note = 'Not the tutorial’s result (SSE 1624.43).';
     }
     $('py-note').textContent = note;
     $('py-note').hidden = !note;
@@ -850,6 +816,7 @@ footer a { color: var(--accent-ink); }
     runs.forEach(function (r, t) {
       var li = document.createElement('li'), b = document.createElement('button');
       b.type = 'button';
+      b.title = 'Watch this start';
       if (t === bestRun) b.className = 'kept';
       var left = document.createElement('span');
       left.textContent = 'Start ' + (t + 1) + (t === bestRun ? ' ' : '');
@@ -858,14 +825,12 @@ footer a { color: var(--accent-ink); }
       right.className = 's';
       right.textContent = 'SSE ' + f2(r.sse) + ' · ' + plural(r.rounds, 'round');
       b.appendChild(left); b.appendChild(right);
-      b.setAttribute('aria-label', 'Start ' + (t + 1) + ', SSE ' + f2(r.sse) + ', ' + plural(r.rounds, 'round') + (t === bestRun ? ', kept' : '') + '. Watch this run.');
+      b.setAttribute('aria-label', 'Start ' + (t + 1) + ', SSE ' + f2(r.sse) + ', ' + plural(r.rounds, 'round') + (t === bestRun ? ', kept' : '') + '. Watch it.');
       b.addEventListener('click', function () { startFromRows(r.rows, 'ten', t); });
       li.appendChild(b); list.appendChild(li);
     });
     var best = BEST[k], reached = runs.filter(function (r) { return r.sse <= best + 0.005; }).length;
-    $('ten-sum').textContent = reached === 10
-      ? 'All ten starts reached ' + f2(best) + '. KMeans(n_init=10) would keep any of them.'
-      : reached + ' of the ten starts reached ' + f2(best) + '; the other ' + (10 - reached) + ' stopped higher. KMeans(n_init=10) keeps the smallest SSE, so the bad starts do no harm.';
+    $('ten-sum').textContent = reached === 10 ? 'All 10 reached ' + f2(best) + '.' : reached + ' of 10 reached ' + f2(best) + '. KMeans keeps the lowest.';
   }
 
   // ---------------------------------------------------------------- moving through the steps
@@ -899,11 +864,11 @@ footer a { color: var(--accent-ink); }
     var atEnd = state.pos >= state.steps.length - 1, nx = state.steps[state.pos + 1];
     var b = $('b-next');
     b.disabled = atEnd;
-    b.textContent = atEnd ? 'Done' : (nx.kind === 'move' ? 'Next step: move centroids' : 'Next step: assign points');
+    b.textContent = atEnd ? 'Done' : (nx.kind === 'move' ? 'Next: move centroids' : 'Next: assign points');
     $('b-back').disabled = state.pos === 0;
     $('b-reset').disabled = state.pos === 0;
     $('b-run').disabled = atEnd && !state.playing;
-    $('b-run').textContent = state.playing ? 'Pause' : 'Run to the end';
+    $('b-run').textContent = state.playing ? 'Pause' : 'Run to end';
   }
   function renderPanels() { renderStory(); renderTable(); drawSSE(); renderPython(); renderButtons(); }
   function render() { drawPlot(current()); renderPanels(); }
@@ -917,18 +882,11 @@ footer a { color: var(--accent-ink); }
   $('b-random').addEventListener('click', function () { startFromRows(randomRows(state.k), 'random'); });
   $('b-ten').addEventListener('click', runTen);
   plot.addEventListener('pointerdown', function (ev) { if (!ev.target.classList.contains('pthit')) plotTip.hide(); });
-  $('regions').addEventListener('change', function () { state.regions = this.checked; drawPlot(current()); renderStory(); });
+  $('regions').addEventListener('change', function () { state.regions = this.checked; drawPlot(current()); });
   Array.prototype.forEach.call(document.querySelectorAll('input[name=k]'), function (r) {
     r.addEventListener('change', function () { if (r.checked) setK(Number(r.value)); });
   });
-  Array.prototype.forEach.call(document.querySelectorAll('[data-preset]'), function (b) {
-    b.addEventListener('click', function () {
-      var name = b.getAttribute('data-preset');
-      if (state.k !== 3) setK(3);
-      startFromRows(PRESETS[name], name);
-      $('plot').scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'center' });
-    });
-  });
+  $('b-bad').addEventListener('click', function () { if (state.k !== 3) setK(3); startFromRows(BAD, 'bad'); });
   document.addEventListener('keydown', function (ev) {
     if (ev.altKey || ev.ctrlKey || ev.metaKey) return;
     var t = ev.target;
