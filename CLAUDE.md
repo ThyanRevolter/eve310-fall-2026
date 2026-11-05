@@ -76,7 +76,14 @@ assignment data files, and occasional TA-taught lectures.
   one `--` per step that students replace with as many lines as they need, check lines and plot
   labels prewritten; Q1 and Q2 keep one-line blanks. A step's fill is whole lines
   (`selftest.py` `STEP1`/`STEP2`, `run_filled.py` `ACT_FILLS`). Never write a literal `--` in a
-  comment: the fill machinery counts every `--`.
+  comment: the fill machinery counts every `--`. **Every activity question cell gets a collapsed
+  "Show the finished cell" below it** (the user's decision, 2026-11-05: "in all the questions
+  where we have a typed cell"; Gradescope is 0 points and the quiz uses new inputs), so the
+  activity answers are in the public notebook; `make_notebooks.py` builds them from
+  `run_filled.py`'s `ACT_FILLS`, which `selftest.py` cross-checks against the key.
+- **Student-facing markdown says what to do and why, never what changed.** No "this time", "no
+  blanks this time", "from here on", "the cell became run as is": students see one version.
+  Keep question text short; the finished cell carries the structure.
 - Before writing "as in lecture" or "recall", check the topic was taught before the lab
   date. 2026 lecture numbering differs from the 2025 decks in `work/lectures/`; read the
   PDF's own title and date. Lab 8 taught precision/recall from scratch because the metrics
