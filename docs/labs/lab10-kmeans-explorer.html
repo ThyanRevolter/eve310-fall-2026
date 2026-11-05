@@ -76,6 +76,9 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 button:disabled { color: var(--fg-3); cursor: default; }
 button.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); min-width: 13em; }
 button.primary:disabled { background: var(--surface); border-color: var(--line); color: var(--fg-3); }
+/* fixed width so Play / Pause / Play again does not shift the buttons beside it */
+button.play { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-width: 9em; }
+button.play svg { flex: none; fill: currentColor; }
 .btns { display: flex; gap: 8px; flex-wrap: wrap; }
 
 /* main area */
@@ -200,7 +203,7 @@ footer a { color: var(--accent-ink); }
       <div class="stepbar">
         <button type="button" id="b-back" title="Back (←)" aria-keyshortcuts="ArrowLeft">Back</button>
         <button type="button" id="b-next" class="primary" title="Next step (→)" aria-keyshortcuts="ArrowRight">Next step</button>
-        <button type="button" id="b-run">Run to end</button>
+        <button type="button" id="b-play" class="play"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path id="play-icon" d="M2.5 1L11 6L2.5 11Z"/></svg><span id="play-label">Play</span></button>
         <button type="button" id="b-reset">Start over</button>
       </div>
       <div class="chart" id="plot"></div>
@@ -844,17 +847,22 @@ footer a { color: var(--accent-ink); }
   }
   function next() { if (state.pos < state.steps.length - 1) go(state.pos + 1, true); else stopPlay(); }
   function back() { stopPlay(); if (state.pos > 0) go(state.pos - 1, false); }
+  // Play takes one step a second until the run is done; at the end it plays the run again from its start,
+  // which stays on screen for one beat before the first step.
+  var PLAY_D = 'M2.5 1L11 6L2.5 11Z', PAUSE_D = 'M2 1H5V11H2ZM7 1H10V11H7Z';
   function play() {
-    if (state.pos >= state.steps.length - 1) return;
+    var again = state.pos >= state.steps.length - 1, delay = reduceMotion.matches ? 700 : 1000;
+    if (again) go(0, false);
     state.playing = true;
     renderButtons();
     var tick = function () {
+      playTimer = null;
       if (!state.playing) return;
       next();
-      if (state.pos >= state.steps.length - 1) { stopPlay(); return; }
-      playTimer = setTimeout(tick, reduceMotion.matches ? 700 : 1000);
+      if (state.pos >= state.steps.length - 1) stopPlay();
+      else playTimer = setTimeout(tick, delay);
     };
-    tick();
+    if (again) playTimer = setTimeout(tick, delay); else tick();
   }
   function stopPlay() {
     if (playTimer) { clearTimeout(playTimer); playTimer = null; }
@@ -867,8 +875,8 @@ footer a { color: var(--accent-ink); }
     b.textContent = atEnd ? 'Done' : (nx.kind === 'move' ? 'Next: move centroids' : 'Next: assign points');
     $('b-back').disabled = state.pos === 0;
     $('b-reset').disabled = state.pos === 0;
-    $('b-run').disabled = atEnd && !state.playing;
-    $('b-run').textContent = state.playing ? 'Pause' : 'Run to end';
+    $('play-label').textContent = state.playing ? 'Pause' : atEnd ? 'Play again' : 'Play';
+    $('play-icon').setAttribute('d', state.playing ? PAUSE_D : PLAY_D);
   }
   function renderPanels() { renderStory(); renderTable(); drawSSE(); renderPython(); renderButtons(); }
   function render() { drawPlot(current()); renderPanels(); }
@@ -877,7 +885,7 @@ footer a { color: var(--accent-ink); }
   $('b-next').addEventListener('click', function () { stopPlay(); next(); });
   $('b-back').addEventListener('click', back);
   $('b-reset').addEventListener('click', function () { stopPlay(); go(0, false); });
-  $('b-run').addEventListener('click', function () { if (state.playing) stopPlay(); else play(); });
+  $('b-play').addEventListener('click', function () { if (state.playing) stopPlay(); else play(); });
   $('b-default').addEventListener('click', function () { startFromRows(DEFAULT[state.k], 'default'); });
   $('b-random').addEventListener('click', function () { startFromRows(randomRows(state.k), 'random'); });
   $('b-ten').addEventListener('click', runTen);
