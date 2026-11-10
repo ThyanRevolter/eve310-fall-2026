@@ -33,6 +33,7 @@ description: Notebooks to run alongside the lecture, in Google Colab.
 | [Linear regression traffic example](#traffic-example) | Linear Regression | `np.polyfit`, scikit-learn `LinearRegression`, R², residual plot | [open](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/lectures/notebooks/linear-regression-traffic-example.ipynb){:target="_blank" rel="noopener"} |
 | [Multivariate linear regression](#multivariate-regression) | Linear Regression | Normal equations in NumPy with three features, prediction, residual plot, R² from SSE and SST | [open](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/lectures/notebooks/multivariate-linear-regression.ipynb){:target="_blank" rel="noopener"} |
 | [Logistic regression example](#logistic-regression-example) | Logistic Regression | Sigmoid function, scikit-learn `LogisticRegression`, predicted probabilities and decision boundary, accuracy and confusion matrix | [open](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/lectures/notebooks/logistic-regression-example.ipynb){:target="_blank" rel="noopener"} |
+| [K-means example](#k-means-example) | Clustering | scikit-learn `KMeans`, centroids and cluster scatter plots, silhouette score, elbow method with SSE by `k` | [open](https://colab.research.google.com/github/{{ site.github_repo }}/blob/{{ site.github_branch }}/lectures/notebooks/k-means-example.ipynb){:target="_blank" rel="noopener"} |
 
 ## Lecture 17 companion pages
 {: .no_toc }
