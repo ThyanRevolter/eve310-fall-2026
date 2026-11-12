@@ -1,13 +1,13 @@
 ---
 layout: page
-title: Lab 11 · Dairy-farm challenge
+title: Lab 11 · Comparing regression models
 parent: Labs
 nav_order: 11
 permalink: /labs/lab11/
-description: Team challenge predicting farm-level carbon footprint.
+description: Fit a line with the normal equation and with LinearRegression, score models on the testing rows with MSE, MAE and R², fit a random forest and spot overfitting, and let one new column beat it.
 ---
 
-# Lab 11 · Dairy-farm carbon footprint
+# Lab 11 · Comparing regression models
 {: .no_toc }
 
 **Module 2**
@@ -25,23 +25,38 @@ description: Team challenge predicting farm-level carbon footprint.
 
 ## Overview
 
-Team challenge: predict farm-level carbon footprint from feed, land, manure, and energy metrics. Compare a 3-variable linear model, a full linear model, and random forests on a 70/30 split (`random_state=25`).
+Which model predicts best on data it has not seen, and can you say why? The tutorial fits three models to a year of a Texas city's peak electricity demand against the day's temperature and scores all three on the same testing days. The straight line is fitted twice, with the normal equation from lecture in NumPy and with `LinearRegression`, which finds exactly the same betas. Two new scores join R²: the mean squared error and the mean absolute error. A random forest follows the curve that the line misses but overfits its training days, and a squared-temperature column turns the line into a curve that beats the forest. The activity does the same on 10,000 dairy farms: a linear model and a forest on ten columns, scored on the testing farms, and then one new column built from the units of two others.
 
 ## Learning objectives
 
-1. Fit `reg3` and `regAll` linear models and print coefficients
-2. Report test R², MSE, MAE and predicted-vs-true plots
-3. Repeat with a random forest
+1. Compute the least-squares betas with the normal equation in NumPy, and show that `LinearRegression` finds the same numbers
+2. Score a regression model on the testing rows with MSE, MAE and R², and say what each one measures and in which units
+3. Fit a random forest with the same create, fit and predict steps, and spot overfitting by comparing its error on the training rows with its error on the testing rows
+4. Add a column built from the existing ones, and judge whether a simple model with the right column beats a more complex one
 
 ## Notebooks
 
-**`lab11-activity.ipynb`** — Challenge notebook
+**`lab11-tutorial.ipynb`** — Tutorial, typed along in lab
+
+{% include notebook.html path="labs/lab11-dairy-farm-challenge/notebooks/lab11-tutorial.ipynb" %}
+
+**`lab11-activity.ipynb`** — Three questions on 10,000 dairy farms: fit a linear model and a random forest on ten columns, score both on the testing farms and check the forest for overfitting, then add nitrogen per kg of milk as a new column and refit
 
 {% include notebook.html path="labs/lab11-dairy-farm-challenge/notebooks/lab11-activity.ipynb" %}
 
+## Least-squares explorer
+
+Drag a straight line through the tutorial's training days and watch the residuals and the sum of squared errors; one button jumps to the normal-equation line, the one `LinearRegression` finds. Switch to the curve and the forest, and to the testing days, to see which model predicts best on days it has not seen. Open it beside the tutorial.
+
+[Open the least-squares explorer]({{ '/labs/lab11-least-squares-explorer.html' | relative_url }}){: .btn .btn-purple target="_blank" rel="noopener"}
+
 ## Data
 
-- `data/Dairy-Farm-Dataset.csv` — 10,000-row synthetic farm table
+- `data/power_demand.csv` — 365 days of a Texas city (synthetic): `temp_f` (the day's average temperature, °F) and `demand_mw` (the day's peak electricity demand, MW)
+- `data/Dairy-Farm-Dataset.csv` — 10,000 dairy farms (synthetic): ten practice and efficiency columns and `Carbon_footprint` (kg CO₂e per kg of fat-and-protein-corrected milk); the activity lists every column with its units
+
+{: .note }
+The setup cell downloads both files into `DATA_DIR`. Keep `random_state=25` in the activity's split and `random_state=0` in every `RandomForestRegressor` so that everyone's numbers are identical.
 
 ## Run it
 
@@ -54,7 +69,7 @@ Team challenge: predict farm-level carbon footprint from feed, land, manure, and
 
 ## Deliverables
 
-- `lab11-activity.ipynb` with the competition header (team names and EIDs), downloaded as `.ipynb` and uploaded to Gradescope (not graded, but required to enter the competition)
-- Each team may win at most one challenge
+- `lab11-activity.ipynb` with the two fitted models, the labeled betas and the two-practice change, the four MAEs (both models, the forest on its training farms, and the know-nothing baseline), the copies with `N_per_kg_milk`, the refitted model, its beta and its testing MAE, downloaded as `.ipynb` and uploaded to Gradescope (optional, not graded)
+- Lab quiz on Canvas. This is the graded item.
 
 Lab slides are posted on Canvas.
