@@ -84,6 +84,13 @@ assignment data files, and occasional TA-taught lectures.
 - **Student-facing markdown says what to do and why, never what changed.** No "this time", "no
   blanks this time", "from here on", "the cell became run as is": students see one version.
   Keep question text short; the finished cell carries the structure.
+- **Concise, plain text** (the TA on 2026-11-12: Lab 11's deck and notebook text were "a lot", then
+  "simple wording, no confusing words"). Say each thing once; keep what to do, a one-line why and the
+  headline numbers visible; put longer reasons and caveats in a collapsed `<details><summary>Why?</summary>`
+  block in the same markdown cell (never a ```` ```python ```` fence there: the scripts read those as
+  finished cells). Short sentences, common words, one word for one thing; course terms the quizzes use
+  stay and are explained where they first appear. Slides: bold lead plus a few words, callouts of about
+  12 words, everything else in the slide's speaker notes. Cut words, never facts, numbers or quiz anchors.
 - Before writing "as in lecture" or "recall", check the topic was taught before the lab
   date. 2026 lecture numbering differs from the 2025 decks in `work/lectures/`; read the
   PDF's own title and date. Lab 8 taught precision/recall from scratch because the metrics
@@ -227,7 +234,7 @@ real Calibri/Consolas metrics from `/mnt/c/Windows/Fonts` and flags overflow and
   centroids, k = 1 to 4, a bad start, ten random starts, and a Choosing k panel with the
   tutorial's elbow and silhouette curves; text kept short on purpose),
   `docs/labs/lab11-least-squares-explorer.html` (drag a line, residuals, SSE, Normal equation
-  button, curve mode, training/testing MAE) and `docs/lectures/lecture17/` (three pages sharing `lecture17.css` / `lecture17.js`). Pages
+  button, curve mode, training/testing MAE, and a live equation under the plot with each beta labelled) and `docs/lectures/lecture17/` (three pages sharing `lecture17.css` / `lecture17.js`). Pages
   without front matter are copied to the site as they are; link them from the lab page with
   a `relative_url` button and add a row to the lab README.
 
@@ -338,6 +345,12 @@ real Calibri/Consolas metrics from `/mnt/c/Windows/Fonts` and flags overflow and
   (13 checks, per-check tolerances, scikit-learn pinned to 1.7.2), least-squares explorer page
   (`docs/labs/lab11-least-squares-explorer.html`). Three design critics and two notebook reviewers ran
   first; design notes and numbers in `work/lab_11/DESIGN.md`. Pushed `e5f7bfd` (explorer) and `1737616` (lab) on 2026-11-11.
+  On 2026-11-12 (lab day) the tutorial and activity text was made concise (`ba26825`) and then plain
+  (visible markdown about a third shorter than the 11-11 build; code cells, blanks and graded names
+  unchanged, so the uploaded autograder stays valid), and the explorer gained its equation (`a7be490`).
+  The deck now comes from `work/lab_11/deck_build/build_deck_concise.py` (needs an output path; speaker
+  notes on slides 2 to 19); the original long deck is `work/presentation/Lab11_AS_2026_before_concise.pptx`.
+  Self-assessment Q3 and quiz Q3 were reworded the same day and both QTI zips rebuilt.
 - Lab quiz results so far: Lab 8 quiz mean 97% (56 students). Lab 9 item analysis not
   yet pasted (needed for the Lab 10 deck's slide 5).
 
