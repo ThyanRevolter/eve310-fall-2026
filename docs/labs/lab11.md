@@ -46,7 +46,7 @@ Which model predicts best on data it has not seen, and can you say why? The tuto
 
 ## Least-squares explorer
 
-Drag a straight line through the tutorial's training days and watch the residuals and the sum of squared errors; one button jumps to the normal-equation line, the one `LinearRegression` finds. Switch to the curve and the forest, and to the testing days, to see which model predicts best on days it has not seen. Open it beside the tutorial.
+Drag a straight line through the tutorial's training days and watch the residuals and the sum of squared errors (SSE). The equation under the plot shows the betas as they change. One button jumps to the normal-equation line, the one `LinearRegression` finds. Switch to the curve and to the testing days to see which model predicts best on days it has not seen; the table also lists the tutorial's forest. Open it beside the tutorial.
 
 [Open the least-squares explorer]({{ '/labs/lab11-least-squares-explorer.html' | relative_url }}){: .btn .btn-purple target="_blank" rel="noopener"}
 

@@ -100,6 +100,12 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
 .ne, .refit { color: var(--fg-2); font-size: 0.88rem; }
 .ne .eq { font-family: var(--font-mono); font-size: 0.9rem; color: var(--fg); font-weight: 500; }
 .refit b { font-family: var(--font-mono); font-weight: 500; color: var(--fg); }
+/* the model's equation under the legend: each beta's number, with its name under it */
+.model-eq { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 0.55em; margin: 12px 0 0; font-family: var(--font-mono); font-size: 1rem; line-height: 1.35; }
+.model-eq svg { flex: none; align-self: center; overflow: visible; }
+.model-eq .term { white-space: nowrap; }
+.model-eq .coef { display: inline-flex; flex-direction: column; align-items: center; font-weight: 600; }
+.model-eq .lab { font-family: var(--font-body); font-size: 0.72rem; font-weight: 500; line-height: 1.2; color: var(--fg-2); user-select: none; -webkit-user-select: none; }
 
 /* plot marks: colors come from CSS so the theme can change without a redraw */
 .grid line { stroke: var(--line); stroke-width: 1; }
@@ -181,6 +187,7 @@ footer a { color: var(--accent-ink); }
     <section class="panel" aria-label="The days and the model">
       <div class="chart" id="plot"></div>
       <div class="legend" id="legend"></div>
+      <p class="model-eq" id="model-eq"></p>
 
       <div class="ctl" id="ctl-line">
         <p class="hint">Drag the line or its two handles.</p>
@@ -244,7 +251,7 @@ footer a { color: var(--accent-ink); }
       <li>Drag the line until the SSE stops falling, then press <b>Normal equation</b>.</li>
       <li>Then move the β1 slider by 1 either way: the SSE grows 1.26 million, as in the notebook.</li>
       <li>Switch to <b>Testing</b>: the line’s MAE barely moves; in the table, the forest’s doubles. That is overfitting.</li>
-      <li>On <b>Curve</b>, slide β2 to 0: the straight line again.</li>
+      <li>On <b>Curve</b>, slide β2 to 0: the temp² term is 0, and the equation is the straight line’s again.</li>
       <li><b>Curve</b> on <b>Testing</b>: MAE 58.1 MW, the lowest of the three.</li>
     </ol>
   </section>
@@ -611,6 +618,32 @@ footer a { color: var(--accent-ink); }
       'lm_sq.intercept_', 'lm_sq.coef_');
   }
 
+  // The model's equation, demand = β0 + β1 × temp (+ β2 × temp²), with each beta's number as the controls show it
+  // (the normal-equation decimals once there) and its name under it. A negative beta keeps its sign: − 46.545 is β1.
+  function renderEquation() {
+    var p = $('model-eq'), model = state.model, b = betas();
+    var dec = model === 'line' ? [2, 2] : [2, 3, state.curveNE ? 5 : 3];
+    clear(p);
+    var sw = el('svg', { width: 24, height: 10, viewBox: '0 0 24 10', 'aria-hidden': 'true' });
+    sw.appendChild(el('line', { class: 'model m-' + model, x1: 2, x2: 22, y1: 5, y2: 5 }));
+    p.appendChild(sw);
+    p.appendChild(html('span', 'demand = '));
+    b.forEach(function (v, i) {
+      var s = Math.abs(v).toFixed(dec[i]), neg = v < 0 && Number(s) !== 0;
+      var term = document.createElement('span'), coef = document.createElement('span'), name = html('span', 'β' + i);
+      term.className = 'term';
+      coef.className = 'coef';
+      name.className = 'lab';
+      name.setAttribute('aria-hidden', 'true');
+      term.appendChild(document.createTextNode(' '));  // not drawn (the gap spaces the terms); keeps copied text readable
+      coef.appendChild(document.createTextNode((i ? (neg ? '− ' : '+ ') : (neg ? '−' : '')) + s));
+      coef.appendChild(name);
+      term.appendChild(coef);
+      if (i) term.appendChild(document.createTextNode(i === 1 ? ' × temp' : ' × temp²'));
+      p.appendChild(term);
+    });
+  }
+
   // ---------------------------------------------------------------- scores of the model on the days shown
   function renderStats() {
     var D = DAYS[state.days], s = scoresOf(poly(betas()), D);
@@ -736,7 +769,7 @@ footer a { color: var(--accent-ink); }
   }
 
   // ---------------------------------------------------------------- wiring
-  function render() { drawPlot(); renderControls(); renderStats(); drawBowl(); }
+  function render() { drawPlot(); renderEquation(); renderControls(); renderStats(); drawBowl(); }
   $('b0').addEventListener('input', function () { stopTween(); setLine(Number(this.value), state.line[1]); render(); });
   $('b1').addEventListener('input', function () { stopTween(); setLine(state.line[0], Number(this.value)); render(); });
   $('b2').addEventListener('input', function () { stopTween(); state.b2 = Number(this.value); state.curveNE = false; render(); });

@@ -23,7 +23,7 @@ Which model predicts best on data it has not seen, and can you say why? The tuto
 | --- | --- |
 | `notebooks/lab11-tutorial.ipynb` | Tutorial (typed along in lab): the normal equation and `LinearRegression`, MSE, MAE and R² on the testing days, a random forest and overfitting, a squared-temperature column, two new days |
 | `notebooks/lab11-activity.ipynb` | Three questions on 10,000 dairy farms: fit a linear model and a forest on ten columns, score both against a know-nothing baseline and check the forest for overfitting, add nitrogen per kg of milk and refit |
-| [Least-squares explorer](https://thyanrevolter.github.io/eve310-fall-2026/labs/lab11-least-squares-explorer.html) | Interactive page: drag a line through the tutorial's training days and watch the residuals and the SSE, jump to the normal-equation line, and compare the line, the curve and the forest on the training and testing days (source in `docs/labs/`) |
+| [Least-squares explorer](https://thyanrevolter.github.io/eve310-fall-2026/labs/lab11-least-squares-explorer.html) | Interactive page: drag a line through the tutorial's training days and watch the residuals, the SSE and the model's equation change, jump to the normal-equation line, and compare the line, the curve and the forest on the training and testing days (source in `docs/labs/`) |
 | `data/power_demand.csv` | 365 days of a Texas city (synthetic): `temp_f` (average temperature, °F), `demand_mw` (peak electricity demand, MW) |
 | `data/Dairy-Farm-Dataset.csv` | 10,000 dairy farms (synthetic): ten practice and efficiency columns and `Carbon_footprint` (kg CO₂e per kg of fat-and-protein-corrected milk) |
 
