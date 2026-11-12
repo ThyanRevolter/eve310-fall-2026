@@ -29,10 +29,10 @@ Which model predicts best on data it has not seen, and can you say why? The tuto
 
 ## Learning objectives
 
-1. Compute the least-squares betas with the normal equation in NumPy, and show that `LinearRegression` finds the same numbers
-2. Score a regression model on the testing rows with MSE, MAE and R², and say what each one measures and in which units
-3. Fit a random forest with the same create, fit and predict steps, and spot overfitting by comparing its error on the training rows with its error on the testing rows
-4. Add a column built from the existing ones, and judge whether a simple model with the right column beats a more complex one
+1. Compute least-squares betas with the normal equation in NumPy; show `LinearRegression` agrees
+2. Score a model on testing rows with MSE, MAE and R²: what each measures, in which units
+3. Fit a random forest and spot overfitting from its training vs testing error
+4. Build a column from existing ones; judge whether a simple model with the right column beats a more complex one
 
 ## Notebooks
 
